@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_face_name">مواقيت طهران الشيعية</string>
+    <string name="theme_config_name">المظهر</string>
+    <string name="theme_emerald">زمرد الحرم</string>
+    <string name="theme_turquoise">فيروز النجف</string>
+    <string name="theme_crimson">عقيق كربلاء</string>
+    <string name="theme_obsidian">أسود ليلي</string>
+
+    <string name="slot_hijri_name">التاريخ الهجري والمناسبة</string>
+    <string name="slot_next_prayer_name">الصلاة القادمة والعد التنازلي</string>
+    <string name="slot_schedule_name">المواقيت ونصف الليل</string>
+    <string name="slot_battery_name">البطارية / الخطوات</string>
+</resources>

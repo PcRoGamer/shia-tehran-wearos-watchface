@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WatchFace width="450" height="450" clipShape="CIRCLE">
+
+    <Metadata key="CLOCK_TYPE" value="DIGITAL" />
+    <Metadata key="STEP_GOAL" value="8000" />
+
+    <UserConfigurations>
+        <!-- Color Palette Selector: [0]=Background, [1]=Accent Gold, [2]=Primary Text, [3]=Secondary Surface -->
+        <ColorConfiguration id="theme_color" displayName="theme_config_name" defaultValue="emerald">
+            <ColorOption id="emerald" displayName="theme_emerald" colors="#FF041E17 #FFD4AF37 #FFF5EFE0 #FF0B3529" />
+            <ColorOption id="turquoise" displayName="theme_turquoise" colors="#FF052028 #FFE2B94B #FFF2F7F8 #FF0D3A46" />
+            <ColorOption id="crimson" displayName="theme_crimson" colors="#FF22070C #FFD9B052 #FFF8EFEA #FF3D1119" />
+            <ColorOption id="obsidian" displayName="theme_obsidian" colors="#FF000000 #FFC9A84C #FFFFFFFF #FF161616" />
+        </ColorConfiguration>
+    </UserConfigurations>
+
+    <Scene backgroundColor="[CONFIGURATION.theme_color.0]">
+
+        <!-- Always-On Ambient Blackout Layer -->
+        <Group name="background_decor" x="0" y="0" width="450" height="450">
+            <Variant mode="AMBIENT" target="alpha" value="0" />
+
+            <!-- Outer Islamic Geometric Ring -->
+            <PartDraw x="10" y="10" width="430" height="430">
+                <Ellipse x="0" y="0" width="430" height="430">
+                    <Stroke color="[CONFIGURATION.theme_color.1]" thickness="2" />
+                </Ellipse>
+            </PartDraw>
+
+            <!-- Inner Subtle Medallion Ring -->
+            <PartDraw x="24" y="24" width="402" height="402">
+                <Ellipse x="0" y="0" width="402" height="402">
+                    <Stroke color="[CONFIGURATION.theme_color.3]" thickness="3" />
+                </Ellipse>
+            </PartDraw>
+
+            <!-- 12-Point Subtle Geometric Ticks (Representing the 12 Imams) -->
+            <PartDraw x="223" y="14" width="4" height="12" pivotX="0.5" pivotY="0.5">
+                <RoundRectangle x="0" y="0" width="4" height="12" cornerRadiusX="2" cornerRadiusY="2">
+                    <Fill color="[CONFIGURATION.theme_color.1]" />
+                </RoundRectangle>
+            </PartDraw>
+            <PartDraw x="223" y="424" width="4" height="12">
+                <RoundRectangle x="0" y="0" width="4" height="12" cornerRadiusX="2" cornerRadiusY="2">
+                    <Fill color="[CONFIGURATION.theme_color.1]" />
+                </RoundRectangle>
+            </PartDraw>
+            <PartDraw x="14" y="223" width="12" height="4">
+                <RoundRectangle x="0" y="0" width="12" height="4" cornerRadiusX="2" cornerRadiusY="2">
+                    <Fill color="[CONFIGURATION.theme_color.1]" />
+                </RoundRectangle>
+            </PartDraw>
+            <PartDraw x="424" y="223" width="12" height="4">
+                <RoundRectangle x="0" y="0" width="12" height="4" cornerRadiusX="2" cornerRadiusY="2">
+                    <Fill color="[CONFIGURATION.theme_color.1]" />
+                </RoundRectangle>
+            </PartDraw>
+        </Group>
+
+        <!-- Seconds Progress Arc (Active Mode Only) -->
+        <PartDraw x="16" y="16" width="418" height="418">
+            <Variant mode="AMBIENT" target="alpha" value="0" />
+            <Arc centerX="209" centerY="209" width="418" height="418" startAngle="0" endAngle="360" direction="CLOCKWISE">
+                <Transform target="endAngle" value="([SECOND] + [MILLISECOND] / 1000) * 6" />
+                <Stroke color="[CONFIGURATION.theme_color.1]" thickness="3" cap="ROUND" />
+            </Arc>
+        </PartDraw>
+
+        <!-- Top Complication Slot 1: Hijri Date & Shia Occasion -->
+        <ComplicationSlot
+            x="85" y="48" width="280" height="44"
+            slotId="1"
+            displayName="slot_hijri_name"
+            supportedTypes="SHORT_TEXT LONG_TEXT">
+            <DefaultProviderPolicy
+                defaultSystemProvider="DAY_AND_DATE"
+                defaultSystemProviderType="SHORT_TEXT"
+                primaryProvider="com.shia.tehranwatchface/com.shia.tehranwatchface.complications.HijriDateComplicationService"
+                primaryProviderType="SHORT_TEXT" />
+            <BoundingBox x="0" y="0" width="280" height="44" />
+            <Complication type="SHORT_TEXT">
+                <PartText x="0" y="4" width="280" height="36">
+                    <Text align="CENTER">
+                        <Font family="SYNC_TO_DEVICE" size="20" weight="MEDIUM" color="[CONFIGURATION.theme_color.1]">
+                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
+                        </Font>
+                    </Text>
+                </PartText>
+            </Complication>
+            <Complication type="LONG_TEXT">
+                <PartText x="0" y="4" width="280" height="36">
+                    <Text align="CENTER">
+                        <Font family="SYNC_TO_DEVICE" size="18" weight="MEDIUM" color="[CONFIGURATION.theme_color.1]">
+                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
+                        </Font>
+                    </Text>
+                </PartText>
+            </Complication>
+        </ComplicationSlot>
+
+        <!-- Gregorian Date Sub-label -->
+        <PartText x="115" y="92" width="220" height="26">
+            <Text align="CENTER">
+                <Font family="SYNC_TO_DEVICE" size="16" weight="NORMAL" color="[CONFIGURATION.theme_color.2]">
+                    <Template>%s %d/%d<Parameter expression="[DAY_OF_WEEK_S]" /><Parameter expression="[DAY]" /><Parameter expression="[MONTH]" /></Template>
+                </Font>
+            </Text>
+        </PartText>
+
+        <!-- Center Digital Clock -->
+        <DigitalClock x="45" y="118" width="360" height="105">
+            <TimeText format="hh:mm" hourFormat="24" align="CENTER" x="0" y="0" width="360" height="105">
+                <Font family="SYNC_TO_DEVICE" size="86" weight="BOLD" color="[CONFIGURATION.theme_color.2]" />
+            </TimeText>
+        </DigitalClock>
+
+        <!-- Decorative Divider Line -->
+        <PartDraw x="110" y="226" width="230" height="2">
+            <Variant mode="AMBIENT" target="alpha" value="90" />
+            <Rectangle x="0" y="0" width="230" height="2">
+                <Fill color="[CONFIGURATION.theme_color.1]" />
+            </Rectangle>
+        </PartDraw>
+
+        <!-- Card Background -->
+        <PartDraw x="55" y="238" width="340" height="72">
+            <Variant mode="AMBIENT" target="alpha" value="0" />
+            <RoundRectangle x="0" y="0" width="340" height="72" cornerRadiusX="18" cornerRadiusY="18">
+                <Fill color="[CONFIGURATION.theme_color.3]" />
+                <Stroke color="[CONFIGURATION.theme_color.1]" thickness="1.5" />
+            </RoundRectangle>
+        </PartDraw>
+
+        <!-- Center-Bottom Complication Slot 2: Next Prayer & Live Countdown (Tehran Method) -->
+        <ComplicationSlot
+            x="55" y="238" width="340" height="72"
+            slotId="2"
+            displayName="slot_next_prayer_name"
+            supportedTypes="SHORT_TEXT LONG_TEXT RANGED_VALUE">
+            <DefaultProviderPolicy
+                defaultSystemProvider="NEXT_EVENT"
+                defaultSystemProviderType="LONG_TEXT"
+                primaryProvider="com.shia.tehranwatchface/com.shia.tehranwatchface.complications.NextPrayerComplicationService"
+                primaryProviderType="LONG_TEXT" />
+            <BoundingRoundBox x="0" y="0" width="340" height="72" cornerRadius="20" />
+
+            <Complication type="LONG_TEXT">
+                <PartText x="12" y="8" width="316" height="30">
+                    <Text align="CENTER">
+                        <Font family="SYNC_TO_DEVICE" size="22" weight="BOLD" color="[CONFIGURATION.theme_color.1]">
+                            <Template>%s<Parameter expression="[COMPLICATION.TITLE]" /></Template>
+                        </Font>
+                    </Text>
+                </PartText>
+                <PartText x="12" y="38" width="316" height="28">
+                    <Text align="CENTER">
+                        <Font family="SYNC_TO_DEVICE" size="20" weight="MEDIUM" color="[CONFIGURATION.theme_color.2]">
+                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
+                        </Font>
+                    </Text>
+                </PartText>
+            </Complication>
+
+            <Complication type="SHORT_TEXT">
+                <PartText x="12" y="8" width="316" height="28">
+                    <Text align="CENTER">
+                        <Font family="SYNC_TO_DEVICE" size="20" weight="BOLD" color="[CONFIGURATION.theme_color.1]">
+                            <Template>%s<Parameter expression="[COMPLICATION.TITLE]" /></Template>
+                        </Font>
+                    </Text>
+                </PartText>
+                <PartText x="12" y="36" width="316" height="28">
+                    <Text align="CENTER">
+                        <Font family="SYNC_TO_DEVICE" size="22" weight="MEDIUM" color="[CONFIGURATION.theme_color.2]">
+                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
+                        </Font>
+                    </Text>
+                </PartText>
+            </Complication>
+
+            <Complication type="RANGED_VALUE">
+                <PartText x="12" y="10" width="316" height="26">
+                    <Text align="CENTER">
+                        <Font family="SYNC_TO_DEVICE" size="20" weight="BOLD" color="[CONFIGURATION.theme_color.1]">
+                            <Template>%s • %s<Parameter expression="[COMPLICATION.TITLE]" /><Parameter expression="[COMPLICATION.TEXT]" /></Template>
+                        </Font>
+                    </Text>
+                </PartText>
+                <PartDraw x="30" y="48" width="280" height="8">
+                    <RoundRectangle x="0" y="0" width="280" height="8" cornerRadiusX="4" cornerRadiusY="4">
+                        <Fill color="#44FFFFFF" />
+                    </RoundRectangle>
+                    <RoundRectangle x="0" y="0" width="280" height="8" cornerRadiusX="4" cornerRadiusY="4">
+                        <Transform target="width" value="280 * ([COMPLICATION.RANGED_VALUE_VALUE] - [COMPLICATION.RANGED_VALUE_MIN]) / ([COMPLICATION.RANGED_VALUE_MAX] - [COMPLICATION.RANGED_VALUE_MIN])" />
+                        <Fill color="[CONFIGURATION.theme_color.1]" />
+                    </RoundRectangle>
+                </PartDraw>
+            </Complication>
+        </ComplicationSlot>
+
+        <!-- Bottom-Center Complication Slot 3: Daily Schedule / Shar'i Midnight -->
+        <ComplicationSlot
+            x="65" y="320" width="320" height="44"
+            slotId="3"
+            displayName="slot_schedule_name"
+            supportedTypes="LONG_TEXT SHORT_TEXT">
+            <DefaultProviderPolicy
+                defaultSystemProvider="DATE"
+                defaultSystemProviderType="SHORT_TEXT"
+                primaryProvider="com.shia.tehranwatchface/com.shia.tehranwatchface.complications.DailyScheduleComplicationService"
+                primaryProviderType="LONG_TEXT" />
+            <BoundingBox x="0" y="0" width="320" height="44" />
+            <Complication type="LONG_TEXT">
+                <PartText x="0" y="4" width="320" height="36">
+                    <Text align="CENTER">
+                        <Font family="SYNC_TO_DEVICE" size="16" weight="NORMAL" color="[CONFIGURATION.theme_color.2]">
+                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
+                        </Font>
+                    </Text>
+                </PartText>
+            </Complication>
+            <Complication type="SHORT_TEXT">
+                <PartText x="0" y="4" width="320" height="36">
+                    <Text align="CENTER">
+                        <Font family="SYNC_TO_DEVICE" size="16" weight="NORMAL" color="[CONFIGURATION.theme_color.2]">
+                            <Template>%s %s<Parameter expression="[COMPLICATION.TITLE]" /><Parameter expression="[COMPLICATION.TEXT]" /></Template>
+                        </Font>
+                    </Text>
+                </PartText>
+            </Complication>
+        </ComplicationSlot>
+
+        <!-- Bottom Pill Complication Slot 4: Battery / Steps -->
+        <ComplicationSlot
+            x="165" y="372" width="120" height="36"
+            slotId="4"
+            displayName="slot_battery_name"
+            supportedTypes="SHORT_TEXT RANGED_VALUE">
+            <DefaultProviderPolicy
+                defaultSystemProvider="WATCH_BATTERY"
+                defaultSystemProviderType="SHORT_TEXT" />
+            <BoundingBox x="0" y="0" width="120" height="36" />
+            <Complication type="SHORT_TEXT">
+                <PartText x="0" y="4" width="120" height="28">
+                    <Text align="CENTER">
+                        <Font family="SYNC_TO_DEVICE" size="16" weight="MEDIUM" color="[CONFIGURATION.theme_color.1]">
+                            <Template>⚡ %s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
+                        </Font>
+                    </Text>
+                </PartText>
+            </Complication>
+            <Complication type="RANGED_VALUE">
+                <PartText x="0" y="4" width="120" height="28">
+                    <Text align="CENTER">
+                        <Font family="SYNC_TO_DEVICE" size="16" weight="MEDIUM" color="[CONFIGURATION.theme_color.1]">
+                            <Template>⚡ %s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
+                        </Font>
+                    </Text>
+                </PartText>
+            </Complication>
+        </ComplicationSlot>
+
+    </Scene>
+</WatchFace>

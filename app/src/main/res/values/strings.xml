@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">مواقيت طهران</string>
+    <string name="complication_next_prayer_label">الصلاة القادمة (طهران)</string>
+    <string name="complication_hijri_label">التاريخ الهجري والمناسبات</string>
+    <string name="complication_schedule_label">أوقات اليوم ونصف الليل</string>
+</resources>
