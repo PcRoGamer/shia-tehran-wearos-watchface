@@ -118,7 +118,7 @@
                                 </Arc>
                             </PartDraw>
                         </Group>
-                        <PartImage angle="8.75" pivotX="7.0313" x="-2" y="207" width="32" height="32" name="Icon_1af5" alpha="255">
+                        <PartImage angle="8.75" pivotX="7.0313" x="-2" y="207" width="32" height="32" name="Icon_1af5" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
                             <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                         </PartImage>
                         <PartText pivotX="1.2096" pivotY="4.8026" x="124" y="0" width="82" height="46" name="Text_3ba3" alpha="255">
@@ -138,7 +138,7 @@
                                 </Arc>
                             </PartDraw>
                         </Group>
-                        <PartImage angle="8.75" pivotX="7.0313" x="-2" y="207" width="32" height="32" name="Icon_c19f" alpha="255">
+                        <PartImage angle="8.75" pivotX="7.0313" x="-2" y="207" width="32" height="32" name="Icon_c19f" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
                             <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                         </PartImage>
                     </Compare>
@@ -251,7 +251,7 @@
                                 </Default>
                             </Condition>
                         </Group>
-                        <PartImage angle="8.75" pivotX="7.0313" x="-2" y="207" width="32" height="32" name="Icon_1af5" alpha="255">
+                        <PartImage angle="8.75" pivotX="7.0313" x="-2" y="207" width="32" height="32" name="Icon_1af5" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
                             <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                         </PartImage>
                         <PartText pivotX="1.2096" pivotY="4.8026" x="124" y="0" width="82" height="46" name="Text_3ba3" alpha="255">
@@ -311,7 +311,7 @@
                                 </Default>
                             </Condition>
                         </Group>
-                        <PartImage angle="8.75" pivotX="7.0313" x="-2" y="207" width="32" height="32" name="Icon_c19f" alpha="255">
+                        <PartImage angle="8.75" pivotX="7.0313" x="-2" y="207" width="32" height="32" name="Icon_c19f" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
                             <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                         </PartImage>
                     </Compare>
@@ -544,7 +544,7 @@
                                 </Default>
                             </Condition>
                         </Group>
-                        <PartImage angle="8.75" pivotX="7.0313" x="-2" y="207" width="32" height="32" name="Icon_1af5" alpha="255">
+                        <PartImage angle="8.75" pivotX="7.0313" x="-2" y="207" width="32" height="32" name="Icon_1af5" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
                             <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                         </PartImage>
                         <PartText pivotX="1.2096" pivotY="4.8026" x="124" y="0" width="82" height="46" name="Text_3ba3" alpha="255">
@@ -604,7 +604,7 @@
                                 </Default>
                             </Condition>
                         </Group>
-                        <PartImage angle="8.75" pivotX="7.0313" x="-2" y="207" width="32" height="32" name="Icon_c19f" alpha="255">
+                        <PartImage angle="8.75" pivotX="7.0313" x="-2" y="207" width="32" height="32" name="Icon_c19f" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
                             <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                         </PartImage>
                     </Compare>
@@ -799,7 +799,7 @@
                         </PartText>
                     </Compare>
                     <Compare expression="shortTextIcon">
-                        <PartImage angle="8.75" pivotX="7.0313" x="-2" y="207" width="32" height="32" name="Icon_e471" alpha="255">
+                        <PartImage angle="8.75" pivotX="7.0313" x="-2" y="207" width="32" height="32" name="Icon_e471" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
                             <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                         </PartImage>
                         <PartText pivotX="1.1349" pivotY="1.298" x="7" y="1" width="191" height="171" name="Text_5117" alpha="255">
@@ -830,7 +830,7 @@
                         </PartText>
                     </Compare>
                     <Default>
-                        <PartImage angle="8.75" pivotX="7.0313" x="-2" y="207" width="32" height="32" name="Icon_72f7" alpha="255">
+                        <PartImage angle="8.75" pivotX="7.0313" x="-2" y="207" width="32" height="32" name="Icon_72f7" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
                             <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                         </PartImage>
                         <PartText pivotX="1.1216" pivotY="2.6612999999999998" x="65" y="0" width="141" height="84" name="Text_d6ee" alpha="255">
@@ -875,7 +875,7 @@
                                 </Arc>
                             </PartDraw>
                         </Group>
-                        <PartImage angle="8.75" pivotY="7.0313" x="-41" y="-2" width="32" height="32" name="Icon_8a5e" alpha="255">
+                        <PartImage angle="8.75" pivotY="7.0313" x="-41" y="-2" width="32" height="32" name="Icon_8a5e" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
                             <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                         </PartImage>
                         <PartText pivotX="-3.8026" pivotY="1.2096" x="154" y="124" width="46" height="82" name="Text_4e44" alpha="255">
@@ -895,7 +895,7 @@
                                 </Arc>
                             </PartDraw>
                         </Group>
-                        <PartImage angle="8.75" pivotY="7.0313" x="-41" y="-2" width="32" height="32" name="Icon_8027" alpha="255">
+                        <PartImage angle="8.75" pivotY="7.0313" x="-41" y="-2" width="32" height="32" name="Icon_8027" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
                             <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                         </PartImage>
                     </Compare>
@@ -1008,7 +1008,7 @@
                                 </Default>
                             </Condition>
                         </Group>
-                        <PartImage angle="8.75" pivotY="7.0313" x="-41" y="-2" width="32" height="32" name="Icon_8a5e" alpha="255">
+                        <PartImage angle="8.75" pivotY="7.0313" x="-41" y="-2" width="32" height="32" name="Icon_8a5e" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
                             <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                         </PartImage>
                         <PartText pivotX="-3.8026" pivotY="1.2096" x="154" y="124" width="46" height="82" name="Text_4e44" alpha="255">
@@ -1068,7 +1068,7 @@
                                 </Default>
                             </Condition>
                         </Group>
-                        <PartImage angle="8.75" pivotY="7.0313" x="-41" y="-2" width="32" height="32" name="Icon_8027" alpha="255">
+                        <PartImage angle="8.75" pivotY="7.0313" x="-41" y="-2" width="32" height="32" name="Icon_8027" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
                             <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                         </PartImage>
                     </Compare>
@@ -1301,7 +1301,7 @@
                                 </Default>
                             </Condition>
                         </Group>
-                        <PartImage angle="8.75" pivotY="7.0313" x="-41" y="-2" width="32" height="32" name="Icon_8a5e" alpha="255">
+                        <PartImage angle="8.75" pivotY="7.0313" x="-41" y="-2" width="32" height="32" name="Icon_8a5e" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
                             <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                         </PartImage>
                         <PartText pivotX="-3.8026" pivotY="1.2096" x="154" y="124" width="46" height="82" name="Text_4e44" alpha="255">
@@ -1361,7 +1361,7 @@
                                 </Default>
                             </Condition>
                         </Group>
-                        <PartImage angle="8.75" pivotY="7.0313" x="-41" y="-2" width="32" height="32" name="Icon_8027" alpha="255">
+                        <PartImage angle="8.75" pivotY="7.0313" x="-41" y="-2" width="32" height="32" name="Icon_8027" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
                             <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                         </PartImage>
                     </Compare>
@@ -1556,7 +1556,7 @@
                         </PartText>
                     </Compare>
                     <Compare expression="shortTextIcon">
-                        <PartImage angle="8.75" pivotY="7.0313" x="-41" y="-2" width="32" height="32" name="Icon_541b" alpha="255">
+                        <PartImage angle="8.75" pivotY="7.0313" x="-41" y="-2" width="32" height="32" name="Icon_541b" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
                             <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                         </PartImage>
                         <PartText pivotX="-0.298" pivotY="1.1349" x="27" y="7" width="171" height="191" name="Text_b471" alpha="255">
@@ -1587,7 +1587,7 @@
                         </PartText>
                     </Compare>
                     <Default>
-                        <PartImage angle="8.75" pivotY="7.0313" x="-41" y="-2" width="32" height="32" name="Icon_2398" alpha="255">
+                        <PartImage angle="8.75" pivotY="7.0313" x="-41" y="-2" width="32" height="32" name="Icon_2398" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
                             <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                         </PartImage>
                         <PartText pivotX="-1.6613" pivotY="1.1216" x="116" y="65" width="84" height="141" name="Text_1a03" alpha="255">
@@ -1632,7 +1632,7 @@
                                 </Arc>
                             </PartDraw>
                         </Group>
-                        <PartImage angle="8.75" pivotY="-6.0313" x="207" y="168" width="32" height="32" name="Icon_9876" alpha="255">
+                        <PartImage angle="8.75" pivotY="-6.0313" x="207" y="168" width="32" height="32" name="Icon_9876" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
                             <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                         </PartImage>
                         <PartText pivotX="4.8026" pivotY="-0.2096" x="0" y="-8" width="46" height="82" name="Text_3eb8" alpha="255">
@@ -1652,7 +1652,7 @@
                                 </Arc>
                             </PartDraw>
                         </Group>
-                        <PartImage angle="8.75" pivotY="-6.0313" x="207" y="168" width="32" height="32" name="Icon_04ef" alpha="255">
+                        <PartImage angle="8.75" pivotY="-6.0313" x="207" y="168" width="32" height="32" name="Icon_04ef" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
                             <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                         </PartImage>
                     </Compare>
@@ -1765,7 +1765,7 @@
                                 </Default>
                             </Condition>
                         </Group>
-                        <PartImage angle="8.75" pivotY="-6.0313" x="207" y="168" width="32" height="32" name="Icon_9876" alpha="255">
+                        <PartImage angle="8.75" pivotY="-6.0313" x="207" y="168" width="32" height="32" name="Icon_9876" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
                             <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                         </PartImage>
                         <PartText pivotX="4.8026" pivotY="-0.2096" x="0" y="-8" width="46" height="82" name="Text_3eb8" alpha="255">
@@ -1825,7 +1825,7 @@
                                 </Default>
                             </Condition>
                         </Group>
-                        <PartImage angle="8.75" pivotY="-6.0313" x="207" y="168" width="32" height="32" name="Icon_04ef" alpha="255">
+                        <PartImage angle="8.75" pivotY="-6.0313" x="207" y="168" width="32" height="32" name="Icon_04ef" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
                             <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                         </PartImage>
                     </Compare>
@@ -2058,7 +2058,7 @@
                                 </Default>
                             </Condition>
                         </Group>
-                        <PartImage angle="8.75" pivotY="-6.0313" x="207" y="168" width="32" height="32" name="Icon_9876" alpha="255">
+                        <PartImage angle="8.75" pivotY="-6.0313" x="207" y="168" width="32" height="32" name="Icon_9876" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
                             <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                         </PartImage>
                         <PartText pivotX="4.8026" pivotY="-0.2096" x="0" y="-8" width="46" height="82" name="Text_3eb8" alpha="255">
@@ -2118,7 +2118,7 @@
                                 </Default>
                             </Condition>
                         </Group>
-                        <PartImage angle="8.75" pivotY="-6.0313" x="207" y="168" width="32" height="32" name="Icon_04ef" alpha="255">
+                        <PartImage angle="8.75" pivotY="-6.0313" x="207" y="168" width="32" height="32" name="Icon_04ef" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
                             <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                         </PartImage>
                     </Compare>
@@ -2313,7 +2313,7 @@
                         </PartText>
                     </Compare>
                     <Compare expression="shortTextIcon">
-                        <PartImage angle="81.25" pivotY="-6.0313" x="207" y="168" width="32" height="32" name="Icon_0aa4" alpha="255">
+                        <PartImage angle="81.25" pivotY="-6.0313" x="207" y="168" width="32" height="32" name="Icon_0aa4" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
                             <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                         </PartImage>
                         <PartText pivotX="1.1349" pivotY="-0.298" x="7" y="27" width="191" height="171" name="Text_8dc0" alpha="255">
@@ -2344,7 +2344,7 @@
                         </PartText>
                     </Compare>
                     <Default>
-                        <PartImage angle="81.25" pivotY="-6.0313" x="207" y="168" width="32" height="32" name="Icon_67f3" alpha="255">
+                        <PartImage angle="81.25" pivotY="-6.0313" x="207" y="168" width="32" height="32" name="Icon_67f3" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
                             <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                         </PartImage>
                         <PartText pivotX="1.1216" pivotY="-1.6613" x="65" y="116" width="141" height="84" name="Text_7276" alpha="255">
@@ -2389,7 +2389,7 @@
                                 </Arc>
                             </PartDraw>
                         </Group>
-                        <PartImage angle="8.75" pivotX="-6.0313" x="168" y="-41" width="32" height="32" name="Icon_7058" alpha="255">
+                        <PartImage angle="8.75" pivotX="-6.0313" x="168" y="-41" width="32" height="32" name="Icon_7058" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
                             <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                         </PartImage>
                         <PartText pivotX="-0.2098" pivotY="-3.8138" x="-8" y="153" width="82" height="47" name="Text_f440" alpha="255">
@@ -2409,7 +2409,7 @@
                                 </Arc>
                             </PartDraw>
                         </Group>
-                        <PartImage angle="8.75" pivotX="-6.0313" x="168" y="-41" width="32" height="32" name="Icon_de36" alpha="255">
+                        <PartImage angle="8.75" pivotX="-6.0313" x="168" y="-41" width="32" height="32" name="Icon_de36" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
                             <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                         </PartImage>
                     </Compare>
@@ -2522,7 +2522,7 @@
                                 </Default>
                             </Condition>
                         </Group>
-                        <PartImage angle="8.75" pivotX="-6.0313" x="168" y="-41" width="32" height="32" name="Icon_7058" alpha="255">
+                        <PartImage angle="8.75" pivotX="-6.0313" x="168" y="-41" width="32" height="32" name="Icon_7058" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
                             <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                         </PartImage>
                         <PartText pivotX="-0.2098" pivotY="-3.8138" x="-8" y="153" width="82" height="47" name="Text_f440" alpha="255">
@@ -2582,7 +2582,7 @@
                                 </Default>
                             </Condition>
                         </Group>
-                        <PartImage angle="8.75" pivotX="-6.0313" x="168" y="-41" width="32" height="32" name="Icon_de36" alpha="255">
+                        <PartImage angle="8.75" pivotX="-6.0313" x="168" y="-41" width="32" height="32" name="Icon_de36" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
                             <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                         </PartImage>
                     </Compare>
@@ -2815,7 +2815,7 @@
                                 </Default>
                             </Condition>
                         </Group>
-                        <PartImage angle="8.75" pivotX="-6.0313" x="168" y="-41" width="32" height="32" name="Icon_7058" alpha="255">
+                        <PartImage angle="8.75" pivotX="-6.0313" x="168" y="-41" width="32" height="32" name="Icon_7058" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
                             <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                         </PartImage>
                         <PartText pivotX="-0.2098" pivotY="-3.8138" x="-8" y="153" width="82" height="47" name="Text_f440" alpha="255">
@@ -2875,7 +2875,7 @@
                                 </Default>
                             </Condition>
                         </Group>
-                        <PartImage angle="8.75" pivotX="-6.0313" x="168" y="-41" width="32" height="32" name="Icon_de36" alpha="255">
+                        <PartImage angle="8.75" pivotX="-6.0313" x="168" y="-41" width="32" height="32" name="Icon_de36" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
                             <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                         </PartImage>
                     </Compare>
@@ -3070,7 +3070,7 @@
                         </PartText>
                     </Compare>
                     <Compare expression="shortTextIcon">
-                        <PartImage angle="-7.54" pivotY="-6.0313" x="-41" y="168" width="32" height="32" name="Icon_1092" alpha="255">
+                        <PartImage angle="-7.54" pivotY="-6.0313" x="-41" y="168" width="32" height="32" name="Icon_1092" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
                             <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                         </PartImage>
                         <PartText pivotX="-0.298" pivotY="-0.1349" x="27" y="1" width="171" height="191" name="Text_05d0" alpha="255">
@@ -3101,7 +3101,7 @@
                         </PartText>
                     </Compare>
                     <Default>
-                        <PartImage angle="-7.54" pivotY="-6.0313" x="-41" y="168" width="32" height="32" name="Icon_952c" alpha="255">
+                        <PartImage angle="-7.54" pivotY="-6.0313" x="-41" y="168" width="32" height="32" name="Icon_952c" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
                             <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                         </PartImage>
                         <PartText pivotX="-1.6613" pivotY="-0.1216" x="116" y="-8" width="84" height="141" name="Text_f1ee" alpha="255">
@@ -3180,7 +3180,7 @@
                 </PartText>
             </Complication>
             <Complication type="MONOCHROMATIC_IMAGE">
-                <PartImage x="67" y="2" width="23" height="23">
+                <PartImage x="67" y="2" width="23" height="23" tintColor="[CONFIGURATION.edge_color.0]">
                     <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                 </PartImage>
             </Complication>
@@ -3262,7 +3262,7 @@
                 </PartText>
             </Complication>
             <Complication type="MONOCHROMATIC_IMAGE">
-                <PartImage x="144" y="15" width="36" height="36">
+                <PartImage x="144" y="15" width="36" height="36" tintColor="[CONFIGURATION.edge_color.0]">
                     <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                 </PartImage>
             </Complication>
@@ -3325,7 +3325,7 @@
                 </PartText>
             </Complication>
             <Complication type="MONOCHROMATIC_IMAGE">
-                <PartImage x="118" y="2" width="24" height="24">
+                <PartImage x="118" y="2" width="24" height="24" tintColor="[CONFIGURATION.edge_color.0]">
                     <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                 </PartImage>
             </Complication>
