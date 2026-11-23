@@ -91,46 +91,81 @@
             </SecondHand>
         </AnalogClock>
 
-        <!-- Edge geometry follows the 450px Watch Face Studio Quadrant template. Each quadrant is independently editable. -->
-        <PartDraw x="0" y="0" width="450" height="450">
-            <Variant mode="AMBIENT" target="alpha" value="0" />
-            <Arc centerX="225" centerY="225" width="434" height="434" startAngle="277.5" endAngle="352.5">
-                <Stroke color="#52F4C44E" thickness="14" cap="ROUND" />
-            </Arc>
-        </PartDraw>
+        <!-- Quadrant bounds follow the Watch Face Studio template. Data type selects the edge rendering. -->
         <ComplicationSlot x="2" y="2" width="198" height="198" slotId="7"
-            displayName="slot_corner_tl" supportedTypes="RANGED_VALUE GOAL_PROGRESS WEIGHTED_ELEMENTS SHORT_TEXT LONG_TEXT MONOCHROMATIC_IMAGE SMALL_IMAGE PHOTO_IMAGE" isCustomizable="TRUE">
+            displayName="slot_corner_tl" supportedTypes="GOAL_PROGRESS RANGED_VALUE WEIGHTED_ELEMENTS SHORT_TEXT LONG_TEXT MONOCHROMATIC_IMAGE SMALL_IMAGE PHOTO_IMAGE" isCustomizable="TRUE">
             <DefaultProviderPolicy defaultSystemProvider="STEP_COUNT" defaultSystemProviderType="GOAL_PROGRESS" />
             <BoundingArc centerX="223" centerY="223" width="450" height="450" startAngle="277.5" endAngle="352.5" thickness="32" />
             <Complication type="SHORT_TEXT">
+                <PartImage x="5" y="160" width="17" height="17" tintColor="[CONFIGURATION.theme_color.1]">
+                    <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+                </PartImage>
                 <PartText x="0" y="0" width="198" height="198">
-                    <TextCircular centerX="223" centerY="223" width="426" height="426" startAngle="283.5" endAngle="346.5" direction="CLOCKWISE" align="CENTER" ellipsis="TRUE">
-                        <Font family="ibm_plex_arabic_bold" size="11" color="#E0FFFDF7">
-                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
+                    <TextCircular centerX="223" centerY="223" width="426" height="426"
+                        startAngle="292.5" endAngle="349.5" direction="CLOCKWISE" align="START" ellipsis="TRUE">
+                        <Font family="ibm_plex_arabic_bold" size="13" color="#FFFFFDF7">
+                            <Template>%s<Parameter expression="[COMPLICATION.TEXT] != &quot;&quot; ? [COMPLICATION.TEXT] : [COMPLICATION.TITLE]" /></Template>
                         </Font>
                     </TextCircular>
                 </PartText>
             </Complication>
             <Complication type="LONG_TEXT">
+                <PartImage x="5" y="160" width="17" height="17" tintColor="[CONFIGURATION.theme_color.1]">
+                    <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+                </PartImage>
                 <PartText x="0" y="0" width="198" height="198">
-                    <TextCircular centerX="223" centerY="223" width="426" height="426" startAngle="283.5" endAngle="346.5" direction="CLOCKWISE" align="CENTER" ellipsis="TRUE">
-                        <Font family="ibm_plex_arabic_bold" size="11" color="#E0FFFDF7">
-                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
+                    <TextCircular centerX="223" centerY="223" width="426" height="426"
+                        startAngle="292.5" endAngle="349.5" direction="CLOCKWISE" align="START" ellipsis="TRUE">
+                        <Font family="ibm_plex_arabic_bold" size="12" color="#FFFFFDF7">
+                            <Template>%s<Parameter expression="[COMPLICATION.TEXT] != &quot;&quot; ? [COMPLICATION.TEXT] : [COMPLICATION.TITLE]" /></Template>
                         </Font>
                     </TextCircular>
                 </PartText>
             </Complication>
             <Complication type="RANGED_VALUE">
                 <PartDraw x="0" y="0" width="198" height="198">
-                    <Transform target="alpha" value="clamp(([COMPLICATION.RANGED_VALUE_VALUE] - [COMPLICATION.RANGED_VALUE_MIN]) / max(1.0, [COMPLICATION.RANGED_VALUE_MAX] - [COMPLICATION.RANGED_VALUE_MIN]), 0.0, 1.0) &gt; 0 ? 255 : 0" />
-                    <Arc centerX="223" centerY="223" width="434" height="434" startAngle="277.5" endAngle="352.5">
-                        <Transform target="endAngle" value="277.5 + 75 * clamp(([COMPLICATION.RANGED_VALUE_VALUE] - [COMPLICATION.RANGED_VALUE_MIN]) / max(1.0, [COMPLICATION.RANGED_VALUE_MAX] - [COMPLICATION.RANGED_VALUE_MIN]), 0.0, 1.0)" />
-                        <Stroke color="[CONFIGURATION.theme_color.1]" thickness="14" cap="ROUND" />
-                    </Arc>
+                    <Line startX="24.366" startY="140.723" endX="17.899" endY="138.044">
+                        <Stroke color="#60F4C44E" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="32.947" startY="122.478" endX="26.759" endY="119.205">
+                        <Stroke color="#60F4C44E" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="43.198" startY="105.117" endX="37.344" endY="101.279">
+                        <Stroke color="#60F4C44E" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="55.032" startY="88.793" endX="49.563" endY="84.423">
+                        <Stroke color="#60F4C44E" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="68.342" startY="73.648" endX="63.307" endY="68.786">
+                        <Stroke color="#60F4C44E" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="83.012" startY="59.818" endX="78.455" endY="54.505">
+                        <Stroke color="#60F4C44E" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="98.914" startY="47.422" endX="94.874" endY="41.706">
+                        <Stroke color="#60F4C44E" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="115.906" startY="36.57" endX="112.42" endY="30.501">
+                        <Stroke color="#60F4C44E" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="133.841" startY="27.358" endX="130.938" endY="20.989">
+                        <Stroke color="#60F4C44E" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="0" startY="0" endX="0" endY="0">
+                        <Transform target="startX" value="223 + 210 * sin(rad((292.5 + 43 * clamp(([COMPLICATION.RANGED_VALUE_VALUE] - [COMPLICATION.RANGED_VALUE_MIN]) / ([COMPLICATION.RANGED_VALUE_MAX] &gt; [COMPLICATION.RANGED_VALUE_MIN] ? [COMPLICATION.RANGED_VALUE_MAX] - [COMPLICATION.RANGED_VALUE_MIN] : 1), 0, 1))))" />
+                        <Transform target="startY" value="223 - 210 * cos(rad((292.5 + 43 * clamp(([COMPLICATION.RANGED_VALUE_VALUE] - [COMPLICATION.RANGED_VALUE_MIN]) / ([COMPLICATION.RANGED_VALUE_MAX] &gt; [COMPLICATION.RANGED_VALUE_MIN] ? [COMPLICATION.RANGED_VALUE_MAX] - [COMPLICATION.RANGED_VALUE_MIN] : 1), 0, 1))))" />
+                        <Transform target="endX" value="223 + 222 * sin(rad((292.5 + 43 * clamp(([COMPLICATION.RANGED_VALUE_VALUE] - [COMPLICATION.RANGED_VALUE_MIN]) / ([COMPLICATION.RANGED_VALUE_MAX] &gt; [COMPLICATION.RANGED_VALUE_MIN] ? [COMPLICATION.RANGED_VALUE_MAX] - [COMPLICATION.RANGED_VALUE_MIN] : 1), 0, 1))))" />
+                        <Transform target="endY" value="223 - 222 * cos(rad((292.5 + 43 * clamp(([COMPLICATION.RANGED_VALUE_VALUE] - [COMPLICATION.RANGED_VALUE_MIN]) / ([COMPLICATION.RANGED_VALUE_MAX] &gt; [COMPLICATION.RANGED_VALUE_MIN] ? [COMPLICATION.RANGED_VALUE_MAX] - [COMPLICATION.RANGED_VALUE_MIN] : 1), 0, 1))))" />
+                        <Stroke color="[CONFIGURATION.theme_color.1]" thickness="5" cap="ROUND" />
+                    </Line>
                 </PartDraw>
+                <PartImage x="5" y="160" width="17" height="17" tintColor="[CONFIGURATION.theme_color.1]">
+                    <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+                </PartImage>
                 <PartText x="0" y="0" width="198" height="198">
-                    <TextCircular centerX="223" centerY="223" width="426" height="426" startAngle="283.5" endAngle="346.5" direction="CLOCKWISE" align="CENTER" ellipsis="TRUE">
-                        <Font family="ibm_plex_arabic_bold" size="11" color="#E0FFFDF7">
+                    <TextCircular centerX="223" centerY="223" width="426" height="426"
+                        startAngle="338.5" endAngle="350.5" direction="CLOCKWISE" align="CENTER" ellipsis="TRUE">
+                        <Font family="ibm_plex_arabic_bold" size="12" color="#FFFFFDF7">
                             <Template>%s<Parameter expression="[COMPLICATION.TEXT] != &quot;&quot; ? [COMPLICATION.TEXT] : numberFormat(&quot;0.#&quot;, [COMPLICATION.RANGED_VALUE_VALUE])" /></Template>
                         </Font>
                     </TextCircular>
@@ -138,15 +173,24 @@
             </Complication>
             <Complication type="GOAL_PROGRESS">
                 <PartDraw x="0" y="0" width="198" height="198">
-                    <Transform target="alpha" value="clamp(([COMPLICATION.GOAL_PROGRESS_VALUE] - 0) / max(1.0, [COMPLICATION.GOAL_PROGRESS_TARGET_VALUE] - 0), 0.0, 1.0) &gt; 0 ? 255 : 0" />
-                    <Arc centerX="223" centerY="223" width="434" height="434" startAngle="277.5" endAngle="352.5">
-                        <Transform target="endAngle" value="277.5 + 75 * clamp(([COMPLICATION.GOAL_PROGRESS_VALUE] - 0) / max(1.0, [COMPLICATION.GOAL_PROGRESS_TARGET_VALUE] - 0), 0.0, 1.0)" />
-                        <Stroke color="[CONFIGURATION.theme_color.1]" thickness="14" cap="ROUND" />
+                    <Arc centerX="223" centerY="223" width="434" height="434" startAngle="292.5" endAngle="335.5" direction="CLOCKWISE">
+                        <Stroke color="#60F4C44E" thickness="13" cap="ROUND" />
                     </Arc>
                 </PartDraw>
+                <PartDraw x="0" y="0" width="198" height="198">
+                    <Transform target="alpha" value="clamp([COMPLICATION.GOAL_PROGRESS_VALUE] / ([COMPLICATION.GOAL_PROGRESS_TARGET_VALUE] &gt; 0 ? [COMPLICATION.GOAL_PROGRESS_TARGET_VALUE] : 1), 0, 1) &gt; 0 ? 255 : 0" />
+                    <Arc centerX="223" centerY="223" width="434" height="434" startAngle="292.5" endAngle="335.5" direction="CLOCKWISE">
+                        <Transform target="endAngle" value="292.5 + 43 * clamp([COMPLICATION.GOAL_PROGRESS_VALUE] / ([COMPLICATION.GOAL_PROGRESS_TARGET_VALUE] &gt; 0 ? [COMPLICATION.GOAL_PROGRESS_TARGET_VALUE] : 1), 0, 1)" />
+                        <Stroke color="[CONFIGURATION.theme_color.1]" thickness="13" cap="ROUND" />
+                    </Arc>
+                </PartDraw>
+                <PartImage x="5" y="160" width="17" height="17" tintColor="[CONFIGURATION.theme_color.1]">
+                    <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+                </PartImage>
                 <PartText x="0" y="0" width="198" height="198">
-                    <TextCircular centerX="223" centerY="223" width="426" height="426" startAngle="283.5" endAngle="346.5" direction="CLOCKWISE" align="CENTER" ellipsis="TRUE">
-                        <Font family="ibm_plex_arabic_bold" size="11" color="#E0FFFDF7">
+                    <TextCircular centerX="223" centerY="223" width="426" height="426"
+                        startAngle="338.5" endAngle="350.5" direction="CLOCKWISE" align="CENTER" ellipsis="TRUE">
+                        <Font family="ibm_plex_arabic_bold" size="12" color="#FFFFFDF7">
                             <Template>%s<Parameter expression="[COMPLICATION.TEXT] != &quot;&quot; ? [COMPLICATION.TEXT] : numberFormat(&quot;0.#&quot;, [COMPLICATION.GOAL_PROGRESS_VALUE])" /></Template>
                         </Font>
                     </TextCircular>
@@ -154,75 +198,114 @@
             </Complication>
             <Complication type="WEIGHTED_ELEMENTS">
                 <PartDraw x="0" y="0" width="198" height="198">
-                    <Arc centerX="223" centerY="223" width="434" height="434" startAngle="277.5" endAngle="352.5">
-                        <WeightedStroke colors="[COMPLICATION.WEIGHTED_ELEMENTS_COLORS]" weights="[COMPLICATION.WEIGHTED_ELEMENTS_WEIGHTS]" thickness="14" discreteGap="1" cap="ROUND" />
+                    <Arc centerX="223" centerY="223" width="434" height="434" startAngle="292.5" endAngle="335.5" direction="CLOCKWISE">
+                        <WeightedStroke colors="[COMPLICATION.WEIGHTED_ELEMENTS_COLORS]" weights="[COMPLICATION.WEIGHTED_ELEMENTS_WEIGHTS]" thickness="12" discreteGap="3" cap="ROUND" />
                     </Arc>
                 </PartDraw>
+                <PartImage x="5" y="160" width="17" height="17" tintColor="[CONFIGURATION.theme_color.1]">
+                    <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+                </PartImage>
                 <PartText x="0" y="0" width="198" height="198">
-                    <TextCircular centerX="223" centerY="223" width="426" height="426" startAngle="283.5" endAngle="346.5" direction="CLOCKWISE" align="CENTER" ellipsis="TRUE">
-                        <Font family="ibm_plex_arabic_bold" size="11" color="#E0FFFDF7">
-                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
+                    <TextCircular centerX="223" centerY="223" width="426" height="426"
+                        startAngle="338.5" endAngle="350.5" direction="CLOCKWISE" align="CENTER" ellipsis="TRUE">
+                        <Font family="ibm_plex_arabic_bold" size="12" color="#FFFFFDF7">
+                            <Template>%s<Parameter expression="[COMPLICATION.TEXT] != &quot;&quot; ? [COMPLICATION.TEXT] : [COMPLICATION.TITLE]" /></Template>
                         </Font>
                     </TextCircular>
                 </PartText>
             </Complication>
             <Complication type="MONOCHROMATIC_IMAGE">
-                <PartImage x="60" y="60" width="20" height="20">
+                <PartImage x="58" y="58" width="24" height="24" tintColor="[CONFIGURATION.theme_color.1]">
                     <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                 </PartImage>
             </Complication>
             <Complication type="SMALL_IMAGE">
-                <PartImage x="58" y="58" width="24" height="24">
+                <PartImage x="59" y="59" width="22" height="22">
                     <Image resource="[COMPLICATION.SMALL_IMAGE]" />
                 </PartImage>
             </Complication>
             <Complication type="PHOTO_IMAGE">
-                <PartImage x="58" y="58" width="24" height="24">
+                <PartImage x="59" y="59" width="22" height="22">
                     <Image resource="[COMPLICATION.PHOTO_IMAGE]" />
                 </PartImage>
             </Complication>
             <Variant mode="AMBIENT" target="alpha" value="0" />
         </ComplicationSlot>
 
-        <PartDraw x="0" y="0" width="450" height="450">
-            <Variant mode="AMBIENT" target="alpha" value="0" />
-            <Arc centerX="225" centerY="225" width="434" height="434" startAngle="7.5" endAngle="82.5">
-                <Stroke color="#52FB7185" thickness="14" cap="ROUND" />
-            </Arc>
-        </PartDraw>
         <ComplicationSlot x="250" y="2" width="198" height="198" slotId="5"
             displayName="slot_corner_tr" supportedTypes="RANGED_VALUE GOAL_PROGRESS WEIGHTED_ELEMENTS SHORT_TEXT LONG_TEXT MONOCHROMATIC_IMAGE SMALL_IMAGE PHOTO_IMAGE" isCustomizable="TRUE">
             <DefaultProviderPolicy defaultSystemProvider="HEART_RATE" defaultSystemProviderType="RANGED_VALUE" />
             <BoundingArc centerX="-25" centerY="223" width="450" height="450" startAngle="7.5" endAngle="82.5" thickness="32" />
             <Complication type="SHORT_TEXT">
+                <PartImage x="21" y="5" width="17" height="17" tintColor="#FFFB7185">
+                    <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+                </PartImage>
                 <PartText x="0" y="0" width="198" height="198">
-                    <TextCircular centerX="-25" centerY="223" width="426" height="426" startAngle="13.5" endAngle="76.5" direction="CLOCKWISE" align="CENTER" ellipsis="TRUE">
-                        <Font family="ibm_plex_arabic_bold" size="11" color="#E0FFFDF7">
-                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
+                    <TextCircular centerX="-25" centerY="223" width="426" height="426"
+                        startAngle="22.5" endAngle="79.5" direction="CLOCKWISE" align="START" ellipsis="TRUE">
+                        <Font family="ibm_plex_arabic_bold" size="13" color="#FFFFFDF7">
+                            <Template>%s<Parameter expression="[COMPLICATION.TEXT] != &quot;&quot; ? [COMPLICATION.TEXT] : [COMPLICATION.TITLE]" /></Template>
                         </Font>
                     </TextCircular>
                 </PartText>
             </Complication>
             <Complication type="LONG_TEXT">
+                <PartImage x="21" y="5" width="17" height="17" tintColor="#FFFB7185">
+                    <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+                </PartImage>
                 <PartText x="0" y="0" width="198" height="198">
-                    <TextCircular centerX="-25" centerY="223" width="426" height="426" startAngle="13.5" endAngle="76.5" direction="CLOCKWISE" align="CENTER" ellipsis="TRUE">
-                        <Font family="ibm_plex_arabic_bold" size="11" color="#E0FFFDF7">
-                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
+                    <TextCircular centerX="-25" centerY="223" width="426" height="426"
+                        startAngle="22.5" endAngle="79.5" direction="CLOCKWISE" align="START" ellipsis="TRUE">
+                        <Font family="ibm_plex_arabic_bold" size="12" color="#FFFFFDF7">
+                            <Template>%s<Parameter expression="[COMPLICATION.TEXT] != &quot;&quot; ? [COMPLICATION.TEXT] : [COMPLICATION.TITLE]" /></Template>
                         </Font>
                     </TextCircular>
                 </PartText>
             </Complication>
             <Complication type="RANGED_VALUE">
                 <PartDraw x="0" y="0" width="198" height="198">
-                    <Transform target="alpha" value="clamp(([COMPLICATION.RANGED_VALUE_VALUE] - [COMPLICATION.RANGED_VALUE_MIN]) / max(1.0, [COMPLICATION.RANGED_VALUE_MAX] - [COMPLICATION.RANGED_VALUE_MIN]), 0.0, 1.0) &gt; 0 ? 255 : 0" />
-                    <Arc centerX="-25" centerY="223" width="434" height="434" startAngle="7.5" endAngle="82.5">
-                        <Transform target="endAngle" value="7.5 + 75 * clamp(([COMPLICATION.RANGED_VALUE_VALUE] - [COMPLICATION.RANGED_VALUE_MIN]) / max(1.0, [COMPLICATION.RANGED_VALUE_MAX] - [COMPLICATION.RANGED_VALUE_MIN]), 0.0, 1.0)" />
-                        <Stroke color="#FFFB7185" thickness="14" cap="ROUND" />
-                    </Arc>
+                    <Line startX="57.277" startY="24.366" endX="59.956" endY="17.899">
+                        <Stroke color="#60FB7185" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="75.522" startY="32.947" endX="78.795" endY="26.759">
+                        <Stroke color="#60FB7185" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="92.883" startY="43.198" endX="96.721" endY="37.344">
+                        <Stroke color="#60FB7185" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="109.207" startY="55.032" endX="113.577" endY="49.563">
+                        <Stroke color="#60FB7185" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="124.352" startY="68.342" endX="129.214" endY="63.307">
+                        <Stroke color="#60FB7185" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="138.182" startY="83.012" endX="143.495" endY="78.455">
+                        <Stroke color="#60FB7185" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="150.578" startY="98.914" endX="156.294" endY="94.874">
+                        <Stroke color="#60FB7185" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="161.43" startY="115.906" endX="167.499" endY="112.42">
+                        <Stroke color="#60FB7185" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="170.642" startY="133.841" endX="177.011" endY="130.938">
+                        <Stroke color="#60FB7185" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="0" startY="0" endX="0" endY="0">
+                        <Transform target="startX" value="-25 + 210 * sin(rad((22.5 + 43 * clamp(([COMPLICATION.RANGED_VALUE_VALUE] - [COMPLICATION.RANGED_VALUE_MIN]) / ([COMPLICATION.RANGED_VALUE_MAX] &gt; [COMPLICATION.RANGED_VALUE_MIN] ? [COMPLICATION.RANGED_VALUE_MAX] - [COMPLICATION.RANGED_VALUE_MIN] : 1), 0, 1))))" />
+                        <Transform target="startY" value="223 - 210 * cos(rad((22.5 + 43 * clamp(([COMPLICATION.RANGED_VALUE_VALUE] - [COMPLICATION.RANGED_VALUE_MIN]) / ([COMPLICATION.RANGED_VALUE_MAX] &gt; [COMPLICATION.RANGED_VALUE_MIN] ? [COMPLICATION.RANGED_VALUE_MAX] - [COMPLICATION.RANGED_VALUE_MIN] : 1), 0, 1))))" />
+                        <Transform target="endX" value="-25 + 222 * sin(rad((22.5 + 43 * clamp(([COMPLICATION.RANGED_VALUE_VALUE] - [COMPLICATION.RANGED_VALUE_MIN]) / ([COMPLICATION.RANGED_VALUE_MAX] &gt; [COMPLICATION.RANGED_VALUE_MIN] ? [COMPLICATION.RANGED_VALUE_MAX] - [COMPLICATION.RANGED_VALUE_MIN] : 1), 0, 1))))" />
+                        <Transform target="endY" value="223 - 222 * cos(rad((22.5 + 43 * clamp(([COMPLICATION.RANGED_VALUE_VALUE] - [COMPLICATION.RANGED_VALUE_MIN]) / ([COMPLICATION.RANGED_VALUE_MAX] &gt; [COMPLICATION.RANGED_VALUE_MIN] ? [COMPLICATION.RANGED_VALUE_MAX] - [COMPLICATION.RANGED_VALUE_MIN] : 1), 0, 1))))" />
+                        <Stroke color="#FFFB7185" thickness="5" cap="ROUND" />
+                    </Line>
                 </PartDraw>
+                <PartImage x="21" y="5" width="17" height="17" tintColor="#FFFB7185">
+                    <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+                </PartImage>
                 <PartText x="0" y="0" width="198" height="198">
-                    <TextCircular centerX="-25" centerY="223" width="426" height="426" startAngle="13.5" endAngle="76.5" direction="CLOCKWISE" align="CENTER" ellipsis="TRUE">
-                        <Font family="ibm_plex_arabic_bold" size="11" color="#E0FFFDF7">
+                    <TextCircular centerX="-25" centerY="223" width="426" height="426"
+                        startAngle="68.5" endAngle="80.5" direction="CLOCKWISE" align="CENTER" ellipsis="TRUE">
+                        <Font family="ibm_plex_arabic_bold" size="12" color="#FFFFFDF7">
                             <Template>%s<Parameter expression="[COMPLICATION.TEXT] != &quot;&quot; ? [COMPLICATION.TEXT] : numberFormat(&quot;0.#&quot;, [COMPLICATION.RANGED_VALUE_VALUE])" /></Template>
                         </Font>
                     </TextCircular>
@@ -230,15 +313,24 @@
             </Complication>
             <Complication type="GOAL_PROGRESS">
                 <PartDraw x="0" y="0" width="198" height="198">
-                    <Transform target="alpha" value="clamp(([COMPLICATION.GOAL_PROGRESS_VALUE] - 0) / max(1.0, [COMPLICATION.GOAL_PROGRESS_TARGET_VALUE] - 0), 0.0, 1.0) &gt; 0 ? 255 : 0" />
-                    <Arc centerX="-25" centerY="223" width="434" height="434" startAngle="7.5" endAngle="82.5">
-                        <Transform target="endAngle" value="7.5 + 75 * clamp(([COMPLICATION.GOAL_PROGRESS_VALUE] - 0) / max(1.0, [COMPLICATION.GOAL_PROGRESS_TARGET_VALUE] - 0), 0.0, 1.0)" />
-                        <Stroke color="#FFFB7185" thickness="14" cap="ROUND" />
+                    <Arc centerX="-25" centerY="223" width="434" height="434" startAngle="22.5" endAngle="65.5" direction="CLOCKWISE">
+                        <Stroke color="#60FB7185" thickness="13" cap="ROUND" />
                     </Arc>
                 </PartDraw>
+                <PartDraw x="0" y="0" width="198" height="198">
+                    <Transform target="alpha" value="clamp([COMPLICATION.GOAL_PROGRESS_VALUE] / ([COMPLICATION.GOAL_PROGRESS_TARGET_VALUE] &gt; 0 ? [COMPLICATION.GOAL_PROGRESS_TARGET_VALUE] : 1), 0, 1) &gt; 0 ? 255 : 0" />
+                    <Arc centerX="-25" centerY="223" width="434" height="434" startAngle="22.5" endAngle="65.5" direction="CLOCKWISE">
+                        <Transform target="endAngle" value="22.5 + 43 * clamp([COMPLICATION.GOAL_PROGRESS_VALUE] / ([COMPLICATION.GOAL_PROGRESS_TARGET_VALUE] &gt; 0 ? [COMPLICATION.GOAL_PROGRESS_TARGET_VALUE] : 1), 0, 1)" />
+                        <Stroke color="#FFFB7185" thickness="13" cap="ROUND" />
+                    </Arc>
+                </PartDraw>
+                <PartImage x="21" y="5" width="17" height="17" tintColor="#FFFB7185">
+                    <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+                </PartImage>
                 <PartText x="0" y="0" width="198" height="198">
-                    <TextCircular centerX="-25" centerY="223" width="426" height="426" startAngle="13.5" endAngle="76.5" direction="CLOCKWISE" align="CENTER" ellipsis="TRUE">
-                        <Font family="ibm_plex_arabic_bold" size="11" color="#E0FFFDF7">
+                    <TextCircular centerX="-25" centerY="223" width="426" height="426"
+                        startAngle="68.5" endAngle="80.5" direction="CLOCKWISE" align="CENTER" ellipsis="TRUE">
+                        <Font family="ibm_plex_arabic_bold" size="12" color="#FFFFFDF7">
                             <Template>%s<Parameter expression="[COMPLICATION.TEXT] != &quot;&quot; ? [COMPLICATION.TEXT] : numberFormat(&quot;0.#&quot;, [COMPLICATION.GOAL_PROGRESS_VALUE])" /></Template>
                         </Font>
                     </TextCircular>
@@ -246,75 +338,114 @@
             </Complication>
             <Complication type="WEIGHTED_ELEMENTS">
                 <PartDraw x="0" y="0" width="198" height="198">
-                    <Arc centerX="-25" centerY="223" width="434" height="434" startAngle="7.5" endAngle="82.5">
-                        <WeightedStroke colors="[COMPLICATION.WEIGHTED_ELEMENTS_COLORS]" weights="[COMPLICATION.WEIGHTED_ELEMENTS_WEIGHTS]" thickness="14" discreteGap="1" cap="ROUND" />
+                    <Arc centerX="-25" centerY="223" width="434" height="434" startAngle="22.5" endAngle="65.5" direction="CLOCKWISE">
+                        <WeightedStroke colors="[COMPLICATION.WEIGHTED_ELEMENTS_COLORS]" weights="[COMPLICATION.WEIGHTED_ELEMENTS_WEIGHTS]" thickness="12" discreteGap="3" cap="ROUND" />
                     </Arc>
                 </PartDraw>
+                <PartImage x="21" y="5" width="17" height="17" tintColor="#FFFB7185">
+                    <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+                </PartImage>
                 <PartText x="0" y="0" width="198" height="198">
-                    <TextCircular centerX="-25" centerY="223" width="426" height="426" startAngle="13.5" endAngle="76.5" direction="CLOCKWISE" align="CENTER" ellipsis="TRUE">
-                        <Font family="ibm_plex_arabic_bold" size="11" color="#E0FFFDF7">
-                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
+                    <TextCircular centerX="-25" centerY="223" width="426" height="426"
+                        startAngle="68.5" endAngle="80.5" direction="CLOCKWISE" align="CENTER" ellipsis="TRUE">
+                        <Font family="ibm_plex_arabic_bold" size="12" color="#FFFFFDF7">
+                            <Template>%s<Parameter expression="[COMPLICATION.TEXT] != &quot;&quot; ? [COMPLICATION.TEXT] : [COMPLICATION.TITLE]" /></Template>
                         </Font>
                     </TextCircular>
                 </PartText>
             </Complication>
             <Complication type="MONOCHROMATIC_IMAGE">
-                <PartImage x="118" y="60" width="20" height="20">
+                <PartImage x="116" y="58" width="24" height="24" tintColor="#FFFB7185">
                     <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                 </PartImage>
             </Complication>
             <Complication type="SMALL_IMAGE">
-                <PartImage x="116" y="58" width="24" height="24">
+                <PartImage x="117" y="59" width="22" height="22">
                     <Image resource="[COMPLICATION.SMALL_IMAGE]" />
                 </PartImage>
             </Complication>
             <Complication type="PHOTO_IMAGE">
-                <PartImage x="116" y="58" width="24" height="24">
+                <PartImage x="117" y="59" width="22" height="22">
                     <Image resource="[COMPLICATION.PHOTO_IMAGE]" />
                 </PartImage>
             </Complication>
             <Variant mode="AMBIENT" target="alpha" value="0" />
         </ComplicationSlot>
 
-        <PartDraw x="0" y="0" width="450" height="450">
-            <Variant mode="AMBIENT" target="alpha" value="0" />
-            <Arc centerX="225" centerY="225" width="434" height="434" startAngle="187.5" endAngle="262.5">
-                <Stroke color="#5238BDF8" thickness="14" cap="ROUND" />
-            </Arc>
-        </PartDraw>
         <ComplicationSlot x="2" y="250" width="198" height="198" slotId="6"
             displayName="slot_corner_bl" supportedTypes="RANGED_VALUE GOAL_PROGRESS WEIGHTED_ELEMENTS SHORT_TEXT LONG_TEXT MONOCHROMATIC_IMAGE SMALL_IMAGE PHOTO_IMAGE" isCustomizable="TRUE">
             <DefaultProviderPolicy defaultSystemProvider="DATE" defaultSystemProviderType="SHORT_TEXT" />
             <BoundingArc centerX="223" centerY="-25" width="450" height="450" startAngle="187.5" endAngle="262.5" thickness="32" />
             <Complication type="SHORT_TEXT">
+                <PartImage x="5" y="21" width="17" height="17" tintColor="#FF38BDF8">
+                    <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+                </PartImage>
                 <PartText x="0" y="0" width="198" height="198">
-                    <TextCircular centerX="223" centerY="-25" width="426" height="426" startAngle="256.5" endAngle="193.5" direction="COUNTER_CLOCKWISE" align="CENTER" ellipsis="TRUE">
-                        <Font family="ibm_plex_arabic_bold" size="11" color="#E0FFFDF7">
-                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
+                    <TextCircular centerX="223" centerY="-25" width="426" height="426"
+                        startAngle="247.5" endAngle="190.5" direction="COUNTER_CLOCKWISE" align="START" ellipsis="TRUE">
+                        <Font family="ibm_plex_arabic_bold" size="13" color="#FFFFFDF7">
+                            <Template>%s<Parameter expression="[COMPLICATION.TEXT] != &quot;&quot; ? [COMPLICATION.TEXT] : [COMPLICATION.TITLE]" /></Template>
                         </Font>
                     </TextCircular>
                 </PartText>
             </Complication>
             <Complication type="LONG_TEXT">
+                <PartImage x="5" y="21" width="17" height="17" tintColor="#FF38BDF8">
+                    <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+                </PartImage>
                 <PartText x="0" y="0" width="198" height="198">
-                    <TextCircular centerX="223" centerY="-25" width="426" height="426" startAngle="256.5" endAngle="193.5" direction="COUNTER_CLOCKWISE" align="CENTER" ellipsis="TRUE">
-                        <Font family="ibm_plex_arabic_bold" size="11" color="#E0FFFDF7">
-                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
+                    <TextCircular centerX="223" centerY="-25" width="426" height="426"
+                        startAngle="247.5" endAngle="190.5" direction="COUNTER_CLOCKWISE" align="START" ellipsis="TRUE">
+                        <Font family="ibm_plex_arabic_bold" size="12" color="#FFFFFDF7">
+                            <Template>%s<Parameter expression="[COMPLICATION.TEXT] != &quot;&quot; ? [COMPLICATION.TEXT] : [COMPLICATION.TITLE]" /></Template>
                         </Font>
                     </TextCircular>
                 </PartText>
             </Complication>
             <Complication type="RANGED_VALUE">
                 <PartDraw x="0" y="0" width="198" height="198">
-                    <Transform target="alpha" value="clamp(([COMPLICATION.RANGED_VALUE_VALUE] - [COMPLICATION.RANGED_VALUE_MIN]) / max(1.0, [COMPLICATION.RANGED_VALUE_MAX] - [COMPLICATION.RANGED_VALUE_MIN]), 0.0, 1.0) &gt; 0 ? 255 : 0" />
-                    <Arc centerX="223" centerY="-25" width="434" height="434" startAngle="187.5" endAngle="262.5">
-                        <Transform target="endAngle" value="187.5 + 75 * clamp(([COMPLICATION.RANGED_VALUE_VALUE] - [COMPLICATION.RANGED_VALUE_MIN]) / max(1.0, [COMPLICATION.RANGED_VALUE_MAX] - [COMPLICATION.RANGED_VALUE_MIN]), 0.0, 1.0)" />
-                        <Stroke color="#FF38BDF8" thickness="14" cap="ROUND" />
-                    </Arc>
+                    <Line startX="24.366" startY="57.277" endX="17.899" endY="59.956">
+                        <Stroke color="#6038BDF8" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="32.947" startY="75.522" endX="26.759" endY="78.795">
+                        <Stroke color="#6038BDF8" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="43.198" startY="92.883" endX="37.344" endY="96.721">
+                        <Stroke color="#6038BDF8" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="55.032" startY="109.207" endX="49.563" endY="113.577">
+                        <Stroke color="#6038BDF8" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="68.342" startY="124.352" endX="63.307" endY="129.214">
+                        <Stroke color="#6038BDF8" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="83.012" startY="138.182" endX="78.455" endY="143.495">
+                        <Stroke color="#6038BDF8" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="98.914" startY="150.578" endX="94.874" endY="156.294">
+                        <Stroke color="#6038BDF8" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="115.906" startY="161.43" endX="112.42" endY="167.499">
+                        <Stroke color="#6038BDF8" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="133.841" startY="170.642" endX="130.938" endY="177.011">
+                        <Stroke color="#6038BDF8" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="0" startY="0" endX="0" endY="0">
+                        <Transform target="startX" value="223 + 210 * sin(rad((247.5 - 43 * clamp(([COMPLICATION.RANGED_VALUE_VALUE] - [COMPLICATION.RANGED_VALUE_MIN]) / ([COMPLICATION.RANGED_VALUE_MAX] &gt; [COMPLICATION.RANGED_VALUE_MIN] ? [COMPLICATION.RANGED_VALUE_MAX] - [COMPLICATION.RANGED_VALUE_MIN] : 1), 0, 1))))" />
+                        <Transform target="startY" value="-25 - 210 * cos(rad((247.5 - 43 * clamp(([COMPLICATION.RANGED_VALUE_VALUE] - [COMPLICATION.RANGED_VALUE_MIN]) / ([COMPLICATION.RANGED_VALUE_MAX] &gt; [COMPLICATION.RANGED_VALUE_MIN] ? [COMPLICATION.RANGED_VALUE_MAX] - [COMPLICATION.RANGED_VALUE_MIN] : 1), 0, 1))))" />
+                        <Transform target="endX" value="223 + 222 * sin(rad((247.5 - 43 * clamp(([COMPLICATION.RANGED_VALUE_VALUE] - [COMPLICATION.RANGED_VALUE_MIN]) / ([COMPLICATION.RANGED_VALUE_MAX] &gt; [COMPLICATION.RANGED_VALUE_MIN] ? [COMPLICATION.RANGED_VALUE_MAX] - [COMPLICATION.RANGED_VALUE_MIN] : 1), 0, 1))))" />
+                        <Transform target="endY" value="-25 - 222 * cos(rad((247.5 - 43 * clamp(([COMPLICATION.RANGED_VALUE_VALUE] - [COMPLICATION.RANGED_VALUE_MIN]) / ([COMPLICATION.RANGED_VALUE_MAX] &gt; [COMPLICATION.RANGED_VALUE_MIN] ? [COMPLICATION.RANGED_VALUE_MAX] - [COMPLICATION.RANGED_VALUE_MIN] : 1), 0, 1))))" />
+                        <Stroke color="#FF38BDF8" thickness="5" cap="ROUND" />
+                    </Line>
                 </PartDraw>
+                <PartImage x="5" y="21" width="17" height="17" tintColor="#FF38BDF8">
+                    <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+                </PartImage>
                 <PartText x="0" y="0" width="198" height="198">
-                    <TextCircular centerX="223" centerY="-25" width="426" height="426" startAngle="256.5" endAngle="193.5" direction="COUNTER_CLOCKWISE" align="CENTER" ellipsis="TRUE">
-                        <Font family="ibm_plex_arabic_bold" size="11" color="#E0FFFDF7">
+                    <TextCircular centerX="223" centerY="-25" width="426" height="426"
+                        startAngle="201.5" endAngle="189.5" direction="COUNTER_CLOCKWISE" align="CENTER" ellipsis="TRUE">
+                        <Font family="ibm_plex_arabic_bold" size="12" color="#FFFFFDF7">
                             <Template>%s<Parameter expression="[COMPLICATION.TEXT] != &quot;&quot; ? [COMPLICATION.TEXT] : numberFormat(&quot;0.#&quot;, [COMPLICATION.RANGED_VALUE_VALUE])" /></Template>
                         </Font>
                     </TextCircular>
@@ -322,15 +453,24 @@
             </Complication>
             <Complication type="GOAL_PROGRESS">
                 <PartDraw x="0" y="0" width="198" height="198">
-                    <Transform target="alpha" value="clamp(([COMPLICATION.GOAL_PROGRESS_VALUE] - 0) / max(1.0, [COMPLICATION.GOAL_PROGRESS_TARGET_VALUE] - 0), 0.0, 1.0) &gt; 0 ? 255 : 0" />
-                    <Arc centerX="223" centerY="-25" width="434" height="434" startAngle="187.5" endAngle="262.5">
-                        <Transform target="endAngle" value="187.5 + 75 * clamp(([COMPLICATION.GOAL_PROGRESS_VALUE] - 0) / max(1.0, [COMPLICATION.GOAL_PROGRESS_TARGET_VALUE] - 0), 0.0, 1.0)" />
-                        <Stroke color="#FF38BDF8" thickness="14" cap="ROUND" />
+                    <Arc centerX="223" centerY="-25" width="434" height="434" startAngle="247.5" endAngle="204.5" direction="COUNTER_CLOCKWISE">
+                        <Stroke color="#6038BDF8" thickness="13" cap="ROUND" />
                     </Arc>
                 </PartDraw>
+                <PartDraw x="0" y="0" width="198" height="198">
+                    <Transform target="alpha" value="clamp([COMPLICATION.GOAL_PROGRESS_VALUE] / ([COMPLICATION.GOAL_PROGRESS_TARGET_VALUE] &gt; 0 ? [COMPLICATION.GOAL_PROGRESS_TARGET_VALUE] : 1), 0, 1) &gt; 0 ? 255 : 0" />
+                    <Arc centerX="223" centerY="-25" width="434" height="434" startAngle="247.5" endAngle="204.5" direction="COUNTER_CLOCKWISE">
+                        <Transform target="endAngle" value="247.5 - 43 * clamp([COMPLICATION.GOAL_PROGRESS_VALUE] / ([COMPLICATION.GOAL_PROGRESS_TARGET_VALUE] &gt; 0 ? [COMPLICATION.GOAL_PROGRESS_TARGET_VALUE] : 1), 0, 1)" />
+                        <Stroke color="#FF38BDF8" thickness="13" cap="ROUND" />
+                    </Arc>
+                </PartDraw>
+                <PartImage x="5" y="21" width="17" height="17" tintColor="#FF38BDF8">
+                    <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+                </PartImage>
                 <PartText x="0" y="0" width="198" height="198">
-                    <TextCircular centerX="223" centerY="-25" width="426" height="426" startAngle="256.5" endAngle="193.5" direction="COUNTER_CLOCKWISE" align="CENTER" ellipsis="TRUE">
-                        <Font family="ibm_plex_arabic_bold" size="11" color="#E0FFFDF7">
+                    <TextCircular centerX="223" centerY="-25" width="426" height="426"
+                        startAngle="201.5" endAngle="189.5" direction="COUNTER_CLOCKWISE" align="CENTER" ellipsis="TRUE">
+                        <Font family="ibm_plex_arabic_bold" size="12" color="#FFFFFDF7">
                             <Template>%s<Parameter expression="[COMPLICATION.TEXT] != &quot;&quot; ? [COMPLICATION.TEXT] : numberFormat(&quot;0.#&quot;, [COMPLICATION.GOAL_PROGRESS_VALUE])" /></Template>
                         </Font>
                     </TextCircular>
@@ -338,75 +478,114 @@
             </Complication>
             <Complication type="WEIGHTED_ELEMENTS">
                 <PartDraw x="0" y="0" width="198" height="198">
-                    <Arc centerX="223" centerY="-25" width="434" height="434" startAngle="187.5" endAngle="262.5">
-                        <WeightedStroke colors="[COMPLICATION.WEIGHTED_ELEMENTS_COLORS]" weights="[COMPLICATION.WEIGHTED_ELEMENTS_WEIGHTS]" thickness="14" discreteGap="1" cap="ROUND" />
+                    <Arc centerX="223" centerY="-25" width="434" height="434" startAngle="247.5" endAngle="204.5" direction="COUNTER_CLOCKWISE">
+                        <WeightedStroke colors="[COMPLICATION.WEIGHTED_ELEMENTS_COLORS]" weights="[COMPLICATION.WEIGHTED_ELEMENTS_WEIGHTS]" thickness="12" discreteGap="3" cap="ROUND" />
                     </Arc>
                 </PartDraw>
+                <PartImage x="5" y="21" width="17" height="17" tintColor="#FF38BDF8">
+                    <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+                </PartImage>
                 <PartText x="0" y="0" width="198" height="198">
-                    <TextCircular centerX="223" centerY="-25" width="426" height="426" startAngle="256.5" endAngle="193.5" direction="COUNTER_CLOCKWISE" align="CENTER" ellipsis="TRUE">
-                        <Font family="ibm_plex_arabic_bold" size="11" color="#E0FFFDF7">
-                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
+                    <TextCircular centerX="223" centerY="-25" width="426" height="426"
+                        startAngle="201.5" endAngle="189.5" direction="COUNTER_CLOCKWISE" align="CENTER" ellipsis="TRUE">
+                        <Font family="ibm_plex_arabic_bold" size="12" color="#FFFFFDF7">
+                            <Template>%s<Parameter expression="[COMPLICATION.TEXT] != &quot;&quot; ? [COMPLICATION.TEXT] : [COMPLICATION.TITLE]" /></Template>
                         </Font>
                     </TextCircular>
                 </PartText>
             </Complication>
             <Complication type="MONOCHROMATIC_IMAGE">
-                <PartImage x="60" y="118" width="20" height="20">
+                <PartImage x="58" y="116" width="24" height="24" tintColor="#FF38BDF8">
                     <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                 </PartImage>
             </Complication>
             <Complication type="SMALL_IMAGE">
-                <PartImage x="58" y="116" width="24" height="24">
+                <PartImage x="59" y="117" width="22" height="22">
                     <Image resource="[COMPLICATION.SMALL_IMAGE]" />
                 </PartImage>
             </Complication>
             <Complication type="PHOTO_IMAGE">
-                <PartImage x="58" y="116" width="24" height="24">
+                <PartImage x="59" y="117" width="22" height="22">
                     <Image resource="[COMPLICATION.PHOTO_IMAGE]" />
                 </PartImage>
             </Complication>
             <Variant mode="AMBIENT" target="alpha" value="0" />
         </ComplicationSlot>
 
-        <PartDraw x="0" y="0" width="450" height="450">
-            <Variant mode="AMBIENT" target="alpha" value="0" />
-            <Arc centerX="225" centerY="225" width="434" height="434" startAngle="97.5" endAngle="172.5">
-                <Stroke color="#5234D399" thickness="14" cap="ROUND" />
-            </Arc>
-        </PartDraw>
         <ComplicationSlot x="250" y="250" width="198" height="198" slotId="4"
             displayName="slot_corner_br" supportedTypes="RANGED_VALUE GOAL_PROGRESS WEIGHTED_ELEMENTS SHORT_TEXT LONG_TEXT MONOCHROMATIC_IMAGE SMALL_IMAGE PHOTO_IMAGE" isCustomizable="TRUE">
             <DefaultProviderPolicy defaultSystemProvider="WATCH_BATTERY" defaultSystemProviderType="RANGED_VALUE" />
             <BoundingArc centerX="-25" centerY="-25" width="450" height="450" startAngle="97.5" endAngle="172.5" thickness="32" />
             <Complication type="SHORT_TEXT">
+                <PartImage x="21" y="176" width="17" height="17" tintColor="#FF34D399">
+                    <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+                </PartImage>
                 <PartText x="0" y="0" width="198" height="198">
-                    <TextCircular centerX="-25" centerY="-25" width="426" height="426" startAngle="166.5" endAngle="103.5" direction="COUNTER_CLOCKWISE" align="CENTER" ellipsis="TRUE">
-                        <Font family="ibm_plex_arabic_bold" size="11" color="#E0FFFDF7">
-                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
+                    <TextCircular centerX="-25" centerY="-25" width="426" height="426"
+                        startAngle="157.5" endAngle="100.5" direction="COUNTER_CLOCKWISE" align="START" ellipsis="TRUE">
+                        <Font family="ibm_plex_arabic_bold" size="13" color="#FFFFFDF7">
+                            <Template>%s<Parameter expression="[COMPLICATION.TEXT] != &quot;&quot; ? [COMPLICATION.TEXT] : [COMPLICATION.TITLE]" /></Template>
                         </Font>
                     </TextCircular>
                 </PartText>
             </Complication>
             <Complication type="LONG_TEXT">
+                <PartImage x="21" y="176" width="17" height="17" tintColor="#FF34D399">
+                    <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+                </PartImage>
                 <PartText x="0" y="0" width="198" height="198">
-                    <TextCircular centerX="-25" centerY="-25" width="426" height="426" startAngle="166.5" endAngle="103.5" direction="COUNTER_CLOCKWISE" align="CENTER" ellipsis="TRUE">
-                        <Font family="ibm_plex_arabic_bold" size="11" color="#E0FFFDF7">
-                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
+                    <TextCircular centerX="-25" centerY="-25" width="426" height="426"
+                        startAngle="157.5" endAngle="100.5" direction="COUNTER_CLOCKWISE" align="START" ellipsis="TRUE">
+                        <Font family="ibm_plex_arabic_bold" size="12" color="#FFFFFDF7">
+                            <Template>%s<Parameter expression="[COMPLICATION.TEXT] != &quot;&quot; ? [COMPLICATION.TEXT] : [COMPLICATION.TITLE]" /></Template>
                         </Font>
                     </TextCircular>
                 </PartText>
             </Complication>
             <Complication type="RANGED_VALUE">
                 <PartDraw x="0" y="0" width="198" height="198">
-                    <Transform target="alpha" value="clamp(([COMPLICATION.RANGED_VALUE_VALUE] - [COMPLICATION.RANGED_VALUE_MIN]) / max(1.0, [COMPLICATION.RANGED_VALUE_MAX] - [COMPLICATION.RANGED_VALUE_MIN]), 0.0, 1.0) &gt; 0 ? 255 : 0" />
-                    <Arc centerX="-25" centerY="-25" width="434" height="434" startAngle="97.5" endAngle="172.5">
-                        <Transform target="endAngle" value="97.5 + 75 * clamp(([COMPLICATION.RANGED_VALUE_VALUE] - [COMPLICATION.RANGED_VALUE_MIN]) / max(1.0, [COMPLICATION.RANGED_VALUE_MAX] - [COMPLICATION.RANGED_VALUE_MIN]), 0.0, 1.0)" />
-                        <Stroke color="#FF34D399" thickness="14" cap="ROUND" />
-                    </Arc>
+                    <Line startX="57.277" startY="173.634" endX="59.956" endY="180.101">
+                        <Stroke color="#6034D399" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="75.522" startY="165.053" endX="78.795" endY="171.241">
+                        <Stroke color="#6034D399" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="92.883" startY="154.802" endX="96.721" endY="160.656">
+                        <Stroke color="#6034D399" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="109.207" startY="142.968" endX="113.577" endY="148.437">
+                        <Stroke color="#6034D399" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="124.352" startY="129.658" endX="129.214" endY="134.693">
+                        <Stroke color="#6034D399" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="138.182" startY="114.988" endX="143.495" endY="119.545">
+                        <Stroke color="#6034D399" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="150.578" startY="99.086" endX="156.294" endY="103.126">
+                        <Stroke color="#6034D399" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="161.43" startY="82.094" endX="167.499" endY="85.58">
+                        <Stroke color="#6034D399" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="170.642" startY="64.159" endX="177.011" endY="67.062">
+                        <Stroke color="#6034D399" thickness="3" cap="ROUND" />
+                    </Line>
+                    <Line startX="0" startY="0" endX="0" endY="0">
+                        <Transform target="startX" value="-25 + 210 * sin(rad((157.5 - 43 * clamp(([COMPLICATION.RANGED_VALUE_VALUE] - [COMPLICATION.RANGED_VALUE_MIN]) / ([COMPLICATION.RANGED_VALUE_MAX] &gt; [COMPLICATION.RANGED_VALUE_MIN] ? [COMPLICATION.RANGED_VALUE_MAX] - [COMPLICATION.RANGED_VALUE_MIN] : 1), 0, 1))))" />
+                        <Transform target="startY" value="-25 - 210 * cos(rad((157.5 - 43 * clamp(([COMPLICATION.RANGED_VALUE_VALUE] - [COMPLICATION.RANGED_VALUE_MIN]) / ([COMPLICATION.RANGED_VALUE_MAX] &gt; [COMPLICATION.RANGED_VALUE_MIN] ? [COMPLICATION.RANGED_VALUE_MAX] - [COMPLICATION.RANGED_VALUE_MIN] : 1), 0, 1))))" />
+                        <Transform target="endX" value="-25 + 222 * sin(rad((157.5 - 43 * clamp(([COMPLICATION.RANGED_VALUE_VALUE] - [COMPLICATION.RANGED_VALUE_MIN]) / ([COMPLICATION.RANGED_VALUE_MAX] &gt; [COMPLICATION.RANGED_VALUE_MIN] ? [COMPLICATION.RANGED_VALUE_MAX] - [COMPLICATION.RANGED_VALUE_MIN] : 1), 0, 1))))" />
+                        <Transform target="endY" value="-25 - 222 * cos(rad((157.5 - 43 * clamp(([COMPLICATION.RANGED_VALUE_VALUE] - [COMPLICATION.RANGED_VALUE_MIN]) / ([COMPLICATION.RANGED_VALUE_MAX] &gt; [COMPLICATION.RANGED_VALUE_MIN] ? [COMPLICATION.RANGED_VALUE_MAX] - [COMPLICATION.RANGED_VALUE_MIN] : 1), 0, 1))))" />
+                        <Stroke color="#FF34D399" thickness="5" cap="ROUND" />
+                    </Line>
                 </PartDraw>
+                <PartImage x="21" y="176" width="17" height="17" tintColor="#FF34D399">
+                    <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+                </PartImage>
                 <PartText x="0" y="0" width="198" height="198">
-                    <TextCircular centerX="-25" centerY="-25" width="426" height="426" startAngle="166.5" endAngle="103.5" direction="COUNTER_CLOCKWISE" align="CENTER" ellipsis="TRUE">
-                        <Font family="ibm_plex_arabic_bold" size="11" color="#E0FFFDF7">
+                    <TextCircular centerX="-25" centerY="-25" width="426" height="426"
+                        startAngle="111.5" endAngle="99.5" direction="COUNTER_CLOCKWISE" align="CENTER" ellipsis="TRUE">
+                        <Font family="ibm_plex_arabic_bold" size="12" color="#FFFFFDF7">
                             <Template>%s<Parameter expression="[COMPLICATION.TEXT] != &quot;&quot; ? [COMPLICATION.TEXT] : numberFormat(&quot;0.#&quot;, [COMPLICATION.RANGED_VALUE_VALUE])" /></Template>
                         </Font>
                     </TextCircular>
@@ -414,15 +593,24 @@
             </Complication>
             <Complication type="GOAL_PROGRESS">
                 <PartDraw x="0" y="0" width="198" height="198">
-                    <Transform target="alpha" value="clamp(([COMPLICATION.GOAL_PROGRESS_VALUE] - 0) / max(1.0, [COMPLICATION.GOAL_PROGRESS_TARGET_VALUE] - 0), 0.0, 1.0) &gt; 0 ? 255 : 0" />
-                    <Arc centerX="-25" centerY="-25" width="434" height="434" startAngle="97.5" endAngle="172.5">
-                        <Transform target="endAngle" value="97.5 + 75 * clamp(([COMPLICATION.GOAL_PROGRESS_VALUE] - 0) / max(1.0, [COMPLICATION.GOAL_PROGRESS_TARGET_VALUE] - 0), 0.0, 1.0)" />
-                        <Stroke color="#FF34D399" thickness="14" cap="ROUND" />
+                    <Arc centerX="-25" centerY="-25" width="434" height="434" startAngle="157.5" endAngle="114.5" direction="COUNTER_CLOCKWISE">
+                        <Stroke color="#6034D399" thickness="13" cap="ROUND" />
                     </Arc>
                 </PartDraw>
+                <PartDraw x="0" y="0" width="198" height="198">
+                    <Transform target="alpha" value="clamp([COMPLICATION.GOAL_PROGRESS_VALUE] / ([COMPLICATION.GOAL_PROGRESS_TARGET_VALUE] &gt; 0 ? [COMPLICATION.GOAL_PROGRESS_TARGET_VALUE] : 1), 0, 1) &gt; 0 ? 255 : 0" />
+                    <Arc centerX="-25" centerY="-25" width="434" height="434" startAngle="157.5" endAngle="114.5" direction="COUNTER_CLOCKWISE">
+                        <Transform target="endAngle" value="157.5 - 43 * clamp([COMPLICATION.GOAL_PROGRESS_VALUE] / ([COMPLICATION.GOAL_PROGRESS_TARGET_VALUE] &gt; 0 ? [COMPLICATION.GOAL_PROGRESS_TARGET_VALUE] : 1), 0, 1)" />
+                        <Stroke color="#FF34D399" thickness="13" cap="ROUND" />
+                    </Arc>
+                </PartDraw>
+                <PartImage x="21" y="176" width="17" height="17" tintColor="#FF34D399">
+                    <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+                </PartImage>
                 <PartText x="0" y="0" width="198" height="198">
-                    <TextCircular centerX="-25" centerY="-25" width="426" height="426" startAngle="166.5" endAngle="103.5" direction="COUNTER_CLOCKWISE" align="CENTER" ellipsis="TRUE">
-                        <Font family="ibm_plex_arabic_bold" size="11" color="#E0FFFDF7">
+                    <TextCircular centerX="-25" centerY="-25" width="426" height="426"
+                        startAngle="111.5" endAngle="99.5" direction="COUNTER_CLOCKWISE" align="CENTER" ellipsis="TRUE">
+                        <Font family="ibm_plex_arabic_bold" size="12" color="#FFFFFDF7">
                             <Template>%s<Parameter expression="[COMPLICATION.TEXT] != &quot;&quot; ? [COMPLICATION.TEXT] : numberFormat(&quot;0.#&quot;, [COMPLICATION.GOAL_PROGRESS_VALUE])" /></Template>
                         </Font>
                     </TextCircular>
@@ -430,30 +618,34 @@
             </Complication>
             <Complication type="WEIGHTED_ELEMENTS">
                 <PartDraw x="0" y="0" width="198" height="198">
-                    <Arc centerX="-25" centerY="-25" width="434" height="434" startAngle="97.5" endAngle="172.5">
-                        <WeightedStroke colors="[COMPLICATION.WEIGHTED_ELEMENTS_COLORS]" weights="[COMPLICATION.WEIGHTED_ELEMENTS_WEIGHTS]" thickness="14" discreteGap="1" cap="ROUND" />
+                    <Arc centerX="-25" centerY="-25" width="434" height="434" startAngle="157.5" endAngle="114.5" direction="COUNTER_CLOCKWISE">
+                        <WeightedStroke colors="[COMPLICATION.WEIGHTED_ELEMENTS_COLORS]" weights="[COMPLICATION.WEIGHTED_ELEMENTS_WEIGHTS]" thickness="12" discreteGap="3" cap="ROUND" />
                     </Arc>
                 </PartDraw>
+                <PartImage x="21" y="176" width="17" height="17" tintColor="#FF34D399">
+                    <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+                </PartImage>
                 <PartText x="0" y="0" width="198" height="198">
-                    <TextCircular centerX="-25" centerY="-25" width="426" height="426" startAngle="166.5" endAngle="103.5" direction="COUNTER_CLOCKWISE" align="CENTER" ellipsis="TRUE">
-                        <Font family="ibm_plex_arabic_bold" size="11" color="#E0FFFDF7">
-                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
+                    <TextCircular centerX="-25" centerY="-25" width="426" height="426"
+                        startAngle="111.5" endAngle="99.5" direction="COUNTER_CLOCKWISE" align="CENTER" ellipsis="TRUE">
+                        <Font family="ibm_plex_arabic_bold" size="12" color="#FFFFFDF7">
+                            <Template>%s<Parameter expression="[COMPLICATION.TEXT] != &quot;&quot; ? [COMPLICATION.TEXT] : [COMPLICATION.TITLE]" /></Template>
                         </Font>
                     </TextCircular>
                 </PartText>
             </Complication>
             <Complication type="MONOCHROMATIC_IMAGE">
-                <PartImage x="118" y="118" width="20" height="20">
+                <PartImage x="116" y="116" width="24" height="24" tintColor="#FF34D399">
                     <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                 </PartImage>
             </Complication>
             <Complication type="SMALL_IMAGE">
-                <PartImage x="116" y="116" width="24" height="24">
+                <PartImage x="117" y="117" width="22" height="22">
                     <Image resource="[COMPLICATION.SMALL_IMAGE]" />
                 </PartImage>
             </Complication>
             <Complication type="PHOTO_IMAGE">
-                <PartImage x="116" y="116" width="24" height="24">
+                <PartImage x="117" y="117" width="22" height="22">
                     <Image resource="[COMPLICATION.PHOTO_IMAGE]" />
                 </PartImage>
             </Complication>
