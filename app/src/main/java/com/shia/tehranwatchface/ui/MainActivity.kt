@@ -41,6 +41,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,14 +50,14 @@ class MainActivity : ComponentActivity() {
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
                 MaterialTheme(
                     colors = Colors(
-                        primary = Color(0xFFD4AF37),
-                        primaryVariant = Color(0xFFB38F28),
-                        secondary = Color(0xFF0B3529),
-                        background = Color(0xFF041E17),
-                        surface = Color(0xFF0B3529),
-                        onPrimary = Color.Black,
-                        onBackground = Color(0xFFF5EFE0),
-                        onSurface = Color(0xFFF5EFE0)
+                        primary = Color(0xFFC9A45C),
+                        primaryVariant = Color(0xFFA88642),
+                        secondary = Color(0xFF0B241D),
+                        background = Color(0xFF061813),
+                        surface = Color(0xFF0B241D),
+                        onPrimary = Color(0xFF061813),
+                        onBackground = Color(0xFFEFE8D8),
+                        onSurface = Color(0xFFEFE8D8)
                     )
                 ) {
                     TehranWatchFaceApp()
@@ -132,7 +133,7 @@ fun TehranWatchFaceApp() {
     val hijri = remember(settings.hijriOffsetDays) {
         HijriCalendarHelper.getHijriDate(today, settings.hijriOffsetDays)
     }
-    val fmt = remember { DateTimeFormatter.ofPattern("HH:mm") }
+    val fmt = remember { DateTimeFormatter.ofPattern("h:mm a", Locale("ar")) }
 
     val prayerRows = remember(times) {
         listOf(
@@ -161,7 +162,7 @@ fun TehranWatchFaceApp() {
         ) {
             item {
                 Text(
-                    text = "معهد الجيوفيزياء - طهران",
+                    text = "دار الميقات — طهران",
                     color = MaterialTheme.colors.primary,
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Bold,
@@ -192,7 +193,7 @@ fun TehranWatchFaceApp() {
                                 modifier = Modifier.fillMaxWidth()
                             )
                         },
-                        colors = ChipDefaults.chipColors(backgroundColor = Color(0xFF0E4535)),
+                        colors = ChipDefaults.chipColors(backgroundColor = Color(0xFF0B241D)),
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(bottom = 6.dp)

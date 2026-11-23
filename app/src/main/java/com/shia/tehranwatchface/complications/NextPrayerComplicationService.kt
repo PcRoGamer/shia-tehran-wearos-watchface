@@ -13,14 +13,15 @@ import com.shia.tehranwatchface.ui.MainActivity
 import java.time.Duration
 import java.time.Instant
 import java.time.format.DateTimeFormatter
+import java.util.Locale
 import java.util.concurrent.TimeUnit
 
 class NextPrayerComplicationService : SuspendingComplicationDataSourceService() {
 
-    private val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
+    private val timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale("ar"))
 
     override fun getPreviewData(type: ComplicationType): ComplicationData? {
-        val title = PlainComplicationText.Builder("المغرب 17:20").build()
+        val title = PlainComplicationText.Builder("المغرب • 5:20 م").build()
         val text = PlainComplicationText.Builder("بعد 01:15").build()
         val desc = PlainComplicationText.Builder("الصلاة القادمة حسب معهد طهران").build()
 
@@ -29,12 +30,12 @@ class NextPrayerComplicationService : SuspendingComplicationDataSourceService() 
                 .setTitle(title)
                 .build()
             ComplicationType.SHORT_TEXT -> ShortTextComplicationData.Builder(
-                PlainComplicationText.Builder("17:20").build(), desc
+                PlainComplicationText.Builder("5:20 م").build(), desc
             ).setTitle(PlainComplicationText.Builder("المغرب").build()).build()
             ComplicationType.RANGED_VALUE -> RangedValueComplicationData.Builder(
                 value = 65f, min = 0f, max = 100f, contentDescription = desc
             ).setTitle(PlainComplicationText.Builder("المغرب").build())
-                .setText(PlainComplicationText.Builder("17:20").build())
+                .setText(PlainComplicationText.Builder("5:20 م").build())
                 .build()
             else -> null
         }
@@ -51,7 +52,6 @@ class NextPrayerComplicationService : SuspendingComplicationDataSourceService() 
         )
 
         val formattedTime = next.time.format(timeFormatter)
-        val targetMillis = next.time.toInstant().toEpochMilli()
         val totalWindowSeconds = Duration.between(next.previousTime.toInstant(), next.time.toInstant())
             .seconds.coerceAtLeast(1)
         val elapsedSeconds = Duration.between(next.previousTime.toInstant(), now)
