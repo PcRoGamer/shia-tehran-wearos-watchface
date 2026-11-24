@@ -276,11 +276,12 @@
             <Image resource="cloud_veil" />
         </PartImage>
 
-        <!-- 4. Tapered Sweeping Second Hand BEHIND All UI & Bar Complications -->
+        <!-- 4. Clock hands behind the time and complications -->
         <AnalogClock x="0" y="0" width="450" height="450">
             <Variant mode="AMBIENT" target="alpha" value="0" />
+            <MinuteHand resource="minute_hand" x="219" y="94" width="12" height="150" pivotX="0.5" pivotY="0.87333333" alpha="210" tintColor="[CONFIGURATION.edge_color.0]" />
             <SecondHand resource="second_hand" x="215" y="0" width="20" height="450" pivotX="0.5" pivotY="0.5" tintColor="[CONFIGURATION.edge_color.0]">
-                <Sweep frequency="15" />
+                <Tick duration="0.16" strength="0.72" />
             </SecondHand>
         </AnalogClock>
 
@@ -319,9 +320,16 @@
                                 <Stroke color="#ffffffff" cap="ROUND" thickness="20" />
                             </Arc>
                         </PartDraw>
-                        <PartImage angle="31.25" pivotX="7.0313" x="0" y="121" width="32" height="32" name="Icon_2fb2" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
-                            <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
-                        </PartImage>
+                        <Group angle="31.25" pivotX="7.0313" x="0" y="121" width="32" height="32" name="Icon_2fb2" alpha="255">
+                            <PartDraw x="0" y="0" width="32" height="32">
+                                <Rectangle x="0" y="0" width="32" height="32">
+                                    <Fill color="[CONFIGURATION.edge_color.0]" />
+                                </Rectangle>
+                            </PartDraw>
+                            <PartImage x="0" y="0" width="32" height="32" renderMode="MASK">
+                                <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+                            </PartImage>
+                        </Group>
                         <PartText pivotX="3.7614" pivotY="-0.6902" x="10" y="193" width="57" height="81" name="Text_0f6d" tintColor="[CONFIGURATION.edge_color.0]" alpha="255">
                             <TextCircular align="START" ellipsis="TRUE" width="423" height="423" startAngle="253.75" endAngle="232.5" centerX="215" centerY="-56" direction="COUNTER_CLOCKWISE">
                                 <Font family="SYNC_TO_DEVICE" size="22" weight="NORMAL" slant="NORMAL" color="#ffffffff">
@@ -341,9 +349,16 @@
                                 <Stroke color="#ffffffff" cap="ROUND" thickness="20" />
                             </Arc>
                         </PartDraw>
-                        <PartImage angle="31.25" pivotX="7.0313" x="0" y="121" width="32" height="32" name="Icon_d222" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
-                            <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
-                        </PartImage>
+                        <Group angle="31.25" pivotX="7.0313" x="0" y="121" width="32" height="32" name="Icon_d222" alpha="255">
+                            <PartDraw x="0" y="0" width="32" height="32">
+                                <Rectangle x="0" y="0" width="32" height="32">
+                                    <Fill color="[CONFIGURATION.edge_color.0]" />
+                                </Rectangle>
+                            </PartDraw>
+                            <PartImage x="0" y="0" width="32" height="32" renderMode="MASK">
+                                <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+                            </PartImage>
+                        </Group>
                     </Compare>
                     <Compare expression="rangeTextTitle">
                         <PartDraw pivotX="3.9295999999999998" pivotY="0.9293" x="3" y="9" width="57" height="137" name="ProgressBar_d61f" tintColor="[CONFIGURATION.edge_color.0]" alpha="255">
@@ -460,9 +475,16 @@
                                 </Default>
                             </Condition>
                         </Group>
-                        <PartImage angle="31.25" pivotX="7.0313" x="0" y="121" width="32" height="32" name="Icon_2fb2" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
-                            <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
-                        </PartImage>
+                        <Group angle="31.25" pivotX="7.0313" x="0" y="121" width="32" height="32" name="Icon_2fb2" alpha="255">
+                            <PartDraw x="0" y="0" width="32" height="32">
+                                <Rectangle x="0" y="0" width="32" height="32">
+                                    <Fill color="[CONFIGURATION.edge_color.0]" />
+                                </Rectangle>
+                            </PartDraw>
+                            <PartImage x="0" y="0" width="32" height="32" renderMode="MASK">
+                                <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+                            </PartImage>
+                        </Group>
                         <PartText pivotX="3.7614" pivotY="-0.6902" x="10" y="193" width="57" height="81" name="Text_0f6d" tintColor="[CONFIGURATION.edge_color.0]" alpha="255">
                             <TextCircular align="START" ellipsis="TRUE" width="423" height="423" startAngle="253.75" endAngle="232.5" centerX="215" centerY="-56" direction="COUNTER_CLOCKWISE">
                                 <Font family="SYNC_TO_DEVICE" size="22" weight="NORMAL" slant="NORMAL" color="#ffffffff">
@@ -520,9 +542,16 @@
                                 </Default>
                             </Condition>
                         </Group>
-                        <PartImage angle="31.25" pivotX="7.0313" x="0" y="121" width="32" height="32" name="Icon_d222" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
-                            <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
-                        </PartImage>
+                        <Group angle="31.25" pivotX="7.0313" x="0" y="121" width="32" height="32" name="Icon_d222" alpha="255">
+                            <PartDraw x="0" y="0" width="32" height="32">
+                                <Rectangle x="0" y="0" width="32" height="32">
+                                    <Fill color="[CONFIGURATION.edge_color.0]" />
+                                </Rectangle>
+                            </PartDraw>
+                            <PartImage x="0" y="0" width="32" height="32" renderMode="MASK">
+                                <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+                            </PartImage>
+                        </Group>
                     </Compare>
                     <Compare expression="rangeTextTitleGoalProgress">
                         <Group x="0" y="0" width="59" height="147" name="ProgressBar_d61f" alpha="255">
@@ -722,9 +751,16 @@
                                 <Stroke color="#ffffffff" cap="ROUND" thickness="20" />
                             </Arc>
                         </PartDraw>
-                        <PartImage angle="328.75" pivotX="-6.0313" x="40" y="121" width="32" height="32" name="Icon_25b8" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
-                            <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
-                        </PartImage>
+                        <Group angle="328.75" pivotX="-6.0313" x="40" y="121" width="32" height="32" name="Icon_25b8" alpha="255">
+                            <PartDraw x="0" y="0" width="32" height="32">
+                                <Rectangle x="0" y="0" width="32" height="32">
+                                    <Fill color="[CONFIGURATION.edge_color.0]" />
+                                </Rectangle>
+                            </PartDraw>
+                            <PartImage x="0" y="0" width="32" height="32" renderMode="MASK">
+                                <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+                            </PartImage>
+                        </Group>
                         <PartText pivotX="-2.7614" pivotY="-0.6902" x="5" y="193" width="57" height="81" name="Text_89eb" tintColor="[CONFIGURATION.edge_color.0]" alpha="255">
                             <TextCircular align="END" ellipsis="TRUE" width="423" height="423" startAngle="127.5" endAngle="106.25" centerX="-158" centerY="-56" direction="COUNTER_CLOCKWISE">
                                 <Font family="SYNC_TO_DEVICE" size="22" weight="NORMAL" slant="NORMAL" color="#ffffffff">
@@ -744,9 +780,16 @@
                                 <Stroke color="#ffffffff" cap="ROUND" thickness="20" />
                             </Arc>
                         </PartDraw>
-                        <PartImage angle="328.75" pivotX="-6.0313" x="40" y="121" width="32" height="32" name="Icon_c5fd" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
-                            <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
-                        </PartImage>
+                        <Group angle="328.75" pivotX="-6.0313" x="40" y="121" width="32" height="32" name="Icon_c5fd" alpha="255">
+                            <PartDraw x="0" y="0" width="32" height="32">
+                                <Rectangle x="0" y="0" width="32" height="32">
+                                    <Fill color="[CONFIGURATION.edge_color.0]" />
+                                </Rectangle>
+                            </PartDraw>
+                            <PartImage x="0" y="0" width="32" height="32" renderMode="MASK">
+                                <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+                            </PartImage>
+                        </Group>
                     </Compare>
                     <Compare expression="rangeTextTitle">
                         <PartDraw pivotX="-2.9295999999999998" pivotY="0.9293" x="13" y="9" width="57" height="137" name="ProgressBar_00f6" tintColor="[CONFIGURATION.edge_color.0]" alpha="255">
@@ -863,9 +906,16 @@
                                 </Default>
                             </Condition>
                         </Group>
-                        <PartImage angle="328.75" pivotX="-6.0313" x="40" y="121" width="32" height="32" name="Icon_25b8" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
-                            <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
-                        </PartImage>
+                        <Group angle="328.75" pivotX="-6.0313" x="40" y="121" width="32" height="32" name="Icon_25b8" alpha="255">
+                            <PartDraw x="0" y="0" width="32" height="32">
+                                <Rectangle x="0" y="0" width="32" height="32">
+                                    <Fill color="[CONFIGURATION.edge_color.0]" />
+                                </Rectangle>
+                            </PartDraw>
+                            <PartImage x="0" y="0" width="32" height="32" renderMode="MASK">
+                                <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+                            </PartImage>
+                        </Group>
                         <PartText pivotX="-2.7614" pivotY="-0.6902" x="5" y="193" width="57" height="81" name="Text_89eb" tintColor="[CONFIGURATION.edge_color.0]" alpha="255">
                             <TextCircular align="END" ellipsis="TRUE" width="423" height="423" startAngle="127.5" endAngle="106.25" centerX="-158" centerY="-56" direction="COUNTER_CLOCKWISE">
                                 <Font family="SYNC_TO_DEVICE" size="22" weight="NORMAL" slant="NORMAL" color="#ffffffff">
@@ -923,9 +973,16 @@
                                 </Default>
                             </Condition>
                         </Group>
-                        <PartImage angle="328.75" pivotX="-6.0313" x="40" y="121" width="32" height="32" name="Icon_c5fd" alpha="255" tintColor="[CONFIGURATION.edge_color.0]">
-                            <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
-                        </PartImage>
+                        <Group angle="328.75" pivotX="-6.0313" x="40" y="121" width="32" height="32" name="Icon_c5fd" alpha="255">
+                            <PartDraw x="0" y="0" width="32" height="32">
+                                <Rectangle x="0" y="0" width="32" height="32">
+                                    <Fill color="[CONFIGURATION.edge_color.0]" />
+                                </Rectangle>
+                            </PartDraw>
+                            <PartImage x="0" y="0" width="32" height="32" renderMode="MASK">
+                                <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+                            </PartImage>
+                        </Group>
                     </Compare>
                     <Compare expression="rangeTextTitleGoalProgress">
                         <Group x="0" y="0" width="70" height="147" name="ProgressBar_00f6" alpha="255">
@@ -1105,15 +1162,9 @@
         </ComplicationSlot>
 
         <!-- 6. Center Foreground Stack -->
-        <!-- Top Hijri Date Pill (Slot 1) -->
-        <PartDraw x="147" y="32" width="156" height="27">
-            <Variant mode="AMBIENT" target="alpha" value="0" />
-            <RoundRectangle x="0" y="0" width="156" height="27" cornerRadiusX="16" cornerRadiusY="16">
-                <Fill color="#B5091F37" />
-            </RoundRectangle>
-        </PartDraw>
+        <!-- Curved Hijri date (Slot 1) -->
         <ComplicationSlot
-            x="147" y="32" width="156" height="27"
+            x="116" y="20" width="218" height="51"
             slotId="1"
             displayName="slot_hijri_name"
             supportedTypes="SHORT_TEXT LONG_TEXT RANGED_VALUE GOAL_PROGRESS WEIGHTED_ELEMENTS MONOCHROMATIC_IMAGE SMALL_IMAGE PHOTO_IMAGE" isCustomizable="TRUE">
@@ -1122,15 +1173,15 @@
                 defaultSystemProviderType="SHORT_TEXT"
                 primaryProvider="com.shia.tehranwatchface/com.shia.tehranwatchface.complications.HijriDateComplicationService"
                 primaryProviderType="SHORT_TEXT" />
-            <BoundingRoundBox x="0" y="0" width="156" height="27" cornerRadius="16" />
+            <BoundingBox x="0" y="0" width="218" height="51" />
             <Complication type="SHORT_TEXT">
-                <PartText x="4" y="1" width="148" height="25"><Text align="CENTER"><Font family="ibm_plex_arabic_bold" size="14" weight="BOLD" color="[CONFIGURATION.edge_color.0]"><Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template></Font></Text></PartText>
+                <PartText x="0" y="0" width="218" height="51"><TextCircular centerX="109" centerY="205" width="382" height="382" startAngle="330" endAngle="30" align="CENTER" ellipsis="TRUE"><Font family="ibm_plex_arabic_bold" size="17" weight="BOLD" color="[CONFIGURATION.edge_color.0]"><Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template></Font></TextCircular></PartText>
             </Complication>
             <Complication type="LONG_TEXT">
-                <PartText x="4" y="1" width="148" height="25"><Text align="CENTER"><Font family="ibm_plex_arabic_bold" size="13" weight="BOLD" color="[CONFIGURATION.edge_color.0]"><Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template></Font></Text></PartText>
+                <PartText x="0" y="0" width="218" height="51"><TextCircular centerX="109" centerY="205" width="382" height="382" startAngle="330" endAngle="30" align="CENTER" ellipsis="TRUE"><Font family="ibm_plex_arabic_bold" size="17" weight="BOLD" color="[CONFIGURATION.edge_color.0]"><Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template></Font></TextCircular></PartText>
             </Complication>
             <Complication type="RANGED_VALUE">
-                <PartText x="8" y="0" width="140" height="27">
+                <PartText x="39" y="2" width="140" height="36">
                     <Text align="CENTER" maxLines="1" ellipsis="TRUE">
                         <Font family="ibm_plex_arabic_bold" size="13" color="[CONFIGURATION.theme_color.2]">
                             <Template>%s<Parameter expression="[COMPLICATION.TEXT] != &quot;&quot; ? [COMPLICATION.TEXT] : numberFormat(&quot;0.#&quot;, [COMPLICATION.RANGED_VALUE_VALUE])" /></Template>
@@ -1139,7 +1190,7 @@
                 </PartText>
             </Complication>
             <Complication type="GOAL_PROGRESS">
-                <PartText x="8" y="0" width="140" height="27">
+                <PartText x="39" y="2" width="140" height="36">
                     <Text align="CENTER" maxLines="1" ellipsis="TRUE">
                         <Font family="ibm_plex_arabic_bold" size="13" color="[CONFIGURATION.theme_color.2]">
                             <Template>%s<Parameter expression="[COMPLICATION.TEXT] != &quot;&quot; ? [COMPLICATION.TEXT] : numberFormat(&quot;0.#&quot;, [COMPLICATION.GOAL_PROGRESS_VALUE])" /></Template>
@@ -1148,7 +1199,7 @@
                 </PartText>
             </Complication>
             <Complication type="WEIGHTED_ELEMENTS">
-                <PartText x="8" y="0" width="140" height="27">
+                <PartText x="39" y="2" width="140" height="36">
                     <Text align="CENTER" maxLines="1" ellipsis="TRUE">
                         <Font family="ibm_plex_arabic_bold" size="13" color="[CONFIGURATION.theme_color.2]">
                             <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
@@ -1157,17 +1208,24 @@
                 </PartText>
             </Complication>
             <Complication type="MONOCHROMATIC_IMAGE">
-                <PartImage x="67" y="2" width="23" height="23" tintColor="[CONFIGURATION.edge_color.0]">
-                    <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
-                </PartImage>
+                <Group x="97" y="7" width="24" height="24" name="accent_icon">
+                    <PartDraw x="0" y="0" width="24" height="24">
+                        <Rectangle x="0" y="0" width="24" height="24">
+                            <Fill color="[CONFIGURATION.edge_color.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartImage x="0" y="0" width="24" height="24" renderMode="MASK">
+                        <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+                    </PartImage>
+                </Group>
             </Complication>
             <Complication type="SMALL_IMAGE">
-                <PartImage x="67" y="2" width="23" height="23">
+                <PartImage x="97" y="7" width="24" height="24">
                     <Image resource="[COMPLICATION.SMALL_IMAGE]" />
                 </PartImage>
             </Complication>
             <Complication type="PHOTO_IMAGE">
-                <PartImage x="67" y="2" width="23" height="23">
+                <PartImage x="97" y="7" width="24" height="24">
                     <Image resource="[COMPLICATION.PHOTO_IMAGE]" />
                 </PartImage>
             </Complication>
@@ -1187,15 +1245,20 @@
             </Text>
         </PartText>
 
-        <!-- Compact prayer panel (Slot 2) -->
-        <PartDraw x="97" y="234" width="256" height="58" name="prayer_panel">
+        <!-- Frosted prayer panel (Slot 2) -->
+        <PartDraw x="124" y="233" width="202" height="76" name="prayer_panel">
             <Variant mode="AMBIENT" target="alpha" value="0" />
-            <RoundRectangle x="0" y="0" width="256" height="58" cornerRadiusX="17" cornerRadiusY="17">
-                <Fill color="#E0122946" />
+            <RoundRectangle x="1" y="1" width="200" height="74" cornerRadiusX="22" cornerRadiusY="22">
+                <Fill color="#528EAED1">
+                    <LinearGradient startX="20" startY="0" endX="57" endY="76" colors="#61B9D7F4 #487E9FC8 #48435F8B" positions="0 0.52 1" />
+                </Fill>
+                <Stroke color="#38D9ECFF" thickness="1">
+                    <LinearGradient startX="0" startY="0" endX="0" endY="76" colors="#65DAEDFF #22C4DBF7" positions="0 1" />
+                </Stroke>
             </RoundRectangle>
         </PartDraw>
         <ComplicationSlot
-            x="97" y="234" width="256" height="58"
+            x="124" y="233" width="202" height="76"
             slotId="2"
             displayName="slot_next_prayer_name"
             supportedTypes="SHORT_TEXT LONG_TEXT RANGED_VALUE GOAL_PROGRESS WEIGHTED_ELEMENTS MONOCHROMATIC_IMAGE SMALL_IMAGE PHOTO_IMAGE" isCustomizable="TRUE">
@@ -1204,22 +1267,22 @@
                 defaultSystemProviderType="LONG_TEXT"
                 primaryProvider="com.shia.tehranwatchface/com.shia.tehranwatchface.complications.NextPrayerComplicationService"
                 primaryProviderType="LONG_TEXT" />
-            <BoundingRoundBox x="0" y="0" width="256" height="58" cornerRadius="17" />
+            <BoundingRoundBox x="0" y="0" width="202" height="76" cornerRadius="22" />
             <Complication type="LONG_TEXT">
                 <Condition>
                     <Expressions>
                         <Expression name="twoPrayerLines">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != &quot;&quot; &amp;&amp; [COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != &quot;&quot;</Expression>
                     </Expressions>
                     <Compare expression="twoPrayerLines">
-                        <PartText x="8" y="2" width="240" height="33">
-                            <Variant mode="AMBIENT" target="y" value="13" />
+                        <PartText x="9" y="11" width="184" height="33">
+                            <Variant mode="AMBIENT" target="y" value="22" />
                             <Text align="CENTER" maxLines="1" ellipsis="TRUE">
                                 <Font family="ibm_plex_arabic_bold" size="26" weight="BOLD" color="[CONFIGURATION.edge_color.0]">
                                     <Template>%s<Parameter expression="[COMPLICATION.TITLE]" /></Template>
                                 </Font>
                             </Text>
                         </PartText>
-                        <PartText x="8" y="35" width="240" height="20">
+                        <PartText x="9" y="44" width="184" height="20">
                             <Variant mode="AMBIENT" target="alpha" value="0" />
                             <Text align="CENTER" maxLines="1" ellipsis="TRUE">
                                 <Font family="ibm_plex_arabic_bold" size="16" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
@@ -1229,7 +1292,7 @@
                         </PartText>
                     </Compare>
                     <Default>
-                        <PartText x="8" y="0" width="240" height="58">
+                        <PartText x="9" y="0" width="184" height="76">
                             <Text align="CENTER" maxLines="1" ellipsis="TRUE">
                                 <Font family="ibm_plex_arabic_bold" size="26" weight="BOLD" color="[CONFIGURATION.edge_color.0]">
                                     <Template>%s<Parameter expression="[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != &quot;&quot; ? [COMPLICATION.TITLE] : [COMPLICATION.TEXT]" /></Template>
@@ -1245,15 +1308,15 @@
                         <Expression name="twoPrayerLines">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != &quot;&quot; &amp;&amp; [COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != &quot;&quot;</Expression>
                     </Expressions>
                     <Compare expression="twoPrayerLines">
-                        <PartText x="8" y="2" width="240" height="33">
-                            <Variant mode="AMBIENT" target="y" value="13" />
+                        <PartText x="9" y="11" width="184" height="33">
+                            <Variant mode="AMBIENT" target="y" value="22" />
                             <Text align="CENTER" maxLines="1" ellipsis="TRUE">
                                 <Font family="ibm_plex_arabic_bold" size="26" weight="BOLD" color="[CONFIGURATION.edge_color.0]">
                                     <Template>%s<Parameter expression="[COMPLICATION.TITLE]" /></Template>
                                 </Font>
                             </Text>
                         </PartText>
-                        <PartText x="8" y="35" width="240" height="20">
+                        <PartText x="9" y="44" width="184" height="20">
                             <Variant mode="AMBIENT" target="alpha" value="0" />
                             <Text align="CENTER" maxLines="1" ellipsis="TRUE">
                                 <Font family="ibm_plex_arabic_bold" size="16" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
@@ -1263,7 +1326,7 @@
                         </PartText>
                     </Compare>
                     <Default>
-                        <PartText x="8" y="0" width="240" height="58">
+                        <PartText x="9" y="0" width="184" height="76">
                             <Text align="CENTER" maxLines="1" ellipsis="TRUE">
                                 <Font family="ibm_plex_arabic_bold" size="26" weight="BOLD" color="[CONFIGURATION.edge_color.0]">
                                     <Template>%s<Parameter expression="[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != &quot;&quot; ? [COMPLICATION.TITLE] : [COMPLICATION.TEXT]" /></Template>
@@ -1274,7 +1337,7 @@
                 </Condition>
             </Complication>
             <Complication type="RANGED_VALUE">
-                <PartText x="8" y="0" width="240" height="58">
+                <PartText x="9" y="0" width="184" height="76">
                     <Text align="CENTER" maxLines="1" ellipsis="TRUE">
                         <Font family="ibm_plex_arabic_bold" size="25" color="[CONFIGURATION.theme_color.2]">
                             <Template>%s<Parameter expression="[COMPLICATION.TEXT] != &quot;&quot; ? [COMPLICATION.TEXT] : numberFormat(&quot;0.#&quot;, [COMPLICATION.RANGED_VALUE_VALUE])" /></Template>
@@ -1283,7 +1346,7 @@
                 </PartText>
             </Complication>
             <Complication type="GOAL_PROGRESS">
-                <PartText x="8" y="0" width="240" height="58">
+                <PartText x="9" y="0" width="184" height="76">
                     <Text align="CENTER" maxLines="1" ellipsis="TRUE">
                         <Font family="ibm_plex_arabic_bold" size="25" color="[CONFIGURATION.theme_color.2]">
                             <Template>%s<Parameter expression="[COMPLICATION.TEXT] != &quot;&quot; ? [COMPLICATION.TEXT] : numberFormat(&quot;0.#&quot;, [COMPLICATION.GOAL_PROGRESS_VALUE])" /></Template>
@@ -1292,7 +1355,7 @@
                 </PartText>
             </Complication>
             <Complication type="WEIGHTED_ELEMENTS">
-                <PartText x="8" y="0" width="240" height="58">
+                <PartText x="9" y="0" width="184" height="76">
                     <Text align="CENTER" maxLines="1" ellipsis="TRUE">
                         <Font family="ibm_plex_arabic_bold" size="25" color="[CONFIGURATION.theme_color.2]">
                             <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
@@ -1301,17 +1364,24 @@
                 </PartText>
             </Complication>
             <Complication type="MONOCHROMATIC_IMAGE">
-                <PartImage x="110" y="11" width="36" height="36" tintColor="[CONFIGURATION.edge_color.0]">
-                    <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
-                </PartImage>
+                <Group x="83" y="20" width="36" height="36" name="accent_icon">
+                    <PartDraw x="0" y="0" width="36" height="36">
+                        <Rectangle x="0" y="0" width="36" height="36">
+                            <Fill color="[CONFIGURATION.edge_color.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartImage x="0" y="0" width="36" height="36" renderMode="MASK">
+                        <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+                    </PartImage>
+                </Group>
             </Complication>
             <Complication type="SMALL_IMAGE">
-                <PartImage x="110" y="11" width="36" height="36">
+                <PartImage x="83" y="20" width="36" height="36">
                     <Image resource="[COMPLICATION.SMALL_IMAGE]" />
                 </PartImage>
             </Complication>
             <Complication type="PHOTO_IMAGE">
-                <PartImage x="110" y="11" width="36" height="36">
+                <PartImage x="83" y="20" width="36" height="36">
                     <Image resource="[COMPLICATION.PHOTO_IMAGE]" />
                 </PartImage>
             </Complication>
@@ -1319,7 +1389,7 @@
 
         <!-- UNFOCUSED Secondary Row Below (Slot 3): Prayer After Next -->
         <ComplicationSlot
-            x="95" y="298" width="260" height="28"
+            x="95" y="315" width="260" height="28"
             slotId="3"
             displayName="slot_schedule_name"
             supportedTypes="SHORT_TEXT LONG_TEXT RANGED_VALUE GOAL_PROGRESS WEIGHTED_ELEMENTS MONOCHROMATIC_IMAGE SMALL_IMAGE PHOTO_IMAGE" isCustomizable="TRUE">
@@ -1364,9 +1434,16 @@
                 </PartText>
             </Complication>
             <Complication type="MONOCHROMATIC_IMAGE">
-                <PartImage x="118" y="2" width="24" height="24" tintColor="[CONFIGURATION.edge_color.0]">
-                    <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
-                </PartImage>
+                <Group x="118" y="2" width="24" height="24" name="accent_icon">
+                    <PartDraw x="0" y="0" width="24" height="24">
+                        <Rectangle x="0" y="0" width="24" height="24">
+                            <Fill color="[CONFIGURATION.edge_color.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartImage x="0" y="0" width="24" height="24" renderMode="MASK">
+                        <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+                    </PartImage>
+                </Group>
             </Complication>
             <Complication type="SMALL_IMAGE">
                 <PartImage x="118" y="2" width="24" height="24">
