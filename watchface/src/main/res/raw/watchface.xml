@@ -191,7 +191,9 @@
                         </PartDraw>
                         <!-- Clear blue is shared by all themes when the sun is high. -->
                         <PartDraw name="clear_midday_sky" x="0" y="0" width="450" height="450" alpha="0">
-                            <Transform target="alpha" value="clamp(((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36) - 20) * 7.5, 0, 255) * (1 - (!([WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? 0 : ([WEATHER.CONDITION] == 14 ? 105 : (([WEATHER.CONDITION] &gt;= 2 &amp;&amp; [WEATHER.CONDITION] &lt;= 7) || ([WEATHER.CONDITION] &gt;= 9 &amp;&amp; [WEATHER.CONDITION] &lt;= 13) ? 215 : 0))) / 500.0)" />
+                            <Transform target="alpha" value="clamp(((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36) - 20) * 7.5, 0, 255) * (1 - (!([WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? 0 : ([WEATHER.CONDITION] == 14 ? 105 : (([WEATHER.CONDITION] &gt;= 2 &amp;&amp; [WEATHER.CONDITION] &lt;= 7) || ([WEATHER.CONDITION] &gt;= 9 &amp;&amp; [WEATHER.CONDITION] &lt;= 13) ? 215 : 0))) / 500.0)">
+                                <Animation duration="2.4" interpolation="EASE_IN_OUT" />
+                            </Transform>
                             <Rectangle x="0" y="0" width="450" height="450">
                                 <Fill color="#FFFFFFFF">
                                     <LinearGradient startX="40" startY="0" endX="350" endY="450" colors="#FF1669BA #FF2689D5 #FF65C3F4" positions="0 0.49 1" />
@@ -209,7 +211,9 @@
                             </Rectangle>
                         </PartDraw>
                         <PartImage x="0" y="0" width="450" height="450" alpha="0">
-                            <Transform target="alpha" value="(255 - clamp(((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36) + 6) * 42.5, 0, 255)) * (0.86 - (!([WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? 0 : ([WEATHER.CONDITION] == 14 ? 105 : (([WEATHER.CONDITION] &gt;= 2 &amp;&amp; [WEATHER.CONDITION] &lt;= 7) || ([WEATHER.CONDITION] &gt;= 9 &amp;&amp; [WEATHER.CONDITION] &lt;= 13) ? 215 : 0))) / 330.0)" />
+                            <Transform target="alpha" value="(255 - clamp(((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36) + 6) * 42.5, 0, 255)) * (0.86 - (!([WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? 0 : ([WEATHER.CONDITION] == 14 ? 105 : (([WEATHER.CONDITION] &gt;= 2 &amp;&amp; [WEATHER.CONDITION] &lt;= 7) || ([WEATHER.CONDITION] &gt;= 9 &amp;&amp; [WEATHER.CONDITION] &lt;= 13) ? 215 : 0))) / 330.0)">
+                                <Animation duration="2.4" interpolation="EASE_IN_OUT" />
+                            </Transform>
                             <Image resource="stars" />
                         </PartImage>
                         <PartImage name="night_sky_glow" x="0" y="0" width="510" height="510" alpha="0">
@@ -277,27 +281,37 @@
             <PartImage name="direct_sun" x="0" y="0" width="300" height="300" alpha="0">
                 <Transform target="x" value="[REFERENCE.sunCenterX] - 150" />
                 <Transform target="y" value="[REFERENCE.sunCenterY] - 150" />
-                <Transform target="alpha" value="[REFERENCE.cloudLevel] == 3 ? 0 : 255 * ([REFERENCE.daylightScale] - 1)" />
+                <Transform target="alpha" value="[REFERENCE.cloudLevel] == 3 ? 0 : 255 * ([REFERENCE.daylightScale] - 1)">
+                    <Animation duration="2.4" interpolation="EASE_IN_OUT" />
+                </Transform>
                 <Image resource="sun_glow" />
             </PartImage>
             <PartImage name="broken_cloud" x="-55" y="0" width="560" height="270" alpha="0">
                 <Transform target="x" value="-55 + 12 * sin(([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) / 95.0)" />
                 <Reference name="cloudLeft" source="x" defaultValue="-55" />
-                <Transform target="alpha" value="[REFERENCE.cloudLevel] == 2 ? 255 : 0" />
+                <Transform target="alpha" value="[REFERENCE.cloudLevel] == 2 ? 255 : 0">
+                    <Animation duration="2.4" interpolation="EASE_IN_OUT" />
+                </Transform>
                 <Image resource="cloud_veil" />
             </PartImage>
             <PartImage name="overcast_deck" x="-55" y="0" width="560" height="360" alpha="0">
-                <Transform target="alpha" value="[REFERENCE.cloudLevel] == 3 ? 255 : 0" />
+                <Transform target="alpha" value="[REFERENCE.cloudLevel] == 3 ? 255 : 0">
+                    <Animation duration="2.4" interpolation="EASE_IN_OUT" />
+                </Transform>
                 <Image resource="overcast_clouds" />
             </PartImage>
             <PartImage name="diffuse_overcast_light" x="0" y="0" width="300" height="300" alpha="0">
                 <Transform target="x" value="[REFERENCE.sunCenterX] - 150" />
                 <Transform target="y" value="[REFERENCE.sunCenterY] - 150" />
-                <Transform target="alpha" value="[REFERENCE.cloudLevel] == 3 ? 255 * ([REFERENCE.daylightScale] - 1) : 0" />
+                <Transform target="alpha" value="[REFERENCE.cloudLevel] == 3 ? 255 * ([REFERENCE.daylightScale] - 1) : 0">
+                    <Animation duration="2.4" interpolation="EASE_IN_OUT" />
+                </Transform>
                 <Image resource="sun_diffusion" />
             </PartImage>
             <Group name="backlit_cloud" x="0" y="0" width="450" height="450">
-                <Transform target="alpha" value="[REFERENCE.cloudLevel] == 2 ? 255 * ([REFERENCE.daylightScale] - 1) : 0" />
+                <Transform target="alpha" value="[REFERENCE.cloudLevel] == 2 ? 255 * ([REFERENCE.daylightScale] - 1) : 0">
+                    <Animation duration="2.4" interpolation="EASE_IN_OUT" />
+                </Transform>
                 <PartImage x="0" y="0" width="300" height="300">
                     <Transform target="x" value="[REFERENCE.sunCenterX] - 150" />
                     <Transform target="y" value="[REFERENCE.sunCenterY] - 150" />
