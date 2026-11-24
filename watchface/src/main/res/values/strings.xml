@@ -19,4 +19,13 @@
     <string name="edge_color_blue">أزرق سماوي</string>
     <string name="edge_color_rose">وردي</string>
     <string name="sky_preview_name">محاكاة السماء ٢٤ ساعة</string>
+    <string name="minute_hand_color_name">لون عقرب الدقائق</string>
+    <string name="second_hand_color_name">لون عقرب الثواني</string>
+    <string name="hand_color_silver">فضي</string>
+    <string name="hand_color_red">أحمر</string>
+    <string name="hand_color_white">أبيض</string>
+    <string name="hand_color_gold">ذهبي</string>
+    <string name="hand_color_mint">نعناعي</string>
+    <string name="hand_color_blue">أزرق سماوي</string>
+    <string name="hand_color_rose">وردي</string>
 </resources>

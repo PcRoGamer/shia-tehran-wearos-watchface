@@ -19,6 +19,24 @@
             <ColorOption id="blue" displayName="edge_color_blue" colors="#FF8ED3FF #FF73AACE #1A8ED3FF" />
             <ColorOption id="rose" displayName="edge_color_rose" colors="#FFFFA6C0 #FFCE869B #1AFFA6C0" />
         </ColorConfiguration>
+        <ColorConfiguration id="minute_hand_color" displayName="minute_hand_color_name" defaultValue="silver">
+            <ColorOption id="silver" displayName="hand_color_silver" colors="#FFD1DDEA" />
+            <ColorOption id="red" displayName="hand_color_red" colors="#FFFF5754" />
+            <ColorOption id="white" displayName="hand_color_white" colors="#FFFFFFFF" />
+            <ColorOption id="gold" displayName="hand_color_gold" colors="#FFFFD380" />
+            <ColorOption id="mint" displayName="hand_color_mint" colors="#FF88F7CB" />
+            <ColorOption id="blue" displayName="hand_color_blue" colors="#FF8ED3FF" />
+            <ColorOption id="rose" displayName="hand_color_rose" colors="#FFFFA6C0" />
+        </ColorConfiguration>
+        <ColorConfiguration id="second_hand_color" displayName="second_hand_color_name" defaultValue="red">
+            <ColorOption id="silver" displayName="hand_color_silver" colors="#FFD1DDEA" />
+            <ColorOption id="red" displayName="hand_color_red" colors="#FFFF5754" />
+            <ColorOption id="white" displayName="hand_color_white" colors="#FFFFFFFF" />
+            <ColorOption id="gold" displayName="hand_color_gold" colors="#FFFFD380" />
+            <ColorOption id="mint" displayName="hand_color_mint" colors="#FF88F7CB" />
+            <ColorOption id="blue" displayName="hand_color_blue" colors="#FF8ED3FF" />
+            <ColorOption id="rose" displayName="hand_color_rose" colors="#FFFFA6C0" />
+        </ColorConfiguration>
         <BooleanConfiguration id="sky_preview" displayName="sky_preview_name" defaultValue="FALSE" />
     </UserConfigurations>
 
@@ -280,12 +298,12 @@
         <Group name="clock_hands" x="0" y="0" width="450" height="450">
             <Variant mode="AMBIENT" target="alpha" value="0" />
             <AnalogClock x="0" y="0" width="450" height="450">
-                <MinuteHand resource="minute_hand" x="219" y="94" width="12" height="150" pivotX="0.5" pivotY="0.87333333" alpha="210" tintColor="[CONFIGURATION.edge_color.0]" />
-                <SecondHand resource="second_hand" x="215" y="0" width="20" height="450" pivotX="0.5" pivotY="0.5" tintColor="[CONFIGURATION.edge_color.0]">
+                <MinuteHand resource="minute_hand" x="219" y="94" width="12" height="150" pivotX="0.5" pivotY="0.87333333" alpha="210" tintColor="[CONFIGURATION.minute_hand_color.0]" />
+                <SecondHand resource="second_hand" x="215" y="0" width="20" height="450" pivotX="0.5" pivotY="0.5" tintColor="[CONFIGURATION.second_hand_color.0]">
                     <Tick duration="0.16" strength="0.72" />
                 </SecondHand>
             </AnalogClock>
-            <!-- Only the hands are masked, so the sky remains visible through the card. -->
+            <!-- Soften the hands under the frosted card while keeping their motion visible. -->
             <PartImage x="0" y="0" width="450" height="450" renderMode="MASK">
                 <Image resource="prayer_hand_mask" />
             </PartImage>
