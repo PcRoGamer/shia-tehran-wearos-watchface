@@ -39,66 +39,86 @@
         </ColorConfiguration>
         <BooleanConfiguration id="show_minute_hand" displayName="show_minute_hand_name" defaultValue="TRUE" />
         <BooleanConfiguration id="show_second_hand" displayName="show_second_hand_name" defaultValue="TRUE" />
+        <ListConfiguration id="clock_font" displayName="clock_font_name" defaultValue="0">
+            <ListOption id="0" displayName="clock_font_geometric" />
+            <ListOption id="1" displayName="clock_font_plex" />
+            <ListOption id="2" displayName="clock_font_system" />
+        </ListConfiguration>
         <BooleanConfiguration id="hindi_digits" displayName="hindi_digits_name" defaultValue="FALSE" />
         <BooleanConfiguration id="sky_preview" displayName="sky_preview_name" defaultValue="FALSE" />
     </UserConfigurations>
 
     <Scene backgroundColor="#000000">
-        <Group name="active_sky" x="0" y="0" width="450" height="450">
+        <Group name="sky_color" x="0" y="0" width="450" height="450">
             <Variant mode="AMBIENT" target="alpha" value="0" />
-            <!-- The theme supplies the base sky colors. Wide gradients add atmospheric light. -->
+            <!-- Offset keeps the reference positive all night, including at the fallback minimum. -->
+            <PartDraw x="0" y="0" width="1" height="1" name="solar_elevation">
+                <Transform target="scaleX" value="90 + (([CONFIGURATION.sky_preview] != &quot;TRUE&quot; &amp;&amp; [REFERENCE.skyFrame] &gt; 0) ? (floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36) : 60 * sin((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) - 360) * 3.1415926536 / 720.0))" />
+                <Reference name="solarElevation" source="scaleX" defaultValue="30" />
+                <Rectangle x="0" y="0" width="1" height="1"><Fill color="#00000000" /></Rectangle>
+            </PartDraw>
             <PartDraw x="0" y="0" width="450" height="450">
                 <Rectangle x="0" y="0" width="450" height="450">
                     <Fill color="[CONFIGURATION.theme_color.0]" />
                 </Rectangle>
             </PartDraw>
-            <PartDraw name="day_sky" x="0" y="0" width="450" height="450" alpha="0">
-                <Transform target="alpha" value="((!([CONFIGURATION.sky_preview] == &quot;TRUE&quot;) &amp;&amp; [WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? ([WEATHER.IS_DAY] ? 255 : 0) : clamp((390.0 - abs(([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) - 720)) * 4.25, 0, 255))" />
-                <Rectangle x="0" y="0" width="450" height="450">
-                    <Fill color="[CONFIGURATION.theme_color.3]" />
-                </Rectangle>
-            </PartDraw>
-            <PartDraw name="night_atmosphere" x="0" y="0" width="450" height="450">
-                <Transform target="alpha" value="255 - clamp((390.0 - abs(([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) * 60 + ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 % 60 : [MINUTE]) - 720)) * 4.25, 0, 255)" />
+            <PartDraw name="night_gradient" x="0" y="0" width="450" height="450" alpha="0">
+                <Transform target="alpha" value="255" />
                 <Rectangle x="0" y="0" width="450" height="450">
                     <Fill color="#FFFFFFFF">
-                        <RadialGradient centerX="225" centerY="138" radius="388" colors="#427DD3FC #2E6366F1 #006366F1" positions="0 0.52 1">
-                            <Transform target="centerX" value="72 + clamp(((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &gt;= 12 ? ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) - 18 : ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) + 6) + ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 % 60 : [MINUTE]) / 60.0) / 12.0, 0, 1) * 306" />
-                            <Transform target="centerY" value="198 - 117 * sin(clamp(((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &gt;= 12 ? ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) - 18 : ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) + 6) + ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 % 60 : [MINUTE]) / 60.0) / 12.0, 0, 1) * 3.14159265)" />
-                        </RadialGradient>
+                        <LinearGradient startX="225" startY="8" endX="225" endY="440" colors="#EF050C22 #D115224A #B0232A53" positions="0 0.52 1" />
                     </Fill>
                 </Rectangle>
             </PartDraw>
-            <PartDraw name="day_atmosphere" x="0" y="0" width="450" height="450" alpha="0">
-                <Transform target="alpha" value="((!([CONFIGURATION.sky_preview] == &quot;TRUE&quot;) &amp;&amp; [WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? ([WEATHER.IS_DAY] ? 255 : 0) : clamp((390.0 - abs(([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) - 720)) * 4.25, 0, 255))" />
+            <PartDraw name="blue_hour" x="0" y="0" width="450" height="450" alpha="0">
+                <Transform target="alpha" value="255 * clamp((([REFERENCE.solarElevation] - 90) + 17) / 12, 0, 1)" />
                 <Rectangle x="0" y="0" width="450" height="450">
                     <Fill color="#FFFFFFFF">
-                        <RadialGradient centerX="225" centerY="138" radius="396" colors="#72FBBF24 #4838BDF8 #0038BDF8" positions="0 0.55 1">
-                            <Transform target="centerX" value="72 + clamp(((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) - 6) + ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 % 60 : [MINUTE]) / 60.0) / 12.0, 0, 1) * 306" />
-                            <Transform target="centerY" value="198 - 117 * sin(clamp(((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) - 6) + ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 % 60 : [MINUTE]) / 60.0) / 12.0, 0, 1) * 3.14159265)" />
-                        </RadialGradient>
+                        <LinearGradient startX="225" startY="8" endX="225" endY="440" colors="#FF102248 #FF314A81 #FF6B6189" positions="0 0.53 1" />
                     </Fill>
                 </Rectangle>
             </PartDraw>
-            <!-- Clear blue is shared by all themes when the sun is high. -->
-            <PartDraw name="clear_midday_sky" x="0" y="0" width="450" height="450" alpha="0">
-                <Transform target="alpha" value="((!([CONFIGURATION.sky_preview] == &quot;TRUE&quot;) &amp;&amp; [WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? [WEATHER.IS_DAY] : (([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &gt;= 6 &amp;&amp; ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &lt; 18)) ? clamp((190.0 - abs(([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) - 720)) * 2.55, 0, 255) : 0" />
+            <PartDraw name="daylight_gradient" x="0" y="0" width="450" height="450" alpha="0">
+                <Transform target="alpha" value="255 * clamp((([REFERENCE.solarElevation] - 90) + 5) / 19, 0, 1)" />
                 <Rectangle x="0" y="0" width="450" height="450">
                     <Fill color="#FFFFFFFF">
-                        <LinearGradient startX="40" startY="0" endX="350" endY="450" colors="#FF1669BA #FF2689D5 #FF65C3F4" positions="0 0.49 1" />
+                        <LinearGradient startX="225" startY="8" endX="225" endY="440" colors="#FF145A9C #FF347FC0 #FF8AB8D4" positions="0 0.52 1" />
                     </Fill>
                 </Rectangle>
             </PartDraw>
-            <PartDraw name="twilight_atmosphere" x="0" y="0" width="450" height="450" alpha="0">
-                <Transform target="alpha" value="(!([CONFIGURATION.sky_preview] == &quot;TRUE&quot;) &amp;&amp; [WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? ([WEATHER.HOURS.1.IS_AVAILABLE] &amp;&amp; [WEATHER.IS_DAY] != [WEATHER.HOURS.1.IS_DAY] ? ([WEATHER.IS_DAY] ? 175 : 90) : 0) : clamp((90.0 - abs(([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) - (([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &lt; 12 ? 360 : 1080))) * 255.0 / 90.0, 0, 255)" />
+            <PartDraw name="high_sun_blue" x="0" y="0" width="450" height="450" alpha="0">
+                <Transform target="alpha" value="255 * clamp((([REFERENCE.solarElevation] - 90) - 15) / 29, 0, 1) * ([REFERENCE.cloudLevel] == 3 ? 0.48 : 1)">
+                    <Animation duration="2.4" interpolation="EASE_IN_OUT" />
+                </Transform>
                 <Rectangle x="0" y="0" width="450" height="450">
                     <Fill color="#FFFFFFFF">
-                        <RadialGradient centerX="72" centerY="198" radius="365" colors="#B8FB923C #68BE185D #00BE185D" positions="0 0.52 1">
-                            <Transform target="centerX" value="(!([CONFIGURATION.sky_preview] == &quot;TRUE&quot;) &amp;&amp; [WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) &amp;&amp; [WEATHER.HOURS.1.IS_AVAILABLE] ? ([WEATHER.IS_DAY] ? 378 : 72) : (([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &lt; 12 ? 72 : 378)" />
-                        </RadialGradient>
+                        <LinearGradient startX="225" startY="8" endX="225" endY="440" colors="#FF104F9E #FF267FC9 #FF68BBEA" positions="0 0.55 1" />
                     </Fill>
                 </Rectangle>
             </PartDraw>
+            <PartDraw name="low_sun_horizon" x="0" y="0" width="450" height="450" alpha="0">
+                <Transform target="alpha" value="245 * clamp(1 - abs(([REFERENCE.solarElevation] - 90) + 1) / 15, 0, 1)" />
+                <Rectangle x="0" y="0" width="450" height="450">
+                    <Fill color="#FFFFFFFF">
+                        <LinearGradient startX="225" startY="8" endX="225" endY="440" colors="#00485882 #0679709D #ADCE7E8F #E8FDB28D" positions="0 0.33 0.72 1" />
+                    </Fill>
+                </Rectangle>
+            </PartDraw>
+            <PartDraw name="overcast_ambient" x="0" y="0" width="450" height="450" alpha="0">
+                <Transform target="alpha" value="[REFERENCE.cloudLevel] == 3 ? 170 * clamp((([REFERENCE.solarElevation] - 90) + 8) / 20, 0, 1) : 0">
+                    <Animation duration="2.4" interpolation="EASE_IN_OUT" />
+                </Transform>
+                <Rectangle x="0" y="0" width="450" height="450">
+                    <Fill color="#FFFFFFFF">
+                        <LinearGradient startX="225" startY="8" endX="225" endY="440" colors="#FF4B6586 #FF6A8096 #FF9DAEBB" positions="0 0.45 1" />
+                    </Fill>
+                </Rectangle>
+            </PartDraw>
+        </Group>
+
+        <Group name="active_sky" x="0" y="0" width="450" height="450">
+            <Variant mode="AMBIENT" target="alpha" value="0" />
+            <Transform target="alpha" value="([CONFIGURATION.sky_preview] != &quot;TRUE&quot; &amp;&amp; [REFERENCE.skyFrame] &gt; 0) ? 0 : 255" />
             <PartImage x="0" y="0" width="450" height="450" alpha="0">
                 <Transform target="alpha" value="220 - ((!([CONFIGURATION.sky_preview] == &quot;TRUE&quot;) &amp;&amp; [WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? ([WEATHER.IS_DAY] ? 255 : 0) : clamp((390.0 - abs(([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) - 720)) * 4.25, 0, 255)) * 220.0 / 255.0" />
                 <Image resource="stars" />
@@ -156,60 +176,6 @@
                 </Expressions>
                 <Compare expression="locationSky">
                     <Group name="local_atmosphere" x="0" y="0" width="450" height="450">
-                        <PartDraw x="0" y="0" width="450" height="450">
-                            <Rectangle x="0" y="0" width="450" height="450">
-                                <Fill color="[CONFIGURATION.theme_color.0]" />
-                            </Rectangle>
-                        </PartDraw>
-                        <PartDraw name="day_sky" x="0" y="0" width="450" height="450" alpha="0">
-                            <Transform target="alpha" value="clamp(((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36) + 6) * 42.5, 0, 255)" />
-                            <Rectangle x="0" y="0" width="450" height="450">
-                                <Fill color="[CONFIGURATION.theme_color.3]" />
-                            </Rectangle>
-                        </PartDraw>
-                        <PartDraw name="night_atmosphere" x="0" y="0" width="450" height="450">
-                            <Transform target="alpha" value="255 - clamp(((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36) + 6) * 42.5, 0, 255)" />
-                            <Rectangle x="0" y="0" width="450" height="450">
-                                <Fill color="#FFFFFFFF">
-                                    <RadialGradient centerX="225" centerY="138" radius="388" colors="#427DD3FC #2E6366F1 #006366F1" positions="0 0.52 1">
-                                        <Transform target="centerX" value="(72.0 + (floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 64.0) % 64) * 306.0 / 63.0)" />
-                                        <Transform target="centerY" value="(198.0 - clamp((([REFERENCE.skyFrame] * 16777216.0 - 1) % 64 * 2 - 36), 0, 90) * 1.3)" />
-                                    </RadialGradient>
-                                </Fill>
-                            </Rectangle>
-                        </PartDraw>
-                        <PartDraw name="day_atmosphere" x="0" y="0" width="450" height="450" alpha="0">
-                            <Transform target="alpha" value="clamp(((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36) + 6) * 42.5, 0, 255)" />
-                            <Rectangle x="0" y="0" width="450" height="450">
-                                <Fill color="#FFFFFFFF">
-                                    <RadialGradient centerX="225" centerY="138" radius="396" colors="#72FBBF24 #4838BDF8 #0038BDF8" positions="0 0.55 1">
-                                        <Transform target="centerX" value="(72.0 + floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 262144.0) * 306.0 / 63.0)" />
-                                        <Transform target="centerY" value="(198.0 - clamp((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36), 0, 90) * 1.3)" />
-                                    </RadialGradient>
-                                </Fill>
-                            </Rectangle>
-                        </PartDraw>
-                        <!-- Clear blue is shared by all themes when the sun is high. -->
-                        <PartDraw name="clear_midday_sky" x="0" y="0" width="450" height="450" alpha="0">
-                            <Transform target="alpha" value="clamp(((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36) - 20) * 7.5, 0, 255) * (1 - (!([WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? 0 : ([WEATHER.CONDITION] == 14 ? 105 : (([WEATHER.CONDITION] &gt;= 2 &amp;&amp; [WEATHER.CONDITION] &lt;= 7) || ([WEATHER.CONDITION] &gt;= 9 &amp;&amp; [WEATHER.CONDITION] &lt;= 13) ? 215 : 0))) / 500.0)">
-                                <Animation duration="2.4" interpolation="EASE_IN_OUT" />
-                            </Transform>
-                            <Rectangle x="0" y="0" width="450" height="450">
-                                <Fill color="#FFFFFFFF">
-                                    <LinearGradient startX="40" startY="0" endX="350" endY="450" colors="#FF1669BA #FF2689D5 #FF65C3F4" positions="0 0.49 1" />
-                                </Fill>
-                            </Rectangle>
-                        </PartDraw>
-                        <PartDraw name="twilight_atmosphere" x="0" y="0" width="450" height="450" alpha="0">
-                            <Transform target="alpha" value="clamp((12.0 - abs((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36))) * 18, 0, 216)" />
-                            <Rectangle x="0" y="0" width="450" height="450">
-                                <Fill color="#FFFFFFFF">
-                                    <RadialGradient centerX="72" centerY="198" radius="365" colors="#B8FB923C #68BE185D #00BE185D" positions="0 0.52 1">
-                                        <Transform target="centerX" value="(72.0 + floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 262144.0) * 306.0 / 63.0)" />
-                                    </RadialGradient>
-                                </Fill>
-                            </Rectangle>
-                        </PartDraw>
                         <PartImage x="0" y="0" width="450" height="450" alpha="0">
                             <Transform target="alpha" value="(255 - clamp(((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36) + 6) * 42.5, 0, 255)) * (0.86 - (!([WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? 0 : ([WEATHER.CONDITION] == 14 ? 105 : (([WEATHER.CONDITION] &gt;= 2 &amp;&amp; [WEATHER.CONDITION] &lt;= 7) || ([WEATHER.CONDITION] &gt;= 9 &amp;&amp; [WEATHER.CONDITION] &lt;= 13) ? 215 : 0))) / 330.0)">
                                 <Animation duration="2.4" interpolation="EASE_IN_OUT" />
@@ -269,8 +235,8 @@
             <Variant mode="AMBIENT" target="alpha" value="0" />
             <PartDraw name="solar_parameters" x="0" y="0" width="1" height="1">
                 <Transform target="x" value="150 + (([CONFIGURATION.sky_preview] != &quot;TRUE&quot; &amp;&amp; [REFERENCE.skyFrame] &gt; 0) ? ((72.0 + floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 262144.0) * 306.0 / 63.0) - 150) : (-78 + clamp((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) - 360) / 720.0, 0, 1) * 306))" />
-                <Transform target="y" value="150 + (([CONFIGURATION.sky_preview] != &quot;TRUE&quot; &amp;&amp; [REFERENCE.skyFrame] &gt; 0) ? ((198.0 - clamp((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36), 0, 90) * 1.3) - 150) : (48 - 117 * sin(clamp((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) - 360) / 720.0, 0, 1) * 3.14159265)))" />
-                <Transform target="scaleY" value="1 + ((([CONFIGURATION.sky_preview] != &quot;TRUE&quot; &amp;&amp; [REFERENCE.skyFrame] &gt; 0) ? (((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36) &gt;= 0 ? 255 : 0)) : ((((!([CONFIGURATION.sky_preview] == &quot;TRUE&quot;) &amp;&amp; [WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? [WEATHER.IS_DAY] : (([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &gt;= 6 &amp;&amp; ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &lt; 18)) ? 255 : 0))) / 255)" />
+                <Transform target="y" value="252 - 174 * (1 - pow(1 - clamp(([REFERENCE.solarElevation] - 90) / 43, 0, 1), 2.2))" />
+                <Transform target="scaleY" value="1 + clamp((([REFERENCE.solarElevation] - 90) + 1.5) / 3.0, 0, 1)" />
                 <Transform target="scaleX" value="1 + ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? ([SECOND] &lt; 33 || [SECOND] &gt;= 45 ? 0 : [SECOND] &lt; 39 ? 1 : 2) : ([WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR] ? ([WEATHER.CONDITION] == 14 ? 1 : (([WEATHER.CONDITION] &gt;= 2 &amp;&amp; [WEATHER.CONDITION] &lt;= 7) || ([WEATHER.CONDITION] &gt;= 9 &amp;&amp; [WEATHER.CONDITION] &lt;= 13) ? 2 : 0)) : 0))" />
                 <Reference name="sunCenterX" source="x" defaultValue="0" />
                 <Reference name="sunCenterY" source="y" defaultValue="0" />
@@ -278,14 +244,17 @@
                 <Reference name="cloudLevel" source="scaleX" defaultValue="1" />
                 <Rectangle x="0" y="0" width="1" height="1"><Fill color="#00000000" /></Rectangle>
             </PartDraw>
-            <PartImage name="direct_sun" x="0" y="0" width="300" height="300" alpha="0">
-                <Transform target="x" value="[REFERENCE.sunCenterX] - 150" />
-                <Transform target="y" value="[REFERENCE.sunCenterY] - 150" />
-                <Transform target="alpha" value="[REFERENCE.cloudLevel] == 3 ? 0 : 255 * ([REFERENCE.daylightScale] - 1)">
-                    <Animation duration="2.4" interpolation="EASE_IN_OUT" />
-                </Transform>
-                <Image resource="sun_glow" />
-            </PartImage>
+            <Group name="direct_sun_daylight" x="0" y="0" width="450" height="450">
+                <Transform target="alpha" value="255 * ([REFERENCE.daylightScale] - 1)" />
+                <PartImage name="direct_sun" x="0" y="0" width="300" height="300" alpha="0">
+                    <Transform target="x" value="[REFERENCE.sunCenterX] - 150" />
+                    <Transform target="y" value="[REFERENCE.sunCenterY] - 150" />
+                    <Transform target="alpha" value="[REFERENCE.cloudLevel] == 3 ? 0 : 255">
+                        <Animation duration="2.4" interpolation="EASE_IN_OUT" />
+                    </Transform>
+                    <Image resource="sun_glow" />
+                </PartImage>
+            </Group>
             <PartImage name="broken_cloud" x="-55" y="0" width="560" height="270" alpha="0">
                 <Transform target="x" value="-55 + 12 * sin(([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) / 95.0)" />
                 <Reference name="cloudLeft" source="x" defaultValue="-55" />
@@ -300,27 +269,33 @@
                 </Transform>
                 <Image resource="overcast_clouds" />
             </PartImage>
-            <PartImage name="diffuse_overcast_light" x="0" y="0" width="300" height="300" alpha="0">
-                <Transform target="x" value="[REFERENCE.sunCenterX] - 150" />
-                <Transform target="y" value="[REFERENCE.sunCenterY] - 150" />
-                <Transform target="alpha" value="[REFERENCE.cloudLevel] == 3 ? 255 * ([REFERENCE.daylightScale] - 1) : 0">
-                    <Animation duration="2.4" interpolation="EASE_IN_OUT" />
-                </Transform>
-                <Image resource="sun_diffusion" />
-            </PartImage>
-            <Group name="backlit_cloud" x="0" y="0" width="450" height="450">
-                <Transform target="alpha" value="[REFERENCE.cloudLevel] == 2 ? 255 * ([REFERENCE.daylightScale] - 1) : 0">
-                    <Animation duration="2.4" interpolation="EASE_IN_OUT" />
-                </Transform>
-                <PartImage x="0" y="0" width="300" height="300">
+            <Group name="diffuse_overcast_light_daylight" x="0" y="0" width="450" height="450">
+                <Transform target="alpha" value="255 * ([REFERENCE.daylightScale] - 1)" />
+                <PartImage name="diffuse_overcast_light" x="0" y="0" width="300" height="300" alpha="0">
                     <Transform target="x" value="[REFERENCE.sunCenterX] - 150" />
                     <Transform target="y" value="[REFERENCE.sunCenterY] - 150" />
+                    <Transform target="alpha" value="[REFERENCE.cloudLevel] == 3 ? 255 : 0">
+                        <Animation duration="2.4" interpolation="EASE_IN_OUT" />
+                    </Transform>
                     <Image resource="sun_diffusion" />
                 </PartImage>
-                <PartImage x="-55" y="0" width="560" height="270" renderMode="MASK">
-                    <Transform target="x" value="[REFERENCE.cloudLeft]" />
-                    <Image resource="cloud_veil" />
-                </PartImage>
+            </Group>
+            <Group name="backlit_cloud_daylight" x="0" y="0" width="450" height="450">
+                <Transform target="alpha" value="255 * ([REFERENCE.daylightScale] - 1)" />
+                <Group name="backlit_cloud" x="0" y="0" width="450" height="450">
+                    <Transform target="alpha" value="[REFERENCE.cloudLevel] == 2 ? 255 : 0">
+                        <Animation duration="2.4" interpolation="EASE_IN_OUT" />
+                    </Transform>
+                    <PartImage x="0" y="0" width="300" height="300">
+                        <Transform target="x" value="[REFERENCE.sunCenterX] - 150" />
+                        <Transform target="y" value="[REFERENCE.sunCenterY] - 150" />
+                        <Image resource="sun_diffusion" />
+                    </PartImage>
+                    <PartImage x="-55" y="0" width="560" height="270" renderMode="MASK">
+                        <Transform target="x" value="[REFERENCE.cloudLeft]" />
+                        <Image resource="cloud_veil" />
+                    </PartImage>
+                </Group>
             </Group>
         </Group>
 
@@ -1359,37 +1334,132 @@
             </Complication>
         </ComplicationSlot>
 
-        <!-- Keep the period and the digits on one typographic baseline. -->
-        <PartText name="western_clock_digits" x="52" y="96" width="346" height="96">
-            <Transform target="alpha" value="[CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? 0 : 255" />
-            <Text align="CENTER" maxLines="1">
-                <Font family="ibm_plex_arabic_bold" size="20" color="[CONFIGURATION.edge_color.0]">
-                    <Template>&#x200E;&#x2067;%s&#x2069;&#x2002;<Parameter expression="[HOUR_0_23] &lt; 4 || [HOUR_0_23] &gt;= 21 ? &quot;ليلًا&quot; : [HOUR_0_23] &lt; 6 ? &quot;فجرًا&quot; : [HOUR_0_23] &lt; 12 ? &quot;صباحًا&quot; : [HOUR_0_23] &lt; 15 ? &quot;ظهرًا&quot; : [HOUR_0_23] &lt; 18 ? &quot;عصرًا&quot; : &quot;مساءً&quot;" /></Template>
-                </Font>
-                <Font family="outfit_bold" size="82" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
-                    <Template>%d:%02d
-                        <Parameter expression="([HOUR_0_23] + 11) % 12 + 1" />
-                        <Parameter expression="[MINUTE]" />
-                    </Template>
-                </Font>
-            </Text>
-        </PartText>
-        <PartText name="hindi_clock_digits" x="52" y="96" width="346" height="96">
-            <Transform target="alpha" value="[CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? 255 : 0" />
-            <Text align="CENTER" maxLines="1">
-                <Font family="ibm_plex_arabic_bold" size="20" color="[CONFIGURATION.edge_color.0]">
-                    <Template>&#x200E;&#x2067;%s&#x2069;&#x2002;<Parameter expression="[HOUR_0_23] &lt; 4 || [HOUR_0_23] &gt;= 21 ? &quot;ليلًا&quot; : [HOUR_0_23] &lt; 6 ? &quot;فجرًا&quot; : [HOUR_0_23] &lt; 12 ? &quot;صباحًا&quot; : [HOUR_0_23] &lt; 15 ? &quot;ظهرًا&quot; : [HOUR_0_23] &lt; 18 ? &quot;عصرًا&quot; : &quot;مساءً&quot;" /></Template>
-                </Font>
-                <Font family="ibm_plex_arabic_bold" size="82" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
-                    <Template>%s%s:%s%s
-                        <Parameter expression="(([HOUR_0_23] + 11) % 12 + 1) &gt;= 10 ? subText(&quot;٠١٢٣٤٥٦٧٨٩&quot;, floor((([HOUR_0_23] + 11) % 12 + 1) / 10), (floor((([HOUR_0_23] + 11) % 12 + 1) / 10)) + 1) : &quot;&quot;" />
-                        <Parameter expression="subText(&quot;٠١٢٣٤٥٦٧٨٩&quot;, (([HOUR_0_23] + 11) % 12 + 1) % 10, ((([HOUR_0_23] + 11) % 12 + 1) % 10) + 1)" />
-                        <Parameter expression="subText(&quot;٠١٢٣٤٥٦٧٨٩&quot;, floor([MINUTE] / 10), (floor([MINUTE] / 10)) + 1)" />
-                        <Parameter expression="subText(&quot;٠١٢٣٤٥٦٧٨٩&quot;, [MINUTE] % 10, ([MINUTE] % 10) + 1)" />
-                    </Template>
-                </Font>
-            </Text>
-        </PartText>
+        <!-- Align the digits around the center colon. -->
+        <ListConfiguration id="clock_font">
+            <ListOption id="0">
+                <Group name="clock_font_0" x="0" y="0" width="450" height="450">
+                    <Group name="geometric_latin" x="0" y="0" width="450" height="450">
+                        <Transform target="alpha" value="[CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? 0 : 255" />
+                        <PartText name="hours" x="47" y="92" width="164" height="96">
+                            <Text align="END" maxLines="1">
+                                <Font family="outfit_bold" size="82" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
+                                    <Template>%s%s
+                                        <Parameter expression="(([HOUR_0_23] + 11) % 12 + 1) &gt;= 10 ? subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), floor((([HOUR_0_23] + 11) % 12 + 1) / 10), (floor((([HOUR_0_23] + 11) % 12 + 1) / 10)) + 1) : &quot;&quot;" />
+                                        <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), (([HOUR_0_23] + 11) % 12 + 1) % 10, ((([HOUR_0_23] + 11) % 12 + 1) % 10) + 1)" />
+                                    </Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                        <PartText name="minutes" x="239" y="92" width="164" height="96">
+                            <Text align="START" maxLines="1">
+                                <Font family="outfit_bold" size="82" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
+                                    <Template>%s%s
+                                        <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), floor([MINUTE] / 10), (floor([MINUTE] / 10)) + 1)" />
+                                        <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), [MINUTE] % 10, ([MINUTE] % 10) + 1)" />
+                                    </Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                    </Group>
+                    <Group name="geometric_arabic" x="0" y="0" width="450" height="450">
+                        <Transform target="alpha" value="[CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? 255 : 0" />
+                        <PartText name="hours" x="47" y="92" width="164" height="96">
+                            <Text align="END" maxLines="1">
+                                <Font family="ibm_plex_arabic_bold" size="82" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
+                                    <Template>%s%s
+                                        <Parameter expression="(([HOUR_0_23] + 11) % 12 + 1) &gt;= 10 ? subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), floor((([HOUR_0_23] + 11) % 12 + 1) / 10), (floor((([HOUR_0_23] + 11) % 12 + 1) / 10)) + 1) : &quot;&quot;" />
+                                        <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), (([HOUR_0_23] + 11) % 12 + 1) % 10, ((([HOUR_0_23] + 11) % 12 + 1) % 10) + 1)" />
+                                    </Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                        <PartText name="minutes" x="239" y="92" width="164" height="96">
+                            <Text align="START" maxLines="1">
+                                <Font family="ibm_plex_arabic_bold" size="82" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
+                                    <Template>%s%s
+                                        <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), floor([MINUTE] / 10), (floor([MINUTE] / 10)) + 1)" />
+                                        <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), [MINUTE] % 10, ([MINUTE] % 10) + 1)" />
+                                    </Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                    </Group>
+                </Group>
+            </ListOption>
+            <ListOption id="1">
+                <Group name="clock_font_1" x="0" y="0" width="450" height="450">
+                    <PartText name="hours" x="47" y="92" width="164" height="96">
+                        <Text align="END" maxLines="1">
+                            <Font family="ibm_plex_arabic_bold" size="82" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
+                                <Template>%s%s
+                                    <Parameter expression="(([HOUR_0_23] + 11) % 12 + 1) &gt;= 10 ? subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), floor((([HOUR_0_23] + 11) % 12 + 1) / 10), (floor((([HOUR_0_23] + 11) % 12 + 1) / 10)) + 1) : &quot;&quot;" />
+                                    <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), (([HOUR_0_23] + 11) % 12 + 1) % 10, ((([HOUR_0_23] + 11) % 12 + 1) % 10) + 1)" />
+                                </Template>
+                            </Font>
+                        </Text>
+                    </PartText>
+                    <PartText name="minutes" x="239" y="92" width="164" height="96">
+                        <Text align="START" maxLines="1">
+                            <Font family="ibm_plex_arabic_bold" size="82" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
+                                <Template>%s%s
+                                    <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), floor([MINUTE] / 10), (floor([MINUTE] / 10)) + 1)" />
+                                    <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), [MINUTE] % 10, ([MINUTE] % 10) + 1)" />
+                                </Template>
+                            </Font>
+                        </Text>
+                    </PartText>
+                </Group>
+            </ListOption>
+            <ListOption id="2">
+                <Group name="clock_font_2" x="0" y="0" width="450" height="450">
+                    <PartText name="hours" x="47" y="92" width="164" height="96">
+                        <Text align="END" maxLines="1">
+                            <Font family="SYNC_TO_DEVICE" size="82" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
+                                <Template>%s%s
+                                    <Parameter expression="(([HOUR_0_23] + 11) % 12 + 1) &gt;= 10 ? subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), floor((([HOUR_0_23] + 11) % 12 + 1) / 10), (floor((([HOUR_0_23] + 11) % 12 + 1) / 10)) + 1) : &quot;&quot;" />
+                                    <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), (([HOUR_0_23] + 11) % 12 + 1) % 10, ((([HOUR_0_23] + 11) % 12 + 1) % 10) + 1)" />
+                                </Template>
+                            </Font>
+                        </Text>
+                    </PartText>
+                    <PartText name="minutes" x="239" y="92" width="164" height="96">
+                        <Text align="START" maxLines="1">
+                            <Font family="SYNC_TO_DEVICE" size="82" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
+                                <Template>%s%s
+                                    <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), floor([MINUTE] / 10), (floor([MINUTE] / 10)) + 1)" />
+                                    <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), [MINUTE] % 10, ([MINUTE] % 10) + 1)" />
+                                </Template>
+                            </Font>
+                        </Text>
+                    </PartText>
+                </Group>
+            </ListOption>
+        </ListConfiguration>
+        <PartDraw name="clock_separator" x="219" y="129" width="12" height="36">
+            <Ellipse x="0" y="0" width="12" height="12">
+                <Fill color="[CONFIGURATION.theme_color.2]" />
+            </Ellipse>
+            <Ellipse x="0" y="24" width="12" height="12">
+                <Fill color="[CONFIGURATION.theme_color.2]" />
+            </Ellipse>
+        </PartDraw>
+        <Group name="clock_period_badge" x="256" y="166" width="78" height="28">
+            <Transform target="x" value="239 + ([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? (floor([MINUTE] / 10) &lt; 2 ? 24 : 44) : ([CONFIGURATION.clock_font] == &quot;0&quot; ? (floor([MINUTE] / 10) == 0 ? 55 : floor([MINUTE] / 10) == 1 ? 31 : 47) : 46)) + ([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? ([MINUTE] % 10 &lt; 2 ? 24 : 44) : ([CONFIGURATION.clock_font] == &quot;0&quot; ? ([MINUTE] % 10 == 0 ? 55 : [MINUTE] % 10 == 1 ? 31 : 47) : 46)) - 76" />
+            <Variant mode="AMBIENT" target="y" value="183" />
+            <PartDraw x="0" y="0" width="78" height="28">
+                <Variant mode="AMBIENT" target="alpha" value="0" />
+                <RoundRectangle x="1" y="1" width="76" height="26" cornerRadiusX="5" cornerRadiusY="5">
+                    <Fill color="#E0102339" />
+                </RoundRectangle>
+            </PartDraw>
+            <PartText name="clock_day_period" x="4" y="0" width="67" height="27">
+                <Text align="END" maxLines="1">
+                    <Font family="ibm_plex_arabic_bold" size="18" color="[CONFIGURATION.edge_color.0]">
+                        <Template>%s<Parameter expression="[HOUR_0_23] &lt; 4 || [HOUR_0_23] &gt;= 21 ? &quot;ليلًا&quot; : [HOUR_0_23] &lt; 6 ? &quot;فجرًا&quot; : [HOUR_0_23] &lt; 12 ? &quot;صباحًا&quot; : [HOUR_0_23] &lt; 15 ? &quot;ظهرًا&quot; : [HOUR_0_23] &lt; 18 ? &quot;عصرًا&quot; : &quot;مساءً&quot;" /></Template>
+                    </Font>
+                </Text>
+            </PartText>
+        </Group>
 
         <!-- Frosted prayer panel (Slot 2) -->
         <PartDraw x="124" y="233" width="202" height="76" name="prayer_panel">
