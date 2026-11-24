@@ -109,12 +109,6 @@
                 <Transform target="y" value="-57 - 117 * sin(clamp(((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &gt;= 12 ? ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) - 18 : ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) + 6) + ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 % 60 : [MINUTE]) / 60.0) / 12.0, 0, 1) * 3.14159265)" />
                 <Image resource="night_glow" />
             </PartImage>
-            <PartImage name="sun_with_atmosphere" x="0" y="0" width="300" height="300" alpha="0">
-                <Transform target="alpha" value="(((!([CONFIGURATION.sky_preview] == &quot;TRUE&quot;) &amp;&amp; [WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? [WEATHER.IS_DAY] : (([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &gt;= 6 &amp;&amp; ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &lt; 18)) ? 255 : 0) * (1 - (([CONFIGURATION.sky_preview] == &quot;TRUE&quot;) ? (floor([SECOND] * 0.4) &gt;= 14 &amp;&amp; floor([SECOND] * 0.4) &lt; 17 ? 185 : 0) : (!([WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? 0 : ([WEATHER.CONDITION] == 14 ? 105 : (([WEATHER.CONDITION] &gt;= 2 &amp;&amp; [WEATHER.CONDITION] &lt;= 7) || ([WEATHER.CONDITION] &gt;= 9 &amp;&amp; [WEATHER.CONDITION] &lt;= 13) ? 215 : 0)))) / 310.0)" />
-                <Transform target="x" value="-78 + clamp((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) - 360) / 720.0, 0, 1) * 306" />
-                <Transform target="y" value="48 - 117 * sin(clamp((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) - 360) / 720.0, 0, 1) * 3.14159265)" />
-                <Image resource="sun_glow" />
-            </PartImage>
             <Group name="moon" x="0" y="0" width="240" height="240" alpha="0">
                 <Transform target="alpha" value="((!([CONFIGURATION.sky_preview] == &quot;TRUE&quot;) &amp;&amp; [WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? [WEATHER.IS_DAY] : (([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &gt;= 6 &amp;&amp; ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &lt; 18)) ? 0 : 255" />
                 <Transform target="x" value="-48 + clamp(((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &gt;= 12 ? ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) - 18 : ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) + 6) + ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 % 60 : [MINUTE]) / 60.0) / 12.0, 0, 1) * 306" />
@@ -224,12 +218,6 @@
                             <Transform target="y" value="(198.0 - clamp((([REFERENCE.skyFrame] * 16777216.0 - 1) % 64 * 2 - 36), 0, 90) * 1.3) - 255" />
                             <Image resource="night_glow" />
                         </PartImage>
-                        <PartImage name="sun_with_atmosphere" x="0" y="0" width="300" height="300" alpha="0">
-                            <Transform target="alpha" value="((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36) &gt;= 0 ? 255 : 0) * (1 - (!([WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? 0 : ([WEATHER.CONDITION] == 14 ? 105 : (([WEATHER.CONDITION] &gt;= 2 &amp;&amp; [WEATHER.CONDITION] &lt;= 7) || ([WEATHER.CONDITION] &gt;= 9 &amp;&amp; [WEATHER.CONDITION] &lt;= 13) ? 215 : 0))) / 310.0)" />
-                            <Transform target="x" value="(72.0 + floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 262144.0) * 306.0 / 63.0) - 150" />
-                            <Transform target="y" value="(198.0 - clamp((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36), 0, 90) * 1.3) - 150" />
-                            <Image resource="sun_glow" />
-                        </PartImage>
                         <Group name="moon" x="0" y="0" width="240" height="240" alpha="0">
                             <Transform target="alpha" value="(([REFERENCE.skyFrame] * 16777216.0 - 1) % 64 * 2 - 36) &gt;= 0 ? 255 - clamp(((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36) + 6) * 42.5, 0, 255) * 0.4 : 0" />
                             <Transform target="x" value="(72.0 + (floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 64.0) % 64) * 306.0 / 63.0) - 120" />
@@ -271,11 +259,56 @@
                 </Compare>
             </Condition>
         </Group>
-        <PartImage name="cloud_veil" x="-40" y="0" width="530" height="246" alpha="0">
+        <!-- Cloud density controls the sky composite. Broken cloud uses the same texture for the
+             visible banks and the mask that confines warm backlight to their surface. -->
+        <Group name="solar_weather" x="0" y="0" width="450" height="450">
             <Variant mode="AMBIENT" target="alpha" value="0" />
-            <Transform target="alpha" value="(([CONFIGURATION.sky_preview] == &quot;TRUE&quot;) ? (floor([SECOND] * 0.4) &gt;= 14 &amp;&amp; floor([SECOND] * 0.4) &lt; 17 ? 185 : 0) : (!([WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? 0 : ([WEATHER.CONDITION] == 14 ? 105 : (([WEATHER.CONDITION] &gt;= 2 &amp;&amp; [WEATHER.CONDITION] &lt;= 7) || ([WEATHER.CONDITION] &gt;= 9 &amp;&amp; [WEATHER.CONDITION] &lt;= 13) ? 215 : 0))))" />
-            <Image resource="cloud_veil" />
-        </PartImage>
+            <PartDraw name="solar_parameters" x="0" y="0" width="1" height="1">
+                <Transform target="x" value="150 + (([CONFIGURATION.sky_preview] != &quot;TRUE&quot; &amp;&amp; [REFERENCE.skyFrame] &gt; 0) ? ((72.0 + floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 262144.0) * 306.0 / 63.0) - 150) : (-78 + clamp((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) - 360) / 720.0, 0, 1) * 306))" />
+                <Transform target="y" value="150 + (([CONFIGURATION.sky_preview] != &quot;TRUE&quot; &amp;&amp; [REFERENCE.skyFrame] &gt; 0) ? ((198.0 - clamp((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36), 0, 90) * 1.3) - 150) : (48 - 117 * sin(clamp((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) - 360) / 720.0, 0, 1) * 3.14159265)))" />
+                <Transform target="scaleY" value="1 + ((([CONFIGURATION.sky_preview] != &quot;TRUE&quot; &amp;&amp; [REFERENCE.skyFrame] &gt; 0) ? (((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36) &gt;= 0 ? 255 : 0)) : ((((!([CONFIGURATION.sky_preview] == &quot;TRUE&quot;) &amp;&amp; [WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? [WEATHER.IS_DAY] : (([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &gt;= 6 &amp;&amp; ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &lt; 18)) ? 255 : 0))) / 255)" />
+                <Transform target="scaleX" value="1 + ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? ([SECOND] &lt; 33 || [SECOND] &gt;= 45 ? 0 : [SECOND] &lt; 39 ? 1 : 2) : ([WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR] ? ([WEATHER.CONDITION] == 14 ? 1 : (([WEATHER.CONDITION] &gt;= 2 &amp;&amp; [WEATHER.CONDITION] &lt;= 7) || ([WEATHER.CONDITION] &gt;= 9 &amp;&amp; [WEATHER.CONDITION] &lt;= 13) ? 2 : 0)) : 0))" />
+                <Reference name="sunCenterX" source="x" defaultValue="0" />
+                <Reference name="sunCenterY" source="y" defaultValue="0" />
+                <Reference name="daylightScale" source="scaleY" defaultValue="1" />
+                <Reference name="cloudLevel" source="scaleX" defaultValue="1" />
+                <Rectangle x="0" y="0" width="1" height="1"><Fill color="#00000000" /></Rectangle>
+            </PartDraw>
+            <PartImage name="direct_sun" x="0" y="0" width="300" height="300" alpha="0">
+                <Transform target="x" value="[REFERENCE.sunCenterX] - 150" />
+                <Transform target="y" value="[REFERENCE.sunCenterY] - 150" />
+                <Transform target="alpha" value="[REFERENCE.cloudLevel] == 3 ? 0 : 255 * ([REFERENCE.daylightScale] - 1)" />
+                <Image resource="sun_glow" />
+            </PartImage>
+            <PartImage name="broken_cloud" x="-55" y="0" width="560" height="270" alpha="0">
+                <Transform target="x" value="-55 + 12 * sin(([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) / 95.0)" />
+                <Reference name="cloudLeft" source="x" defaultValue="-55" />
+                <Transform target="alpha" value="[REFERENCE.cloudLevel] == 2 ? 255 : 0" />
+                <Image resource="cloud_veil" />
+            </PartImage>
+            <PartImage name="overcast_deck" x="-55" y="0" width="560" height="360" alpha="0">
+                <Transform target="alpha" value="[REFERENCE.cloudLevel] == 3 ? 255 : 0" />
+                <Image resource="overcast_clouds" />
+            </PartImage>
+            <PartImage name="diffuse_overcast_light" x="0" y="0" width="300" height="300" alpha="0">
+                <Transform target="x" value="[REFERENCE.sunCenterX] - 150" />
+                <Transform target="y" value="[REFERENCE.sunCenterY] - 150" />
+                <Transform target="alpha" value="[REFERENCE.cloudLevel] == 3 ? 255 * ([REFERENCE.daylightScale] - 1) : 0" />
+                <Image resource="sun_diffusion" />
+            </PartImage>
+            <Group name="backlit_cloud" x="0" y="0" width="450" height="450">
+                <Transform target="alpha" value="[REFERENCE.cloudLevel] == 2 ? 255 * ([REFERENCE.daylightScale] - 1) : 0" />
+                <PartImage x="0" y="0" width="300" height="300">
+                    <Transform target="x" value="[REFERENCE.sunCenterX] - 150" />
+                    <Transform target="y" value="[REFERENCE.sunCenterY] - 150" />
+                    <Image resource="sun_diffusion" />
+                </PartImage>
+                <PartImage x="-55" y="0" width="560" height="270" renderMode="MASK">
+                    <Transform target="x" value="[REFERENCE.cloudLeft]" />
+                    <Image resource="cloud_veil" />
+                </PartImage>
+            </Group>
+        </Group>
 
         <!-- 4. Clock hands behind the time and complications -->
         <Group name="clock_hands" x="0" y="0" width="450" height="450">
