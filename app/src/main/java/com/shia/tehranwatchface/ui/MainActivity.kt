@@ -3,8 +3,10 @@ package com.shia.tehranwatchface.ui
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ComponentName
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
@@ -17,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.LayoutDirection
@@ -30,6 +33,8 @@ import androidx.wear.compose.material.*
 import androidx.wear.watchface.complications.datasource.ComplicationDataSourceUpdateRequester
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
+import com.shia.tehranwatchface.R
+import com.shia.tehranwatchface.audio.TickingService
 import com.shia.tehranwatchface.complications.DailyScheduleComplicationService
 import com.shia.tehranwatchface.complications.HijriDateComplicationService
 import com.shia.tehranwatchface.complications.NextPrayerComplicationService
@@ -75,6 +80,7 @@ fun TehranWatchFaceApp() {
     val scope = rememberCoroutineScope()
     val listState = rememberScalingLazyListState()
     val settings by PrayerPreferences.settingsFlow(context).collectAsState(initial = PrayerSettings())
+    val ticking by TickingService.active.collectAsState()
     var gpsStatus by remember { mutableStateOf<String?>(null) }
 
     fun refreshComplications() {
@@ -179,6 +185,30 @@ fun TehranWatchFaceApp() {
                     fontSize = 11.sp,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(top = 4.dp, bottom = 6.dp)
+                )
+            }
+
+            item {
+                ToggleChip(
+                    checked = ticking,
+                    onCheckedChange = { enabled ->
+                        val service = Intent(context, TickingService::class.java)
+                        if (enabled) {
+                            try {
+                                ContextCompat.startForegroundService(context, service)
+                            } catch (_: IllegalStateException) {
+                                Toast.makeText(context, R.string.ticking_unavailable, Toast.LENGTH_SHORT).show()
+                            }
+                        } else {
+                            context.stopService(service)
+                        }
+                    },
+                    label = { Text(stringResource(R.string.ticking_channel), fontSize = 12.sp) },
+                    secondaryLabel = {
+                        Text(stringResource(R.string.ticking_hint), fontSize = 9.sp, maxLines = 2)
+                    },
+                    toggleControl = { Switch(checked = ticking) },
+                    modifier = Modifier.fillMaxWidth()
                 )
             }
 

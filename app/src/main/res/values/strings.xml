@@ -5,4 +5,9 @@
     <string name="complication_hijri_label">التاريخ الهجري والمناسبات</string>
     <string name="complication_schedule_label">أوقات اليوم ونصف الليل</string>
     <string name="complication_sky_label">موقع الشمس والقمر</string>
+    <string name="ticking_stop">إيقاف صوت التكتكة</string>
+    <string name="ticking_hint">يتوقف عند إطفاء الشاشة</string>
+    <string name="ticking_active">صوت التكتكة يعمل</string>
+    <string name="ticking_channel">صوت التكتكة</string>
+    <string name="ticking_unavailable">تعذّر تشغيل التكتكة. جرّب مرة ثانية.</string>
 </resources>

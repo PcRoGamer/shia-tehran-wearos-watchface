@@ -30,4 +30,6 @@
     <string name="hand_color_rose">وردي</string>
     <string name="show_minute_hand_name">إظهار عقرب الدقائق</string>
     <string name="show_second_hand_name">إظهار عقرب الثواني</string>
+    <string name="hindi_digits_name">الأرقام العربية (٠١٢٣)</string>
+    <string name="slot_bottom_name">الخانة السفلية المقوّسة</string>
 </resources>
