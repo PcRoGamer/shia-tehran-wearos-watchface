@@ -17,7 +17,8 @@ data class PrayerSettings(
     val latitude: Double = 32.0000,
     val longitude: Double = 44.3360,
     val elevationMeters: Double = 53.0,
-    val hijriOffsetDays: Int = 0
+    val hijriOffsetDays: Int = 0,
+    val locationConfigured: Boolean = false
 )
 
 data class CityPreset(
@@ -55,7 +56,8 @@ object PrayerPreferences {
                 latitude = prefs[KEY_LATITUDE] ?: 32.0000,
                 longitude = prefs[KEY_LONGITUDE] ?: 44.3360,
                 elevationMeters = prefs[KEY_ELEVATION] ?: 53.0,
-                hijriOffsetDays = prefs[KEY_HIJRI_OFFSET] ?: 0
+                hijriOffsetDays = prefs[KEY_HIJRI_OFFSET] ?: 0,
+                locationConfigured = KEY_LATITUDE in prefs && KEY_LONGITUDE in prefs
             )
         }
 

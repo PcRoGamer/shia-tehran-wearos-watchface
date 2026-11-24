@@ -14,10 +14,11 @@
     <string name="slot_corner_tr">أعلى اليمين</string>
     <string name="slot_corner_bl">أسفل اليسار</string>
     <string name="slot_corner_br">أسفل اليمين</string>
-    <string name="edge_color_name">ألوان المضاعفات</string>
+    <string name="edge_color_name">ألوان المضاعفات والتفاصيل</string>
     <string name="edge_color_studio">ألوان القالب</string>
     <string name="edge_color_gold">ذهبي</string>
     <string name="edge_color_mint">نعناعي</string>
     <string name="edge_color_blue">أزرق سماوي</string>
     <string name="edge_color_rose">وردي</string>
+    <string name="sky_preview_name">محاكاة السماء ٢٤ ساعة</string>
 </resources>

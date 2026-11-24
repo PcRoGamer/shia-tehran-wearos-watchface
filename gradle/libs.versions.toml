@@ -20,6 +20,7 @@ androidx-datastore-preferences = { group = "androidx.datastore", name = "datasto
 play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
 kotlinx-coroutines-play-services = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-play-services", version.ref = "coroutines" }
+commons-suncalc = { group = "org.shredzone.commons", name = "commons-suncalc", version = "3.11" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 
 [plugins]

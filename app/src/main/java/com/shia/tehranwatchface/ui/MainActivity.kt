@@ -33,6 +33,7 @@ import com.google.android.gms.location.Priority
 import com.shia.tehranwatchface.complications.DailyScheduleComplicationService
 import com.shia.tehranwatchface.complications.HijriDateComplicationService
 import com.shia.tehranwatchface.complications.NextPrayerComplicationService
+import com.shia.tehranwatchface.complications.SkyComplicationService
 import com.shia.tehranwatchface.data.PrayerPreferences
 import com.shia.tehranwatchface.data.PrayerSettings
 import com.shia.tehranwatchface.prayer.HijriCalendarHelper
@@ -80,7 +81,8 @@ fun TehranWatchFaceApp() {
         listOf(
             NextPrayerComplicationService::class.java,
             HijriDateComplicationService::class.java,
-            DailyScheduleComplicationService::class.java
+            DailyScheduleComplicationService::class.java,
+            SkyComplicationService::class.java
         ).forEach { serviceClass ->
             ComplicationDataSourceUpdateRequester
                 .create(context, ComponentName(context, serviceClass))

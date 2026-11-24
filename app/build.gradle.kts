@@ -12,8 +12,8 @@ android {
         applicationId = "com.shia.tehranwatchface"
         minSdk = 30
         targetSdk = 35
-        versionCode = 3
-        versionName = "1.2.0"
+        versionCode = 4
+        versionName = "1.3.0"
     }
 
     buildTypes {
@@ -47,6 +47,8 @@ dependencies {
     implementation(libs.play.services.location)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.coroutines.play.services)
+
+    implementation(libs.commons.suncalc)
 
     testImplementation(libs.junit)
 }

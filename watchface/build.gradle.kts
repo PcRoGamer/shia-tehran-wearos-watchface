@@ -4,14 +4,14 @@ plugins {
 
 android {
     namespace = "com.shia.tehranwatchface.wff"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.shia.tehranwatchface.wff"
-        minSdk = 33
-        targetSdk = 35
-        versionCode = 10
-        versionName = "1.5.3"
+        minSdk = 36
+        targetSdk = 36
+        versionCode = 11
+        versionName = "1.6.0"
     }
 
     buildTypes {

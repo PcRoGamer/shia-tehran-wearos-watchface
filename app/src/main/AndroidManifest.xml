@@ -93,5 +93,23 @@
                 android:value="900" />
         </service>
 
+        <service
+            android:name=".complications.SkyComplicationService"
+            android:exported="true"
+            android:icon="@drawable/ic_crescent"
+            android:label="@string/complication_sky_label"
+            android:permission="com.google.android.wearable.permission.BIND_COMPLICATION_PROVIDER">
+            <intent-filter>
+                <action android:name="android.support.wearable.complications.ACTION_COMPLICATION_UPDATE_REQUEST" />
+            </intent-filter>
+            <meta-data android:name="android.support.wearable.complications.SAFE_WATCH_FACES"
+                android:value="com.shia.tehranwatchface.wff" />
+            <meta-data android:name="android.support.wearable.complications.HIDDEN" android:value="true" />
+            <meta-data android:name="android.support.wearable.complications.SUPPORTED_TYPES"
+                android:value="RANGED_VALUE" />
+            <meta-data android:name="android.support.wearable.complications.UPDATE_PERIOD_SECONDS"
+                android:value="900" />
+        </service>
+
     </application>
 </manifest>
