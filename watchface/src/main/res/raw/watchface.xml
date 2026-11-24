@@ -94,13 +94,13 @@
                 <Transform target="y" value="48 - 117 * sin(clamp((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) - 360) / 720.0, 0, 1) * 3.14159265)" />
                 <Image resource="sun_glow" />
             </PartImage>
-            <PartDraw name="sun_disc" x="0" y="0" width="30" height="30" alpha="0">
+            <PartDraw name="sun_disc" x="0" y="0" width="46" height="46" alpha="0">
                 <Transform target="alpha" value="(((!([CONFIGURATION.sky_preview] == &quot;TRUE&quot;) &amp;&amp; [WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? [WEATHER.IS_DAY] : (([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &gt;= 6 &amp;&amp; ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &lt; 18)) ? 255 : 0) * (1 - (([CONFIGURATION.sky_preview] == &quot;TRUE&quot;) ? (floor([SECOND] * 0.4) &gt;= 14 &amp;&amp; floor([SECOND] * 0.4) &lt; 17 ? 185 : 0) : (!([WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? 0 : ([WEATHER.CONDITION] == 14 ? 105 : (([WEATHER.CONDITION] &gt;= 2 &amp;&amp; [WEATHER.CONDITION] &lt;= 7) || ([WEATHER.CONDITION] &gt;= 9 &amp;&amp; [WEATHER.CONDITION] &lt;= 13) ? 215 : 0)))) / 310.0)" />
-                <Transform target="x" value="57 + clamp((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) - 360) / 720.0, 0, 1) * 306" />
-                <Transform target="y" value="183 - 117 * sin(clamp((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) - 360) / 720.0, 0, 1) * 3.14159265)" />
-                <Ellipse x="0" y="0" width="30" height="30">
+                <Transform target="x" value="49 + clamp((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) - 360) / 720.0, 0, 1) * 306" />
+                <Transform target="y" value="175 - 117 * sin(clamp((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) - 360) / 720.0, 0, 1) * 3.14159265)" />
+                <Ellipse x="0" y="0" width="46" height="46">
                     <Fill color="#FFFFE69B">
-                        <RadialGradient centerX="13" centerY="12" radius="18" colors="#FFFFF9D7 #FFFFE69B #FFFFBE59" positions="0 0.70 1" />
+                        <RadialGradient centerX="20" centerY="18" radius="28" colors="#FFFFF9D7 #FFFFE69B #FFFFBE59" positions="0 0.70 1" />
                     </Fill>
                 </Ellipse>
             </PartDraw>
@@ -219,13 +219,13 @@
                             <Transform target="y" value="(198.0 - clamp((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36), 0, 90) * 1.3) - 150" />
                             <Image resource="sun_glow" />
                         </PartImage>
-                        <PartDraw name="sun_disc" x="0" y="0" width="30" height="30" alpha="0">
+                        <PartDraw name="sun_disc" x="0" y="0" width="46" height="46" alpha="0">
                             <Transform target="alpha" value="((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36) &gt;= 0 ? 255 : 0) * (1 - (!([WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? 0 : ([WEATHER.CONDITION] == 14 ? 105 : (([WEATHER.CONDITION] &gt;= 2 &amp;&amp; [WEATHER.CONDITION] &lt;= 7) || ([WEATHER.CONDITION] &gt;= 9 &amp;&amp; [WEATHER.CONDITION] &lt;= 13) ? 215 : 0))) / 310.0)" />
-                            <Transform target="x" value="(72.0 + floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 262144.0) * 306.0 / 63.0) - 15" />
-                            <Transform target="y" value="(198.0 - clamp((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36), 0, 90) * 1.3) - 15" />
-                            <Ellipse x="0" y="0" width="30" height="30">
+                            <Transform target="x" value="(72.0 + floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 262144.0) * 306.0 / 63.0) - 23" />
+                            <Transform target="y" value="(198.0 - clamp((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36), 0, 90) * 1.3) - 23" />
+                            <Ellipse x="0" y="0" width="46" height="46">
                                 <Fill color="#FFFFE69B">
-                                    <RadialGradient centerX="13" centerY="12" radius="18" colors="#FFFFF9D7 #FFFFE69B #FFFFBE59" positions="0 0.70 1" />
+                                    <RadialGradient centerX="20" centerY="18" radius="28" colors="#FFFFF9D7 #FFFFE69B #FFFFBE59" positions="0 0.70 1" />
                                 </Fill>
                             </Ellipse>
                         </PartDraw>
@@ -277,13 +277,19 @@
         </PartImage>
 
         <!-- 4. Clock hands behind the time and complications -->
-        <AnalogClock x="0" y="0" width="450" height="450">
+        <Group name="clock_hands" x="0" y="0" width="450" height="450">
             <Variant mode="AMBIENT" target="alpha" value="0" />
-            <MinuteHand resource="minute_hand" x="219" y="94" width="12" height="150" pivotX="0.5" pivotY="0.87333333" alpha="210" tintColor="[CONFIGURATION.edge_color.0]" />
-            <SecondHand resource="second_hand" x="215" y="0" width="20" height="450" pivotX="0.5" pivotY="0.5" tintColor="[CONFIGURATION.edge_color.0]">
-                <Tick duration="0.16" strength="0.72" />
-            </SecondHand>
-        </AnalogClock>
+            <AnalogClock x="0" y="0" width="450" height="450">
+                <MinuteHand resource="minute_hand" x="219" y="94" width="12" height="150" pivotX="0.5" pivotY="0.87333333" alpha="210" tintColor="[CONFIGURATION.edge_color.0]" />
+                <SecondHand resource="second_hand" x="215" y="0" width="20" height="450" pivotX="0.5" pivotY="0.5" tintColor="[CONFIGURATION.edge_color.0]">
+                    <Tick duration="0.16" strength="0.72" />
+                </SecondHand>
+            </AnalogClock>
+            <!-- Only the hands are masked, so the sky remains visible through the card. -->
+            <PartImage x="0" y="0" width="450" height="450" renderMode="MASK">
+                <Image resource="prayer_hand_mask" />
+            </PartImage>
+        </Group>
 
         <!-- Preserve the original slot order during upgrades. The retired top corners are empty.
              The two visible arcs come from Samsung Watch Face Studio 1.9.9 (Info_clocks > Duo). -->
