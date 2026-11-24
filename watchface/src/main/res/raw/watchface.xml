@@ -24,19 +24,61 @@
     <Scene backgroundColor="#000000">
         <Group name="active_sky" x="0" y="0" width="450" height="450">
             <Variant mode="AMBIENT" target="alpha" value="0" />
+            <!-- The theme supplies the base sky colors. Wide gradients add atmospheric light. -->
             <PartDraw x="0" y="0" width="450" height="450">
                 <Rectangle x="0" y="0" width="450" height="450">
                     <Fill color="[CONFIGURATION.theme_color.0]" />
                 </Rectangle>
             </PartDraw>
-            <PartDraw x="0" y="0" width="450" height="450" alpha="0">
-                <Transform target="alpha" value="[HOUR_0_23] &gt;= 6 &amp;&amp; [HOUR_0_23] &lt; 18 ? 255 : 0" />
+            <PartDraw name="day_sky" x="0" y="0" width="450" height="450" alpha="0">
+                <Transform target="alpha" value="clamp((390.0 - abs([HOUR_0_23] * 60 + [MINUTE] - 720)) * 4.25, 0, 255)" />
                 <Rectangle x="0" y="0" width="450" height="450">
                     <Fill color="[CONFIGURATION.theme_color.3]" />
                 </Rectangle>
             </PartDraw>
+            <PartDraw name="night_atmosphere" x="0" y="0" width="450" height="450">
+                <Transform target="alpha" value="255 - clamp((390.0 - abs([HOUR_0_23] * 60 + [MINUTE] - 720)) * 4.25, 0, 255)" />
+                <Rectangle x="0" y="0" width="450" height="450">
+                    <Fill color="#FFFFFFFF">
+                        <RadialGradient centerX="225" centerY="138" radius="388" colors="#737DD3FC #4A6366F1 #006366F1" positions="0 0.52 1">
+                            <Transform target="centerX" value="72 + clamp((([HOUR_0_23] &gt;= 12 ? [HOUR_0_23] - 18 : [HOUR_0_23] + 6) + [MINUTE] / 60.0) / 12.0, 0, 1) * 306" />
+                            <Transform target="centerY" value="198 - 117 * sin(clamp((([HOUR_0_23] &gt;= 12 ? [HOUR_0_23] - 18 : [HOUR_0_23] + 6) + [MINUTE] / 60.0) / 12.0, 0, 1) * 3.14159265)" />
+                        </RadialGradient>
+                    </Fill>
+                </Rectangle>
+            </PartDraw>
+            <PartDraw name="day_atmosphere" x="0" y="0" width="450" height="450" alpha="0">
+                <Transform target="alpha" value="clamp((390.0 - abs([HOUR_0_23] * 60 + [MINUTE] - 720)) * 4.25, 0, 255)" />
+                <Rectangle x="0" y="0" width="450" height="450">
+                    <Fill color="#FFFFFFFF">
+                        <RadialGradient centerX="225" centerY="138" radius="396" colors="#72FBBF24 #4838BDF8 #0038BDF8" positions="0 0.55 1">
+                            <Transform target="centerX" value="72 + clamp((([HOUR_0_23] - 6) + [MINUTE] / 60.0) / 12.0, 0, 1) * 306" />
+                            <Transform target="centerY" value="198 - 117 * sin(clamp((([HOUR_0_23] - 6) + [MINUTE] / 60.0) / 12.0, 0, 1) * 3.14159265)" />
+                        </RadialGradient>
+                    </Fill>
+                </Rectangle>
+            </PartDraw>
+            <!-- Clear blue is shared by all themes when the sun is high. -->
+            <PartDraw name="clear_midday_sky" x="0" y="0" width="450" height="450" alpha="0">
+                <Transform target="alpha" value="clamp((190.0 - abs([HOUR_0_23] * 60 + [MINUTE] - 720)) * 2.55, 0, 255)" />
+                <Rectangle x="0" y="0" width="450" height="450">
+                    <Fill color="#FFFFFFFF">
+                        <LinearGradient startX="40" startY="0" endX="350" endY="450" colors="#FF1669BA #FF2689D5 #FF65C3F4" positions="0 0.49 1" />
+                    </Fill>
+                </Rectangle>
+            </PartDraw>
+            <PartDraw name="twilight_atmosphere" x="0" y="0" width="450" height="450" alpha="0">
+                <Transform target="alpha" value="clamp((90.0 - abs([HOUR_0_23] * 60 + [MINUTE] - ([HOUR_0_23] &lt; 12 ? 360 : 1080))) * 255.0 / 90.0, 0, 255)" />
+                <Rectangle x="0" y="0" width="450" height="450">
+                    <Fill color="#FFFFFFFF">
+                        <RadialGradient centerX="72" centerY="198" radius="365" colors="#B8FB923C #68BE185D #00BE185D" positions="0 0.52 1">
+                            <Transform target="centerX" value="[HOUR_0_23] &lt; 12 ? 72 : 378" />
+                        </RadialGradient>
+                    </Fill>
+                </Rectangle>
+            </PartDraw>
             <PartImage x="0" y="0" width="450" height="450" alpha="0">
-                <Transform target="alpha" value="[HOUR_0_23] &gt;= 6 &amp;&amp; [HOUR_0_23] &lt; 18 ? 0 : 220" />
+                <Transform target="alpha" value="220 - clamp((390.0 - abs([HOUR_0_23] * 60 + [MINUTE] - 720)) * 220.0 / 60.0, 0, 220)" />
                 <Image resource="stars" />
             </PartImage>
             <PartImage name="night_sky_glow" x="0" y="0" width="510" height="510" alpha="0">
@@ -46,7 +88,7 @@
                 <Image resource="night_glow" />
             </PartImage>
             <PartImage name="sun_corona" x="0" y="0" width="300" height="300" alpha="0">
-                <Transform target="alpha" value="[HOUR_0_23] &gt;= 6 &amp;&amp; [HOUR_0_23] &lt; 18 ? 255 : 0" />
+                <Transform target="alpha" value="[HOUR_0_23] &gt;= 6 &amp;&amp; [HOUR_0_23] &lt; 18 ? 255 - clamp((190.0 - abs([HOUR_0_23] * 60 + [MINUTE] - 720)) * 1.35, 0, 135) : 0" />
                 <Transform target="x" value="-78 + ((([HOUR_0_23] - 6) + [MINUTE] / 60.0) / 12.0) * 306" />
                 <Transform target="y" value="48 - 117 * sin(((([HOUR_0_23] - 6) + [MINUTE] / 60.0) / 12.0) * 3.14159265)" />
                 <Image resource="sun_glow" />
