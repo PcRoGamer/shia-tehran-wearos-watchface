@@ -29,7 +29,8 @@ class TickingService : Service() {
     private lateinit var audioManager: AudioManager
     private lateinit var notifications: NotificationManager
     private lateinit var power: PowerManager
-    private var sampleId = 0
+    private val samples = IntArray(2)
+    private var loadedSamples = 0
 
     private val tick = object : Runnable {
         override fun run() {
@@ -41,7 +42,8 @@ class TickingService : Service() {
             if (audioManager.ringerMode == AudioManager.RINGER_MODE_NORMAL &&
                 notifications.currentInterruptionFilter == NotificationManager.INTERRUPTION_FILTER_ALL
             ) {
-                soundPool.play(sampleId, TICK_VOLUME, TICK_VOLUME, 1, 0, 1f)
+                val beat = ((System.currentTimeMillis() / 1_000L) % samples.size).toInt()
+                soundPool.play(samples[beat], TICK_VOLUME, TICK_VOLUME, 1, 0, 1f)
             }
             scheduleTick()
         }
@@ -88,10 +90,15 @@ class TickingService : Service() {
         startForeground(NOTIFICATION_ID, createNotification(), ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK)
         running.value = true
         soundPool.setOnLoadCompleteListener { _, _, status ->
-            if (status == 0) scheduleTick() else stopSelf()
+            if (status != 0) {
+                stopSelf()
+            } else if (++loadedSamples == samples.size) {
+                scheduleTick()
+            }
         }
-        sampleId = soundPool.load(this, R.raw.clock_tick, 1)
-        if (sampleId == 0) stopSelf()
+        samples[0] = soundPool.load(this, R.raw.clock_tick, 1)
+        samples[1] = soundPool.load(this, R.raw.clock_tock, 1)
+        if (samples.any { it == 0 }) stopSelf()
         return START_NOT_STICKY
     }
 

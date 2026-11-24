@@ -109,22 +109,12 @@
                 <Transform target="y" value="-57 - 117 * sin(clamp(((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &gt;= 12 ? ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) - 18 : ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) + 6) + ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 % 60 : [MINUTE]) / 60.0) / 12.0, 0, 1) * 3.14159265)" />
                 <Image resource="night_glow" />
             </PartImage>
-            <PartImage name="sun_corona" x="0" y="0" width="300" height="300" alpha="0">
-                <Transform target="alpha" value="(((!([CONFIGURATION.sky_preview] == &quot;TRUE&quot;) &amp;&amp; [WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? [WEATHER.IS_DAY] : (([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &gt;= 6 &amp;&amp; ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &lt; 18)) ? 255 - clamp((190.0 - abs(([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) - 720)) * 2.55, 0, 255) * 0.41 : 0) * (1 - (([CONFIGURATION.sky_preview] == &quot;TRUE&quot;) ? (floor([SECOND] * 0.4) &gt;= 14 &amp;&amp; floor([SECOND] * 0.4) &lt; 17 ? 185 : 0) : (!([WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? 0 : ([WEATHER.CONDITION] == 14 ? 105 : (([WEATHER.CONDITION] &gt;= 2 &amp;&amp; [WEATHER.CONDITION] &lt;= 7) || ([WEATHER.CONDITION] &gt;= 9 &amp;&amp; [WEATHER.CONDITION] &lt;= 13) ? 215 : 0)))) / 310.0)" />
+            <PartImage name="sun_with_atmosphere" x="0" y="0" width="300" height="300" alpha="0">
+                <Transform target="alpha" value="(((!([CONFIGURATION.sky_preview] == &quot;TRUE&quot;) &amp;&amp; [WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? [WEATHER.IS_DAY] : (([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &gt;= 6 &amp;&amp; ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &lt; 18)) ? 255 : 0) * (1 - (([CONFIGURATION.sky_preview] == &quot;TRUE&quot;) ? (floor([SECOND] * 0.4) &gt;= 14 &amp;&amp; floor([SECOND] * 0.4) &lt; 17 ? 185 : 0) : (!([WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? 0 : ([WEATHER.CONDITION] == 14 ? 105 : (([WEATHER.CONDITION] &gt;= 2 &amp;&amp; [WEATHER.CONDITION] &lt;= 7) || ([WEATHER.CONDITION] &gt;= 9 &amp;&amp; [WEATHER.CONDITION] &lt;= 13) ? 215 : 0)))) / 310.0)" />
                 <Transform target="x" value="-78 + clamp((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) - 360) / 720.0, 0, 1) * 306" />
                 <Transform target="y" value="48 - 117 * sin(clamp((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) - 360) / 720.0, 0, 1) * 3.14159265)" />
                 <Image resource="sun_glow" />
             </PartImage>
-            <PartDraw name="sun_disc" x="0" y="0" width="46" height="46" alpha="0">
-                <Transform target="alpha" value="(((!([CONFIGURATION.sky_preview] == &quot;TRUE&quot;) &amp;&amp; [WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? [WEATHER.IS_DAY] : (([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &gt;= 6 &amp;&amp; ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &lt; 18)) ? 255 : 0) * (1 - (([CONFIGURATION.sky_preview] == &quot;TRUE&quot;) ? (floor([SECOND] * 0.4) &gt;= 14 &amp;&amp; floor([SECOND] * 0.4) &lt; 17 ? 185 : 0) : (!([WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? 0 : ([WEATHER.CONDITION] == 14 ? 105 : (([WEATHER.CONDITION] &gt;= 2 &amp;&amp; [WEATHER.CONDITION] &lt;= 7) || ([WEATHER.CONDITION] &gt;= 9 &amp;&amp; [WEATHER.CONDITION] &lt;= 13) ? 215 : 0)))) / 310.0)" />
-                <Transform target="x" value="49 + clamp((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) - 360) / 720.0, 0, 1) * 306" />
-                <Transform target="y" value="175 - 117 * sin(clamp((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) - 360) / 720.0, 0, 1) * 3.14159265)" />
-                <Ellipse x="0" y="0" width="46" height="46">
-                    <Fill color="#FFFFE69B">
-                        <RadialGradient centerX="20" centerY="18" radius="28" colors="#FFFFF9D7 #FFFFE69B #FFFFBE59" positions="0 0.70 1" />
-                    </Fill>
-                </Ellipse>
-            </PartDraw>
             <Group name="moon" x="0" y="0" width="240" height="240" alpha="0">
                 <Transform target="alpha" value="((!([CONFIGURATION.sky_preview] == &quot;TRUE&quot;) &amp;&amp; [WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? [WEATHER.IS_DAY] : (([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &gt;= 6 &amp;&amp; ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &lt; 18)) ? 0 : 255" />
                 <Transform target="x" value="-48 + clamp(((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &gt;= 12 ? ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) - 18 : ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) + 6) + ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 % 60 : [MINUTE]) / 60.0) / 12.0, 0, 1) * 306" />
@@ -234,22 +224,12 @@
                             <Transform target="y" value="(198.0 - clamp((([REFERENCE.skyFrame] * 16777216.0 - 1) % 64 * 2 - 36), 0, 90) * 1.3) - 255" />
                             <Image resource="night_glow" />
                         </PartImage>
-                        <PartImage name="sun_corona" x="0" y="0" width="300" height="300" alpha="0">
-                            <Transform target="alpha" value="((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36) &gt;= 0 ? 255 - clamp(((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36) - 20) * 7.5, 0, 255) * 0.41 : 0) * (1 - (!([WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? 0 : ([WEATHER.CONDITION] == 14 ? 105 : (([WEATHER.CONDITION] &gt;= 2 &amp;&amp; [WEATHER.CONDITION] &lt;= 7) || ([WEATHER.CONDITION] &gt;= 9 &amp;&amp; [WEATHER.CONDITION] &lt;= 13) ? 215 : 0))) / 310.0)" />
+                        <PartImage name="sun_with_atmosphere" x="0" y="0" width="300" height="300" alpha="0">
+                            <Transform target="alpha" value="((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36) &gt;= 0 ? 255 : 0) * (1 - (!([WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? 0 : ([WEATHER.CONDITION] == 14 ? 105 : (([WEATHER.CONDITION] &gt;= 2 &amp;&amp; [WEATHER.CONDITION] &lt;= 7) || ([WEATHER.CONDITION] &gt;= 9 &amp;&amp; [WEATHER.CONDITION] &lt;= 13) ? 215 : 0))) / 310.0)" />
                             <Transform target="x" value="(72.0 + floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 262144.0) * 306.0 / 63.0) - 150" />
                             <Transform target="y" value="(198.0 - clamp((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36), 0, 90) * 1.3) - 150" />
                             <Image resource="sun_glow" />
                         </PartImage>
-                        <PartDraw name="sun_disc" x="0" y="0" width="46" height="46" alpha="0">
-                            <Transform target="alpha" value="((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36) &gt;= 0 ? 255 : 0) * (1 - (!([WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? 0 : ([WEATHER.CONDITION] == 14 ? 105 : (([WEATHER.CONDITION] &gt;= 2 &amp;&amp; [WEATHER.CONDITION] &lt;= 7) || ([WEATHER.CONDITION] &gt;= 9 &amp;&amp; [WEATHER.CONDITION] &lt;= 13) ? 215 : 0))) / 310.0)" />
-                            <Transform target="x" value="(72.0 + floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 262144.0) * 306.0 / 63.0) - 23" />
-                            <Transform target="y" value="(198.0 - clamp((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36), 0, 90) * 1.3) - 23" />
-                            <Ellipse x="0" y="0" width="46" height="46">
-                                <Fill color="#FFFFE69B">
-                                    <RadialGradient centerX="20" centerY="18" radius="28" colors="#FFFFF9D7 #FFFFE69B #FFFFBE59" positions="0 0.70 1" />
-                                </Fill>
-                            </Ellipse>
-                        </PartDraw>
                         <Group name="moon" x="0" y="0" width="240" height="240" alpha="0">
                             <Transform target="alpha" value="(([REFERENCE.skyFrame] * 16777216.0 - 1) % 64 * 2 - 36) &gt;= 0 ? 255 - clamp(((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36) + 6) * 42.5, 0, 255) * 0.4 : 0" />
                             <Transform target="x" value="(72.0 + (floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 64.0) % 64) * 306.0 / 63.0) - 120" />
@@ -1332,17 +1312,27 @@
             </Complication>
         </ComplicationSlot>
 
-        <Group name="western_clock_digits" x="130" y="96" width="254" height="96">
+        <!-- Keep the period and the digits on one typographic baseline. -->
+        <PartText name="western_clock_digits" x="52" y="96" width="346" height="96">
             <Transform target="alpha" value="[CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? 0 : 255" />
-            <DigitalClock x="0" y="0" width="254" height="96">
-                <TimeText format="h:mm" hourFormat="12" align="CENTER" x="0" y="0" width="254" height="96">
-                    <Font family="outfit_bold" size="82" weight="BOLD" color="[CONFIGURATION.theme_color.2]" />
-                </TimeText>
-            </DigitalClock>
-        </Group>
-        <PartText name="hindi_clock_digits" x="130" y="96" width="254" height="96">
+            <Text align="CENTER" maxLines="1">
+                <Font family="ibm_plex_arabic_bold" size="20" color="[CONFIGURATION.edge_color.0]">
+                    <Template>&#x200E;&#x2067;%s&#x2069;&#x2002;<Parameter expression="[HOUR_0_23] &lt; 4 || [HOUR_0_23] &gt;= 21 ? &quot;ليلًا&quot; : [HOUR_0_23] &lt; 6 ? &quot;فجرًا&quot; : [HOUR_0_23] &lt; 12 ? &quot;صباحًا&quot; : [HOUR_0_23] &lt; 15 ? &quot;ظهرًا&quot; : [HOUR_0_23] &lt; 18 ? &quot;عصرًا&quot; : &quot;مساءً&quot;" /></Template>
+                </Font>
+                <Font family="outfit_bold" size="82" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
+                    <Template>%d:%02d
+                        <Parameter expression="([HOUR_0_23] + 11) % 12 + 1" />
+                        <Parameter expression="[MINUTE]" />
+                    </Template>
+                </Font>
+            </Text>
+        </PartText>
+        <PartText name="hindi_clock_digits" x="52" y="96" width="346" height="96">
             <Transform target="alpha" value="[CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? 255 : 0" />
-            <Text align="CENTER">
+            <Text align="CENTER" maxLines="1">
+                <Font family="ibm_plex_arabic_bold" size="20" color="[CONFIGURATION.edge_color.0]">
+                    <Template>&#x200E;&#x2067;%s&#x2069;&#x2002;<Parameter expression="[HOUR_0_23] &lt; 4 || [HOUR_0_23] &gt;= 21 ? &quot;ليلًا&quot; : [HOUR_0_23] &lt; 6 ? &quot;فجرًا&quot; : [HOUR_0_23] &lt; 12 ? &quot;صباحًا&quot; : [HOUR_0_23] &lt; 15 ? &quot;ظهرًا&quot; : [HOUR_0_23] &lt; 18 ? &quot;عصرًا&quot; : &quot;مساءً&quot;" /></Template>
+                </Font>
                 <Font family="ibm_plex_arabic_bold" size="82" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
                     <Template>%s%s:%s%s
                         <Parameter expression="(([HOUR_0_23] + 11) % 12 + 1) &gt;= 10 ? subText(&quot;٠١٢٣٤٥٦٧٨٩&quot;, floor((([HOUR_0_23] + 11) % 12 + 1) / 10), (floor((([HOUR_0_23] + 11) % 12 + 1) / 10)) + 1) : &quot;&quot;" />
@@ -1350,14 +1340,6 @@
                         <Parameter expression="subText(&quot;٠١٢٣٤٥٦٧٨٩&quot;, floor([MINUTE] / 10), (floor([MINUTE] / 10)) + 1)" />
                         <Parameter expression="subText(&quot;٠١٢٣٤٥٦٧٨٩&quot;, [MINUTE] % 10, ([MINUTE] % 10) + 1)" />
                     </Template>
-                </Font>
-            </Text>
-        </PartText>
-        <PartText name="clock_day_period" x="76" y="142" width="78" height="32">
-            <Transform target="x" value="[HOUR_0_23] % 12 == 0 || [HOUR_0_23] % 12 &gt;= 10 ? 76 : 110" />
-            <Text align="CENTER">
-                <Font family="ibm_plex_arabic_bold" size="20" color="[CONFIGURATION.edge_color.0]">
-                    <Template>%s<Parameter expression="[HOUR_0_23] &lt; 4 || [HOUR_0_23] &gt;= 21 ? &quot;ليلًا&quot; : [HOUR_0_23] &lt; 6 ? &quot;فجرًا&quot; : [HOUR_0_23] &lt; 12 ? &quot;صباحًا&quot; : [HOUR_0_23] &lt; 15 ? &quot;ظهرًا&quot; : [HOUR_0_23] &lt; 18 ? &quot;عصرًا&quot; : &quot;مساءً&quot;" /></Template>
                 </Font>
             </Text>
         </PartText>

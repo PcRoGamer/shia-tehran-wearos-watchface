@@ -13,7 +13,7 @@ import java.time.LocalDate
 class HijriDateComplicationService : SuspendingComplicationDataSourceService() {
 
     override fun getPreviewData(type: ComplicationType): ComplicationData? {
-        val text = PlainComplicationText.Builder("12 جمادى الثانية").build()
+        val text = PlainComplicationText.Builder("12 جمادى الآخرة").build()
         val desc = PlainComplicationText.Builder("التاريخ الهجري").build()
         return when (type) {
             ComplicationType.SHORT_TEXT -> ShortTextComplicationData.Builder(text, desc).build()
