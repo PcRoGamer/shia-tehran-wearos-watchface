@@ -37,6 +37,8 @@
             <ColorOption id="blue" displayName="hand_color_blue" colors="#FF8ED3FF" />
             <ColorOption id="rose" displayName="hand_color_rose" colors="#FFFFA6C0" />
         </ColorConfiguration>
+        <BooleanConfiguration id="show_minute_hand" displayName="show_minute_hand_name" defaultValue="TRUE" />
+        <BooleanConfiguration id="show_second_hand" displayName="show_second_hand_name" defaultValue="TRUE" />
         <BooleanConfiguration id="sky_preview" displayName="sky_preview_name" defaultValue="FALSE" />
     </UserConfigurations>
 
@@ -297,12 +299,27 @@
         <!-- 4. Clock hands behind the time and complications -->
         <Group name="clock_hands" x="0" y="0" width="450" height="450">
             <Variant mode="AMBIENT" target="alpha" value="0" />
-            <AnalogClock x="0" y="0" width="450" height="450">
-                <MinuteHand resource="minute_hand" x="219" y="94" width="12" height="150" pivotX="0.5" pivotY="0.87333333" alpha="210" tintColor="[CONFIGURATION.minute_hand_color.0]" />
-                <SecondHand resource="second_hand" x="215" y="0" width="20" height="450" pivotX="0.5" pivotY="0.5" tintColor="[CONFIGURATION.second_hand_color.0]">
-                    <Tick duration="0.16" strength="0.72" />
-                </SecondHand>
-            </AnalogClock>
+            <Group name="minute_hand_layer" x="0" y="0" width="450" height="450">
+                <Transform target="alpha" value="[CONFIGURATION.show_minute_hand] == &quot;TRUE&quot; ? 255 : 0" />
+                <AnalogClock x="0" y="0" width="450" height="450">
+                    <MinuteHand resource="minute_hand" x="219" y="105" width="12" height="134" pivotX="0.5" pivotY="0.89552239" alpha="225" tintColor="[CONFIGURATION.minute_hand_color.0]" />
+                </AnalogClock>
+            </Group>
+            <Group name="second_hand_layer" x="0" y="0" width="450" height="450">
+                <Transform target="alpha" value="[CONFIGURATION.show_second_hand] == &quot;TRUE&quot; ? 255 : 0" />
+                <AnalogClock x="0" y="0" width="450" height="450">
+                    <SecondHand resource="second_hand" x="219" y="40" width="12" height="220" pivotX="0.5" pivotY="0.84090909" tintColor="[CONFIGURATION.second_hand_color.0]">
+                        <Tick duration="0.16" strength="0.72" />
+                    </SecondHand>
+                </AnalogClock>
+            </Group>
+            <PartDraw name="hand_pivot" x="219" y="219" width="12" height="12">
+                <Transform target="alpha" value="[CONFIGURATION.show_minute_hand] == &quot;TRUE&quot; || [CONFIGURATION.show_second_hand] == &quot;TRUE&quot; ? 255 : 0" />
+                <Ellipse x="2" y="2" width="8" height="8">
+                    <Fill color="#FF18283D" />
+                    <Stroke color="#FFD1DDEA" thickness="1" />
+                </Ellipse>
+            </PartDraw>
             <!-- Soften the hands under the frosted card while keeping their motion visible. -->
             <PartImage x="0" y="0" width="450" height="450" renderMode="MASK">
                 <Image resource="prayer_hand_mask" />
