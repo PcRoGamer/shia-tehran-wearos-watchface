@@ -1425,15 +1425,15 @@
             </PartText>
         </Group>
 
-        <!-- Frosted prayer panel (Slot 2) -->
+        <!-- Matte prayer panel (Slot 2) -->
         <PartDraw x="124" y="221" width="202" height="76" name="prayer_panel">
             <Variant mode="AMBIENT" target="alpha" value="0" />
-            <RoundRectangle x="1" y="1" width="200" height="74" cornerRadiusX="22" cornerRadiusY="22">
-                <Fill color="#528EAED1">
-                    <LinearGradient startX="20" startY="0" endX="57" endY="76" colors="#61B9D7F4 #487E9FC8 #48435F8B" positions="0 0.52 1" />
+            <RoundRectangle x="1" y="1" width="200" height="74" cornerRadiusX="16" cornerRadiusY="16">
+                <Fill color="#610D243A">
+                    <LinearGradient startX="20" startY="0" endX="57" endY="76" colors="#500F2C46 #60102C46 #74102339" positions="0 0.52 1" />
                 </Fill>
-                <Stroke color="#38D9ECFF" thickness="1">
-                    <LinearGradient startX="0" startY="0" endX="0" endY="76" colors="#65DAEDFF #22C4DBF7" positions="0 1" />
+                <Stroke color="#23D9ECFF" thickness="1">
+                    <LinearGradient startX="0" startY="0" endX="0" endY="76" colors="#40DAEDFF #0CC4DBF7" positions="0 1" />
                 </Stroke>
             </RoundRectangle>
         </PartDraw>
@@ -1447,72 +1447,130 @@
                 defaultSystemProviderType="LONG_TEXT"
                 primaryProvider="com.shia.tehranwatchface/com.shia.tehranwatchface.complications.NextPrayerComplicationService"
                 primaryProviderType="LONG_TEXT" />
-            <BoundingRoundBox x="0" y="0" width="202" height="76" cornerRadius="22" />
+            <BoundingRoundBox x="0" y="0" width="202" height="76" cornerRadius="16" />
             <Complication type="LONG_TEXT">
                 <Condition>
                     <Expressions>
-                        <Expression name="twoPrayerLines">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != &quot;&quot; &amp;&amp; [COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != &quot;&quot;</Expression>
+                        <Expression name="splitPrayerTime"><![CDATA[[COMPLICATION.TITLE] != null && textLength([COMPLICATION.TITLE]) > 10 && subText([COMPLICATION.TITLE], max(0, textLength([COMPLICATION.TITLE]) - 5), max(0, textLength([COMPLICATION.TITLE]) - 4)) == ":" && (subText([COMPLICATION.TITLE], max(0, textLength([COMPLICATION.TITLE]) - 2), max(0, textLength([COMPLICATION.TITLE]) - 0)) == " م" || subText([COMPLICATION.TITLE], max(0, textLength([COMPLICATION.TITLE]) - 2), max(0, textLength([COMPLICATION.TITLE]) - 0)) == " ص") && (subText([COMPLICATION.TITLE], max(0, textLength([COMPLICATION.TITLE]) - 9), max(0, textLength([COMPLICATION.TITLE]) - 6)) == " • " || subText([COMPLICATION.TITLE], max(0, textLength([COMPLICATION.TITLE]) - 10), max(0, textLength([COMPLICATION.TITLE]) - 7)) == " • ")]]></Expression>
                     </Expressions>
-                    <Compare expression="twoPrayerLines">
-                        <PartText x="9" y="11" width="184" height="33">
-                            <Variant mode="AMBIENT" target="y" value="22" />
+                    <Compare expression="splitPrayerTime">
+                        <PartText x="4" y="10" width="100" height="56">
                             <Text align="CENTER" maxLines="1" ellipsis="TRUE">
-                                <Font family="ibm_plex_arabic_bold" size="26" weight="BOLD" color="[CONFIGURATION.edge_color.0]">
-                                    <Template>%s<Parameter expression="[COMPLICATION.TITLE]" /></Template>
+                                <Font family="outfit_bold" size="32" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
+                                    <Template>%s<Parameter expression="subText([COMPLICATION.TITLE], (subText([COMPLICATION.TITLE], max(0, textLength([COMPLICATION.TITLE]) - 9), max(0, textLength([COMPLICATION.TITLE]) - 6)) == &quot; • &quot; ? max(0, textLength([COMPLICATION.TITLE]) - 6) : max(0, textLength([COMPLICATION.TITLE]) - 7)), max(0, textLength([COMPLICATION.TITLE]) - 2))" /></Template>
                                 </Font>
                             </Text>
                         </PartText>
-                        <PartText x="9" y="44" width="184" height="20">
+                        <PartDraw x="104" y="0" width="2" height="76">
                             <Variant mode="AMBIENT" target="alpha" value="0" />
+                            <Line startX="1" startY="22" endX="1" endY="54">
+                                <Stroke color="#43DCEAFF" thickness="1" />
+                            </Line>
+                        </PartDraw>
+                        <PartText x="109" y="10" width="88" height="56">
                             <Text align="CENTER" maxLines="1" ellipsis="TRUE">
-                                <Font family="ibm_plex_arabic_bold" size="16" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
-                                    <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
+                                <Font family="ibm_plex_arabic_bold" size="19" weight="BOLD" color="[CONFIGURATION.edge_color.0]">
+                                    <Template>%s<Parameter expression="subText([COMPLICATION.TITLE], 0, (subText([COMPLICATION.TITLE], max(0, textLength([COMPLICATION.TITLE]) - 9), max(0, textLength([COMPLICATION.TITLE]) - 6)) == &quot; • &quot; ? max(0, textLength([COMPLICATION.TITLE]) - 9) : max(0, textLength([COMPLICATION.TITLE]) - 10)))" /></Template>
                                 </Font>
                             </Text>
                         </PartText>
                     </Compare>
                     <Default>
-                        <PartText x="9" y="0" width="184" height="76">
-                            <Text align="CENTER" maxLines="1" ellipsis="TRUE">
-                                <Font family="ibm_plex_arabic_bold" size="26" weight="BOLD" color="[CONFIGURATION.edge_color.0]">
-                                    <Template>%s<Parameter expression="[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != &quot;&quot; ? [COMPLICATION.TITLE] : [COMPLICATION.TEXT]" /></Template>
-                                </Font>
-                            </Text>
-                        </PartText>
+                        <Condition>
+                            <Expressions>
+                                <Expression name="twoPrayerLines">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != &quot;&quot; &amp;&amp; [COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != &quot;&quot;</Expression>
+                            </Expressions>
+                            <Compare expression="twoPrayerLines">
+                                <PartText x="9" y="11" width="184" height="33">
+                                    <Variant mode="AMBIENT" target="y" value="22" />
+                                    <Text align="CENTER" maxLines="1" ellipsis="TRUE">
+                                        <Font family="ibm_plex_arabic_bold" size="26" weight="BOLD" color="[CONFIGURATION.edge_color.0]">
+                                            <Template>%s<Parameter expression="[COMPLICATION.TITLE]" /></Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
+                                <PartText x="9" y="44" width="184" height="20">
+                                    <Variant mode="AMBIENT" target="alpha" value="0" />
+                                    <Text align="CENTER" maxLines="1" ellipsis="TRUE">
+                                        <Font family="ibm_plex_arabic_bold" size="16" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
+                                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
+                            </Compare>
+                            <Default>
+                                <PartText x="9" y="0" width="184" height="76">
+                                    <Text align="CENTER" maxLines="1" ellipsis="TRUE">
+                                        <Font family="ibm_plex_arabic_bold" size="26" weight="BOLD" color="[CONFIGURATION.edge_color.0]">
+                                            <Template>%s<Parameter expression="[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != &quot;&quot; ? [COMPLICATION.TITLE] : [COMPLICATION.TEXT]" /></Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
+                            </Default>
+                        </Condition>
                     </Default>
                 </Condition>
             </Complication>
             <Complication type="SHORT_TEXT">
                 <Condition>
                     <Expressions>
-                        <Expression name="twoPrayerLines">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != &quot;&quot; &amp;&amp; [COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != &quot;&quot;</Expression>
+                        <Expression name="splitPrayerTime"><![CDATA[[COMPLICATION.TITLE] != null && [COMPLICATION.TITLE] != "" && [COMPLICATION.TEXT] != null && (textLength([COMPLICATION.TEXT]) == 6 || textLength([COMPLICATION.TEXT]) == 7) && subText([COMPLICATION.TEXT], max(0, textLength([COMPLICATION.TEXT]) - 5), max(0, textLength([COMPLICATION.TEXT]) - 4)) == ":" && (subText([COMPLICATION.TEXT], max(0, textLength([COMPLICATION.TEXT]) - 2), max(0, textLength([COMPLICATION.TEXT]) - 0)) == " م" || subText([COMPLICATION.TEXT], max(0, textLength([COMPLICATION.TEXT]) - 2), max(0, textLength([COMPLICATION.TEXT]) - 0)) == " ص")]]></Expression>
                     </Expressions>
-                    <Compare expression="twoPrayerLines">
-                        <PartText x="9" y="11" width="184" height="33">
-                            <Variant mode="AMBIENT" target="y" value="22" />
+                    <Compare expression="splitPrayerTime">
+                        <PartText x="4" y="10" width="100" height="56">
                             <Text align="CENTER" maxLines="1" ellipsis="TRUE">
-                                <Font family="ibm_plex_arabic_bold" size="26" weight="BOLD" color="[CONFIGURATION.edge_color.0]">
-                                    <Template>%s<Parameter expression="[COMPLICATION.TITLE]" /></Template>
+                                <Font family="outfit_bold" size="32" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
+                                    <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 0, max(0, textLength([COMPLICATION.TEXT]) - 2))" /></Template>
                                 </Font>
                             </Text>
                         </PartText>
-                        <PartText x="9" y="44" width="184" height="20">
+                        <PartDraw x="104" y="0" width="2" height="76">
                             <Variant mode="AMBIENT" target="alpha" value="0" />
+                            <Line startX="1" startY="22" endX="1" endY="54">
+                                <Stroke color="#43DCEAFF" thickness="1" />
+                            </Line>
+                        </PartDraw>
+                        <PartText x="109" y="10" width="88" height="56">
                             <Text align="CENTER" maxLines="1" ellipsis="TRUE">
-                                <Font family="ibm_plex_arabic_bold" size="16" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
-                                    <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
+                                <Font family="ibm_plex_arabic_bold" size="19" weight="BOLD" color="[CONFIGURATION.edge_color.0]">
+                                    <Template>%s<Parameter expression="[COMPLICATION.TITLE]" /></Template>
                                 </Font>
                             </Text>
                         </PartText>
                     </Compare>
                     <Default>
-                        <PartText x="9" y="0" width="184" height="76">
-                            <Text align="CENTER" maxLines="1" ellipsis="TRUE">
-                                <Font family="ibm_plex_arabic_bold" size="26" weight="BOLD" color="[CONFIGURATION.edge_color.0]">
-                                    <Template>%s<Parameter expression="[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != &quot;&quot; ? [COMPLICATION.TITLE] : [COMPLICATION.TEXT]" /></Template>
-                                </Font>
-                            </Text>
-                        </PartText>
+                        <Condition>
+                            <Expressions>
+                                <Expression name="twoPrayerLines">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != &quot;&quot; &amp;&amp; [COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != &quot;&quot;</Expression>
+                            </Expressions>
+                            <Compare expression="twoPrayerLines">
+                                <PartText x="9" y="11" width="184" height="33">
+                                    <Variant mode="AMBIENT" target="y" value="22" />
+                                    <Text align="CENTER" maxLines="1" ellipsis="TRUE">
+                                        <Font family="ibm_plex_arabic_bold" size="26" weight="BOLD" color="[CONFIGURATION.edge_color.0]">
+                                            <Template>%s<Parameter expression="[COMPLICATION.TITLE]" /></Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
+                                <PartText x="9" y="44" width="184" height="20">
+                                    <Variant mode="AMBIENT" target="alpha" value="0" />
+                                    <Text align="CENTER" maxLines="1" ellipsis="TRUE">
+                                        <Font family="ibm_plex_arabic_bold" size="16" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
+                                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
+                            </Compare>
+                            <Default>
+                                <PartText x="9" y="0" width="184" height="76">
+                                    <Text align="CENTER" maxLines="1" ellipsis="TRUE">
+                                        <Font family="ibm_plex_arabic_bold" size="26" weight="BOLD" color="[CONFIGURATION.edge_color.0]">
+                                            <Template>%s<Parameter expression="[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != &quot;&quot; ? [COMPLICATION.TITLE] : [COMPLICATION.TEXT]" /></Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
+                            </Default>
+                        </Condition>
                     </Default>
                 </Condition>
             </Complication>
