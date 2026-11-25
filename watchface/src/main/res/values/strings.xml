@@ -27,6 +27,7 @@
     <string name="background_black">أسود دائمًا</string>
     <string name="background_app">حسب مفتاح التطبيق</string>
     <string name="sky_preview_name">عرض تجريبي: دورة السماء في دقيقة</string>
+    <string name="parallax_name">حركة السماء مع إمالة الساعة</string>
     <string name="hindi_digits_name">أرقام الساعة المشرقية (٠١٢٣)</string>
     <string name="slot_bottom_name">الخانة السفلية المقوّسة</string>
     <string name="clock_font_name">خط الوقت</string>
