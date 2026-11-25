@@ -1487,22 +1487,22 @@
                         <Expression name="splitPrayerTime"><![CDATA[textLength([COMPLICATION.TITLE]) > 8 && subText([COMPLICATION.TITLE], 5, 8) == " • "]]></Expression>
                     </Expressions>
                     <Compare expression="splitPrayerTime">
-                        <PartText x="1" y="0" width="142" height="76">
+                        <PartText x="1" y="6" width="117" height="76">
                             <Text align="END" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
-                                <Font family="outfit_bold" size="62" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
+                                <Font family="outfit_bold" size="54" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
                                     <Template>%s<Parameter expression="subText([COMPLICATION.TITLE], 0, 1) == &quot;0&quot; ? subText([COMPLICATION.TITLE], 1, 5) : subText([COMPLICATION.TITLE], 0, 5)" /></Template>
                                 </Font>
                             </Text>
                         </PartText>
-                        <PartDraw x="150" y="0" width="2" height="76">
+                        <PartDraw x="138" y="6" width="2" height="76">
                             <Variant mode="AMBIENT" target="alpha" value="0" />
                             <Line startX="1" startY="22" endX="1" endY="54">
                                 <Stroke color="#43DCEAFF" thickness="1" />
                             </Line>
                         </PartDraw>
-                        <PartText x="158" y="0" width="135" height="76">
+                        <PartText x="162" y="6" width="131" height="76">
                             <Text align="START" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
-                                <Font family="ibm_plex_arabic_bold" size="28" weight="BOLD" color="[CONFIGURATION.edge_color.0]">
+                                <Font family="ibm_plex_arabic_bold" size="37" weight="BOLD" color="[CONFIGURATION.edge_color.0]">
                                     <Template>%s<Parameter expression="subText([COMPLICATION.TITLE], 8, textLength([COMPLICATION.TITLE]))" /></Template>
                                 </Font>
                             </Text>
@@ -1550,22 +1550,22 @@
                         <Expression name="splitPrayerTime"><![CDATA[[COMPLICATION.TITLE] != null && [COMPLICATION.TITLE] != "" && [COMPLICATION.TEXT] != null && (textLength([COMPLICATION.TEXT]) == 6 || textLength([COMPLICATION.TEXT]) == 7) && subText([COMPLICATION.TEXT], max(0, textLength([COMPLICATION.TEXT]) - 5), max(0, textLength([COMPLICATION.TEXT]) - 4)) == ":" && (subText([COMPLICATION.TEXT], max(0, textLength([COMPLICATION.TEXT]) - 2), max(0, textLength([COMPLICATION.TEXT]) - 0)) == " م" || subText([COMPLICATION.TEXT], max(0, textLength([COMPLICATION.TEXT]) - 2), max(0, textLength([COMPLICATION.TEXT]) - 0)) == " ص")]]></Expression>
                     </Expressions>
                     <Compare expression="splitPrayerTime">
-                        <PartText x="1" y="0" width="142" height="76">
+                        <PartText x="1" y="6" width="117" height="76">
                             <Text align="END" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
-                                <Font family="outfit_bold" size="62" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
+                                <Font family="outfit_bold" size="54" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
                                     <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 0, max(0, textLength([COMPLICATION.TEXT]) - 2))" /></Template>
                                 </Font>
                             </Text>
                         </PartText>
-                        <PartDraw x="150" y="0" width="2" height="76">
+                        <PartDraw x="138" y="6" width="2" height="76">
                             <Variant mode="AMBIENT" target="alpha" value="0" />
                             <Line startX="1" startY="22" endX="1" endY="54">
                                 <Stroke color="#43DCEAFF" thickness="1" />
                             </Line>
                         </PartDraw>
-                        <PartText x="158" y="0" width="135" height="76">
+                        <PartText x="162" y="6" width="131" height="76">
                             <Text align="START" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
-                                <Font family="ibm_plex_arabic_bold" size="28" weight="BOLD" color="[CONFIGURATION.edge_color.0]">
+                                <Font family="ibm_plex_arabic_bold" size="37" weight="BOLD" color="[CONFIGURATION.edge_color.0]">
                                     <Template>%s<Parameter expression="[COMPLICATION.TITLE]" /></Template>
                                 </Font>
                             </Text>
@@ -1660,7 +1660,7 @@
 
         <!-- Following two prayer milestones (slot 3) -->
         <ComplicationSlot
-            x="95" y="296" width="260" height="72"
+            x="95" y="295" width="260" height="73"
             slotId="3"
             displayName="slot_schedule_name"
             supportedTypes="SHORT_TEXT LONG_TEXT RANGED_VALUE GOAL_PROGRESS WEIGHTED_ELEMENTS MONOCHROMATIC_IMAGE SMALL_IMAGE PHOTO_IMAGE" isCustomizable="TRUE">
@@ -1670,28 +1670,28 @@
                 defaultSystemProviderType="SHORT_TEXT"
                 primaryProvider="com.shia.tehranwatchface/com.shia.tehranwatchface.complications.DailyScheduleComplicationService"
                 primaryProviderType="LONG_TEXT" />
-            <BoundingBox x="0" y="0" width="260" height="72" />
+            <BoundingBox x="0" y="0" width="260" height="73" />
             <Complication type="LONG_TEXT">
                 <Condition>
                     <Expressions>
                         <Expression name="followingPrayer"><![CDATA[textLength([COMPLICATION.TEXT]) > 8 && subText([COMPLICATION.TEXT], 5, 8) == " • "]]></Expression>
                     </Expressions>
                     <Compare expression="followingPrayer">
-                        <PartText x="22" y="2" width="104" height="38" alpha="246">
-                            <Text align="END" maxLines="1" ellipsis="TRUE">
+                        <PartText x="7" y="0" width="101" height="34" alpha="246">
+                            <Text align="END" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
                                 <Font family="ibm_plex_arabic_bold" size="36" color="[CONFIGURATION.theme_color.2]">
                                     <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 0, 1) == &quot;0&quot; ? subText([COMPLICATION.TEXT], 1, 5) : subText([COMPLICATION.TEXT], 0, 5)" /></Template>
                                 </Font>
                             </Text>
                         </PartText>
-                        <PartDraw x="133" y="6" width="2" height="28">
+                        <PartDraw x="121" y="3" width="2" height="28">
                             <Line startX="1" startY="8" endX="1" endY="20">
                                 <Stroke color="#43DCEAFF" thickness="1" />
                             </Line>
                         </PartDraw>
-                        <PartText x="141" y="2" width="119" height="38" alpha="246">
+                        <PartText x="136" y="0" width="124" height="34" alpha="246">
                             <Text align="START" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
-                                <Font family="ibm_plex_arabic_bold" size="25" color="[CONFIGURATION.theme_color.2]">
+                                <Font family="ibm_plex_arabic_bold" size="29" color="[CONFIGURATION.theme_color.2]">
                                     <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 8, textLength([COMPLICATION.TEXT]))" /></Template>
                                 </Font>
                             </Text>
@@ -1706,21 +1706,21 @@
                         <Expression name="thirdPrayer"><![CDATA[textLength([COMPLICATION.TITLE]) > 8 && subText([COMPLICATION.TITLE], 5, 8) == " • "]]></Expression>
                     </Expressions>
                     <Compare expression="thirdPrayer">
-                        <PartText x="22" y="43" width="104" height="29" alpha="213">
-                            <Text align="END" maxLines="1" ellipsis="TRUE">
-                                <Font family="ibm_plex_arabic_bold" size="25" color="[CONFIGURATION.theme_color.2]">
+                        <PartText x="7" y="38" width="107" height="32" alpha="213">
+                            <Text align="END" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
+                                <Font family="ibm_plex_arabic_bold" size="26" color="[CONFIGURATION.theme_color.2]">
                                     <Template>%s<Parameter expression="subText([COMPLICATION.TITLE], 0, 1) == &quot;0&quot; ? subText([COMPLICATION.TITLE], 1, 5) : subText([COMPLICATION.TITLE], 0, 5)" /></Template>
                                 </Font>
                             </Text>
                         </PartText>
-                        <PartDraw x="133" y="42" width="2" height="28">
+                        <PartDraw x="121" y="40" width="2" height="28">
                             <Line startX="1" startY="8" endX="1" endY="20">
                                 <Stroke color="#43DCEAFF" thickness="1" />
                             </Line>
                         </PartDraw>
-                        <PartText x="141" y="43" width="119" height="29" alpha="213">
+                        <PartText x="130" y="38" width="130" height="32" alpha="213">
                             <Text align="START" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
-                                <Font family="ibm_plex_arabic_bold" size="21" color="[CONFIGURATION.theme_color.2]">
+                                <Font family="ibm_plex_arabic_bold" size="24" color="[CONFIGURATION.theme_color.2]">
                                     <Template>%s<Parameter expression="subText([COMPLICATION.TITLE], 8, textLength([COMPLICATION.TITLE]))" /></Template>
                                 </Font>
                             </Text>
