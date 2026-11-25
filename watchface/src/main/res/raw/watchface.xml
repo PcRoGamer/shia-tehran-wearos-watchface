@@ -1425,18 +1425,7 @@
             </PartText>
         </Group>
 
-        <!-- Matte prayer panel (Slot 2) -->
-        <PartDraw x="124" y="221" width="202" height="76" name="prayer_panel">
-            <Variant mode="AMBIENT" target="alpha" value="0" />
-            <RoundRectangle x="1" y="1" width="200" height="74" cornerRadiusX="16" cornerRadiusY="16">
-                <Fill color="#610D243A">
-                    <LinearGradient startX="20" startY="0" endX="57" endY="76" colors="#500F2C46 #60102C46 #74102339" positions="0 0.52 1" />
-                </Fill>
-                <Stroke color="#23D9ECFF" thickness="1">
-                    <LinearGradient startX="0" startY="0" endX="0" endY="76" colors="#40DAEDFF #0CC4DBF7" positions="0 1" />
-                </Stroke>
-            </RoundRectangle>
-        </PartDraw>
+        <!-- Open-type next prayer (Slot 2) -->
         <ComplicationSlot
             x="124" y="221" width="202" height="76"
             slotId="2"
