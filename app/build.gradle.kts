@@ -12,8 +12,8 @@ android {
         applicationId = "com.shia.tehranwatchface"
         minSdk = 30
         targetSdk = 35
-        versionCode = 13
-        versionName = "1.3.9"
+        versionCode = 14
+        versionName = "1.4.0"
     }
 
     buildTypes {
@@ -44,6 +44,9 @@ dependencies {
     implementation(libs.androidx.wear.compose.foundation)
     implementation(libs.androidx.wear.watchface.complications.data.source.ktx)
     implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.wear.tiles)
+    implementation(libs.androidx.wear.protolayout)
+    implementation(libs.androidx.concurrent.futures)
     implementation(libs.play.services.location)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.coroutines.play.services)

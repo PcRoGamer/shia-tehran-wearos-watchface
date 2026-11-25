@@ -119,5 +119,36 @@
                 android:value="900" />
         </service>
 
+        <!-- Outdoor switch for the face's hidden slot 10 (pushed on toggle, no polling). -->
+        <service
+            android:name=".complications.OutdoorModeComplicationService"
+            android:exported="true"
+            android:icon="@drawable/ic_crescent"
+            android:label="@string/complication_outdoor_label"
+            android:permission="com.google.android.wearable.permission.BIND_COMPLICATION_PROVIDER">
+            <intent-filter>
+                <action android:name="android.support.wearable.complications.ACTION_COMPLICATION_UPDATE_REQUEST" />
+            </intent-filter>
+            <meta-data android:name="android.support.wearable.complications.SAFE_WATCH_FACES"
+                android:value="com.shia.tehranwatchface.wff" />
+            <meta-data android:name="android.support.wearable.complications.HIDDEN" android:value="true" />
+            <meta-data android:name="android.support.wearable.complications.SUPPORTED_TYPES"
+                android:value="RANGED_VALUE" />
+            <meta-data android:name="android.support.wearable.complications.UPDATE_PERIOD_SECONDS"
+                android:value="0" />
+        </service>
+
+        <service
+            android:name=".tile.OutdoorTileService"
+            android:exported="true"
+            android:icon="@drawable/ic_crescent"
+            android:label="@string/tile_outdoor_label"
+            android:permission="com.google.android.wearable.permission.BIND_TILE_PROVIDER">
+            <intent-filter>
+                <action android:name="androidx.wear.tiles.action.BIND_TILE_PROVIDER" />
+            </intent-filter>
+            <meta-data android:name="androidx.wear.tiles.PREVIEW" android:resource="@drawable/ic_crescent" />
+        </service>
+
     </application>
 </manifest>

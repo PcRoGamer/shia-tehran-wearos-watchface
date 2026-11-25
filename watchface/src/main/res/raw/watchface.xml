@@ -17,11 +17,22 @@
             <ColorOption id="green" displayName="color_green" colors="#FF42FF44 #FFE2FEE0" />
             <ColorOption id="pink" displayName="color_pink" colors="#FFFF6EB4 #FFFFDDEA" />
         </ColorConfiguration>
-        <!-- Main text (clock digits and prayer rows): ivory, a light tint of the colour, or the colour itself. -->
+        <!-- Text (clock digits, prayer rows, top date and bottom slot): ivory, a light tint of the
+             colour, the colour itself, or a fixed neon/white for mix-and-match (e.g. yellow on green). -->
         <ListConfiguration id="text_color" displayName="text_color_name" defaultValue="ivory">
             <ListOption id="ivory" displayName="text_color_ivory" />
             <ListOption id="tint" displayName="text_color_tint" />
             <ListOption id="full" displayName="text_color_full" />
+            <ListOption id="yellow" displayName="text_color_yellow" />
+            <ListOption id="green" displayName="text_color_green" />
+            <ListOption id="white" displayName="text_color_white" />
+        </ListConfiguration>
+        <!-- Background: animated sky, pure black (sky layers are not drawn), or black only while the
+             outdoor switch in the companion app / tile is on (slot 5 -> [REFERENCE.outdoorMode]). -->
+        <ListConfiguration id="background" displayName="background_name" defaultValue="sky">
+            <ListOption id="sky" displayName="background_sky" />
+            <ListOption id="black" displayName="background_black" />
+            <ListOption id="app" displayName="background_app" />
         </ListConfiguration>
         <ListConfiguration id="clock_font" displayName="clock_font_name" defaultValue="0">
             <ListOption id="0" displayName="clock_font_geometric" />
@@ -33,259 +44,268 @@
     </UserConfigurations>
 
     <Scene backgroundColor="#000000">
-        <Group name="sky_color" x="0" y="0" width="450" height="450">
-            <Variant mode="AMBIENT" target="alpha" value="0" />
-            <!-- Offset keeps the reference positive all night, including at the fallback minimum. -->
-            <PartDraw x="0" y="0" width="1" height="1" name="solar_elevation">
-                <Transform target="scaleX" value="90 + (([CONFIGURATION.sky_preview] != &quot;TRUE&quot; &amp;&amp; [REFERENCE.skyFrame] &gt; 0) ? (floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36) : 60 * sin((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) - 360) * 3.1415926536 / 720.0))" />
-                <Reference name="solarElevation" source="scaleX" defaultValue="30" />
-                <Rectangle x="0" y="0" width="1" height="1"><Fill color="#00000000" /></Rectangle>
-            </PartDraw>
-            <PartDraw x="0" y="0" width="450" height="450">
-                <Rectangle x="0" y="0" width="450" height="450">
-                    <Fill color="#FF051E2B" />
-                </Rectangle>
-            </PartDraw>
-            <PartDraw name="night_gradient" x="0" y="0" width="450" height="450" alpha="0">
-                <Transform target="alpha" value="255" />
-                <Rectangle x="0" y="0" width="450" height="450">
-                    <Fill color="#FFFFFFFF">
-                        <LinearGradient startX="225" startY="8" endX="225" endY="440" colors="#EF050C22 #D115224A #B0232A53" positions="0 0.52 1" />
-                    </Fill>
-                </Rectangle>
-            </PartDraw>
-            <PartDraw name="blue_hour" x="0" y="0" width="450" height="450" alpha="0">
-                <Transform target="alpha" value="255 * clamp((([REFERENCE.solarElevation] - 90) + 17) / 12, 0, 1)" />
-                <Rectangle x="0" y="0" width="450" height="450">
-                    <Fill color="#FFFFFFFF">
-                        <LinearGradient startX="225" startY="8" endX="225" endY="440" colors="#FF102248 #FF314A81 #FF6B6189" positions="0 0.53 1" />
-                    </Fill>
-                </Rectangle>
-            </PartDraw>
-            <PartDraw name="daylight_gradient" x="0" y="0" width="450" height="450" alpha="0">
-                <Transform target="alpha" value="255 * clamp((([REFERENCE.solarElevation] - 90) + 5) / 19, 0, 1)" />
-                <Rectangle x="0" y="0" width="450" height="450">
-                    <Fill color="#FFFFFFFF">
-                        <LinearGradient startX="225" startY="8" endX="225" endY="440" colors="#FF145A9C #FF347FC0 #FF8AB8D4" positions="0 0.52 1" />
-                    </Fill>
-                </Rectangle>
-            </PartDraw>
-            <PartDraw name="high_sun_blue" x="0" y="0" width="450" height="450" alpha="0">
-                <Transform target="alpha" value="255 * clamp((([REFERENCE.solarElevation] - 90) - 15) / 29, 0, 1) * ([REFERENCE.cloudLevel] == 3 ? 0.48 : 1)">
-                    <Animation duration="2.4" interpolation="EASE_IN_OUT" />
-                </Transform>
-                <Rectangle x="0" y="0" width="450" height="450">
-                    <Fill color="#FFFFFFFF">
-                        <LinearGradient startX="225" startY="8" endX="225" endY="440" colors="#FF104F9E #FF267FC9 #FF68BBEA" positions="0 0.55 1" />
-                    </Fill>
-                </Rectangle>
-            </PartDraw>
-            <PartDraw name="low_sun_horizon" x="0" y="0" width="450" height="450" alpha="0">
-                <Transform target="alpha" value="245 * clamp(1 - abs(([REFERENCE.solarElevation] - 90) + 1) / 15, 0, 1)" />
-                <Rectangle x="0" y="0" width="450" height="450">
-                    <Fill color="#FFFFFFFF">
-                        <LinearGradient startX="225" startY="8" endX="225" endY="440" colors="#00485882 #0679709D #ADCE7E8F #E8FDB28D" positions="0 0.33 0.72 1" />
-                    </Fill>
-                </Rectangle>
-            </PartDraw>
-            <PartDraw name="overcast_ambient" x="0" y="0" width="450" height="450" alpha="0">
-                <Transform target="alpha" value="[REFERENCE.cloudLevel] == 3 ? 170 * clamp((([REFERENCE.solarElevation] - 90) + 8) / 20, 0, 1) : 0">
-                    <Animation duration="2.4" interpolation="EASE_IN_OUT" />
-                </Transform>
-                <Rectangle x="0" y="0" width="450" height="450">
-                    <Fill color="#FFFFFFFF">
-                        <LinearGradient startX="225" startY="8" endX="225" endY="440" colors="#FF4B6586 #FF6A8096 #FF9DAEBB" positions="0 0.45 1" />
-                    </Fill>
-                </Rectangle>
-            </PartDraw>
-        </Group>
+        <!-- Sky layers are skipped entirely (not just faded) on the black background. -->
+        <Condition>
+            <Expressions>
+                <Expression name="showSky"><![CDATA[[CONFIGURATION.background] == "sky" || ([CONFIGURATION.background] == "app" && [REFERENCE.outdoorMode] < 1.5)]]></Expression>
+            </Expressions>
+            <Compare expression="showSky">
+            <Group name="sky_color" x="0" y="0" width="450" height="450">
+                <Variant mode="AMBIENT" target="alpha" value="0" />
+                <!-- Offset keeps the reference positive all night, including at the fallback minimum. -->
+                <PartDraw x="0" y="0" width="1" height="1" name="solar_elevation">
+                    <Transform target="scaleX" value="90 + (([CONFIGURATION.sky_preview] != &quot;TRUE&quot; &amp;&amp; [REFERENCE.skyFrame] &gt; 0) ? (floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36) : 60 * sin((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) - 360) * 3.1415926536 / 720.0))" />
+                    <Reference name="solarElevation" source="scaleX" defaultValue="30" />
+                    <Rectangle x="0" y="0" width="1" height="1"><Fill color="#00000000" /></Rectangle>
+                </PartDraw>
+                <PartDraw x="0" y="0" width="450" height="450">
+                    <Rectangle x="0" y="0" width="450" height="450">
+                        <Fill color="#FF051E2B" />
+                    </Rectangle>
+                </PartDraw>
+                <PartDraw name="night_gradient" x="0" y="0" width="450" height="450" alpha="0">
+                    <Transform target="alpha" value="255" />
+                    <Rectangle x="0" y="0" width="450" height="450">
+                        <Fill color="#FFFFFFFF">
+                            <LinearGradient startX="225" startY="8" endX="225" endY="440" colors="#EF050C22 #D115224A #B0232A53" positions="0 0.52 1" />
+                        </Fill>
+                    </Rectangle>
+                </PartDraw>
+                <PartDraw name="blue_hour" x="0" y="0" width="450" height="450" alpha="0">
+                    <Transform target="alpha" value="255 * clamp((([REFERENCE.solarElevation] - 90) + 17) / 12, 0, 1)" />
+                    <Rectangle x="0" y="0" width="450" height="450">
+                        <Fill color="#FFFFFFFF">
+                            <LinearGradient startX="225" startY="8" endX="225" endY="440" colors="#FF102248 #FF314A81 #FF6B6189" positions="0 0.53 1" />
+                        </Fill>
+                    </Rectangle>
+                </PartDraw>
+                <PartDraw name="daylight_gradient" x="0" y="0" width="450" height="450" alpha="0">
+                    <Transform target="alpha" value="255 * clamp((([REFERENCE.solarElevation] - 90) + 5) / 19, 0, 1)" />
+                    <Rectangle x="0" y="0" width="450" height="450">
+                        <Fill color="#FFFFFFFF">
+                            <LinearGradient startX="225" startY="8" endX="225" endY="440" colors="#FF145A9C #FF347FC0 #FF8AB8D4" positions="0 0.52 1" />
+                        </Fill>
+                    </Rectangle>
+                </PartDraw>
+                <PartDraw name="high_sun_blue" x="0" y="0" width="450" height="450" alpha="0">
+                    <Transform target="alpha" value="255 * clamp((([REFERENCE.solarElevation] - 90) - 15) / 29, 0, 1) * ([REFERENCE.cloudLevel] == 3 ? 0.48 : 1)">
+                        <Animation duration="2.4" interpolation="EASE_IN_OUT" />
+                    </Transform>
+                    <Rectangle x="0" y="0" width="450" height="450">
+                        <Fill color="#FFFFFFFF">
+                            <LinearGradient startX="225" startY="8" endX="225" endY="440" colors="#FF104F9E #FF267FC9 #FF68BBEA" positions="0 0.55 1" />
+                        </Fill>
+                    </Rectangle>
+                </PartDraw>
+                <PartDraw name="low_sun_horizon" x="0" y="0" width="450" height="450" alpha="0">
+                    <Transform target="alpha" value="245 * clamp(1 - abs(([REFERENCE.solarElevation] - 90) + 1) / 15, 0, 1)" />
+                    <Rectangle x="0" y="0" width="450" height="450">
+                        <Fill color="#FFFFFFFF">
+                            <LinearGradient startX="225" startY="8" endX="225" endY="440" colors="#00485882 #0679709D #ADCE7E8F #E8FDB28D" positions="0 0.33 0.72 1" />
+                        </Fill>
+                    </Rectangle>
+                </PartDraw>
+                <PartDraw name="overcast_ambient" x="0" y="0" width="450" height="450" alpha="0">
+                    <Transform target="alpha" value="[REFERENCE.cloudLevel] == 3 ? 170 * clamp((([REFERENCE.solarElevation] - 90) + 8) / 20, 0, 1) : 0">
+                        <Animation duration="2.4" interpolation="EASE_IN_OUT" />
+                    </Transform>
+                    <Rectangle x="0" y="0" width="450" height="450">
+                        <Fill color="#FFFFFFFF">
+                            <LinearGradient startX="225" startY="8" endX="225" endY="440" colors="#FF4B6586 #FF6A8096 #FF9DAEBB" positions="0 0.45 1" />
+                        </Fill>
+                    </Rectangle>
+                </PartDraw>
+            </Group>
 
-        <Group name="active_sky" x="0" y="0" width="450" height="450">
-            <Variant mode="AMBIENT" target="alpha" value="0" />
-            <Transform target="alpha" value="([CONFIGURATION.sky_preview] != &quot;TRUE&quot; &amp;&amp; [REFERENCE.skyFrame] &gt; 0) ? 0 : 255" />
-            <PartImage x="0" y="0" width="450" height="450" alpha="0">
-                <Transform target="alpha" value="220 - ((!([CONFIGURATION.sky_preview] == &quot;TRUE&quot;) &amp;&amp; [WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? ([WEATHER.IS_DAY] ? 255 : 0) : clamp((390.0 - abs(([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) - 720)) * 4.25, 0, 255)) * 220.0 / 255.0" />
-                <Image resource="stars" />
-            </PartImage>
-            <PartImage name="night_sky_glow" x="0" y="0" width="510" height="510" alpha="0">
-                <Transform target="alpha" value="((!([CONFIGURATION.sky_preview] == &quot;TRUE&quot;) &amp;&amp; [WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? [WEATHER.IS_DAY] : (([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &gt;= 6 &amp;&amp; ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &lt; 18)) ? 0 : 220" />
-                <Transform target="x" value="-183 + clamp(((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &gt;= 12 ? ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) - 18 : ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) + 6) + ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 % 60 : [MINUTE]) / 60.0) / 12.0, 0, 1) * 306" />
-                <Transform target="y" value="-57 - 117 * sin(clamp(((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &gt;= 12 ? ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) - 18 : ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) + 6) + ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 % 60 : [MINUTE]) / 60.0) / 12.0, 0, 1) * 3.14159265)" />
-                <Image resource="night_glow" />
-            </PartImage>
-            <Group name="moon" x="0" y="0" width="240" height="240" alpha="0">
-                <Transform target="alpha" value="((!([CONFIGURATION.sky_preview] == &quot;TRUE&quot;) &amp;&amp; [WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? [WEATHER.IS_DAY] : (([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &gt;= 6 &amp;&amp; ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &lt; 18)) ? 0 : 255" />
-                <Transform target="x" value="-48 + clamp(((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &gt;= 12 ? ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) - 18 : ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) + 6) + ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 % 60 : [MINUTE]) / 60.0) / 12.0, 0, 1) * 306" />
-                <Transform target="y" value="78 - 117 * sin(clamp(((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &gt;= 12 ? ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) - 18 : ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) + 6) + ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 % 60 : [MINUTE]) / 60.0) / 12.0, 0, 1) * 3.14159265)" />
-                <PartImage x="0" y="0" width="240" height="240" alpha="0">
-                    <Transform target="alpha" value="[MOON_PHASE_TYPE] == 0 ? 255 : 0" />
-                    <Image resource="moon_0" />
+            <Group name="active_sky" x="0" y="0" width="450" height="450">
+                <Variant mode="AMBIENT" target="alpha" value="0" />
+                <Transform target="alpha" value="([CONFIGURATION.sky_preview] != &quot;TRUE&quot; &amp;&amp; [REFERENCE.skyFrame] &gt; 0) ? 0 : 255" />
+                <PartImage x="0" y="0" width="450" height="450" alpha="0">
+                    <Transform target="alpha" value="220 - ((!([CONFIGURATION.sky_preview] == &quot;TRUE&quot;) &amp;&amp; [WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? ([WEATHER.IS_DAY] ? 255 : 0) : clamp((390.0 - abs(([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) - 720)) * 4.25, 0, 255)) * 220.0 / 255.0" />
+                    <Image resource="stars" />
                 </PartImage>
-                <PartImage x="0" y="0" width="240" height="240" alpha="0">
-                    <Transform target="alpha" value="[MOON_PHASE_TYPE] == 1 ? 255 : 0" />
-                    <Image resource="moon_1" />
+                <PartImage name="night_sky_glow" x="0" y="0" width="510" height="510" alpha="0">
+                    <Transform target="alpha" value="((!([CONFIGURATION.sky_preview] == &quot;TRUE&quot;) &amp;&amp; [WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? [WEATHER.IS_DAY] : (([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &gt;= 6 &amp;&amp; ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &lt; 18)) ? 0 : 220" />
+                    <Transform target="x" value="-183 + clamp(((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &gt;= 12 ? ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) - 18 : ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) + 6) + ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 % 60 : [MINUTE]) / 60.0) / 12.0, 0, 1) * 306" />
+                    <Transform target="y" value="-57 - 117 * sin(clamp(((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &gt;= 12 ? ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) - 18 : ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) + 6) + ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 % 60 : [MINUTE]) / 60.0) / 12.0, 0, 1) * 3.14159265)" />
+                    <Image resource="night_glow" />
                 </PartImage>
-                <PartImage x="0" y="0" width="240" height="240" alpha="0">
-                    <Transform target="alpha" value="[MOON_PHASE_TYPE] == 2 ? 255 : 0" />
-                    <Image resource="moon_2" />
-                </PartImage>
-                <PartImage x="0" y="0" width="240" height="240" alpha="0">
-                    <Transform target="alpha" value="[MOON_PHASE_TYPE] == 3 ? 255 : 0" />
-                    <Image resource="moon_3" />
-                </PartImage>
-                <PartImage x="0" y="0" width="240" height="240" alpha="0">
-                    <Transform target="alpha" value="[MOON_PHASE_TYPE] == 4 ? 255 : 0" />
-                    <Image resource="moon_4" />
-                </PartImage>
-                <PartImage x="0" y="0" width="240" height="240" alpha="0">
-                    <Transform target="alpha" value="[MOON_PHASE_TYPE] == 5 ? 255 : 0" />
-                    <Image resource="moon_5" />
-                </PartImage>
-                <PartImage x="0" y="0" width="240" height="240" alpha="0">
-                    <Transform target="alpha" value="[MOON_PHASE_TYPE] == 6 ? 255 : 0" />
-                    <Image resource="moon_6" />
-                </PartImage>
-                <PartImage x="0" y="0" width="240" height="240" alpha="0">
-                    <Transform target="alpha" value="[MOON_PHASE_TYPE] == 7 ? 255 : 0" />
-                    <Image resource="moon_7" />
-                </PartImage>
-            </Group>
-        </Group>
-
-        <Group name="local_sky" x="0" y="0" width="450" height="450">
-            <Variant mode="AMBIENT" target="alpha" value="0" />
-            <Condition>
-                <Expressions>
-                    <Expression name="locationSky">[CONFIGURATION.sky_preview] != "TRUE" &amp;&amp; [REFERENCE.skyFrame] &gt; 0</Expression>
-                </Expressions>
-                <Compare expression="locationSky">
-                    <Group name="local_atmosphere" x="0" y="0" width="450" height="450">
-                        <PartImage x="0" y="0" width="450" height="450" alpha="0">
-                            <Transform target="alpha" value="(255 - clamp(((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36) + 6) * 42.5, 0, 255)) * (0.86 - (!([WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? 0 : ([WEATHER.CONDITION] == 14 ? 105 : (([WEATHER.CONDITION] &gt;= 2 &amp;&amp; [WEATHER.CONDITION] &lt;= 7) || ([WEATHER.CONDITION] &gt;= 9 &amp;&amp; [WEATHER.CONDITION] &lt;= 13) ? 215 : 0))) / 330.0)">
-                                <Animation duration="2.4" interpolation="EASE_IN_OUT" />
-                            </Transform>
-                            <Image resource="stars" />
-                        </PartImage>
-                        <PartImage name="night_sky_glow" x="0" y="0" width="510" height="510" alpha="0">
-                            <Transform target="alpha" value="(([REFERENCE.skyFrame] * 16777216.0 - 1) % 64 * 2 - 36) &gt;= 0 ? (255 - clamp(((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36) + 6) * 42.5, 0, 255)) * 0.82 : 0" />
-                            <Transform target="x" value="(72.0 + (floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 64.0) % 64) * 306.0 / 63.0) - 255" />
-                            <Transform target="y" value="(198.0 - clamp((([REFERENCE.skyFrame] * 16777216.0 - 1) % 64 * 2 - 36), 0, 90) * 1.3) - 255" />
-                            <Image resource="night_glow" />
-                        </PartImage>
-                        <Group name="moon" x="0" y="0" width="240" height="240" alpha="0">
-                            <Transform target="alpha" value="(([REFERENCE.skyFrame] * 16777216.0 - 1) % 64 * 2 - 36) &gt;= 0 ? 255 - clamp(((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36) + 6) * 42.5, 0, 255) * 0.4 : 0" />
-                            <Transform target="x" value="(72.0 + (floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 64.0) % 64) * 306.0 / 63.0) - 120" />
-                            <Transform target="y" value="(198.0 - clamp((([REFERENCE.skyFrame] * 16777216.0 - 1) % 64 * 2 - 36), 0, 90) * 1.3) - 120" />
-                            <PartImage x="0" y="0" width="240" height="240" alpha="0">
-                                <Transform target="alpha" value="[MOON_PHASE_TYPE] == 0 ? 255 : 0" />
-                                <Image resource="moon_0" />
-                            </PartImage>
-                            <PartImage x="0" y="0" width="240" height="240" alpha="0">
-                                <Transform target="alpha" value="[MOON_PHASE_TYPE] == 1 ? 255 : 0" />
-                                <Image resource="moon_1" />
-                            </PartImage>
-                            <PartImage x="0" y="0" width="240" height="240" alpha="0">
-                                <Transform target="alpha" value="[MOON_PHASE_TYPE] == 2 ? 255 : 0" />
-                                <Image resource="moon_2" />
-                            </PartImage>
-                            <PartImage x="0" y="0" width="240" height="240" alpha="0">
-                                <Transform target="alpha" value="[MOON_PHASE_TYPE] == 3 ? 255 : 0" />
-                                <Image resource="moon_3" />
-                            </PartImage>
-                            <PartImage x="0" y="0" width="240" height="240" alpha="0">
-                                <Transform target="alpha" value="[MOON_PHASE_TYPE] == 4 ? 255 : 0" />
-                                <Image resource="moon_4" />
-                            </PartImage>
-                            <PartImage x="0" y="0" width="240" height="240" alpha="0">
-                                <Transform target="alpha" value="[MOON_PHASE_TYPE] == 5 ? 255 : 0" />
-                                <Image resource="moon_5" />
-                            </PartImage>
-                            <PartImage x="0" y="0" width="240" height="240" alpha="0">
-                                <Transform target="alpha" value="[MOON_PHASE_TYPE] == 6 ? 255 : 0" />
-                                <Image resource="moon_6" />
-                            </PartImage>
-                            <PartImage x="0" y="0" width="240" height="240" alpha="0">
-                                <Transform target="alpha" value="[MOON_PHASE_TYPE] == 7 ? 255 : 0" />
-                                <Image resource="moon_7" />
-                            </PartImage>
-                        </Group>
-                    </Group>
-                </Compare>
-            </Condition>
-        </Group>
-        <!-- Cloud density controls the sky composite. Broken cloud uses the same texture for the
-             visible banks and the mask that confines warm backlight to their surface. -->
-        <Group name="solar_weather" x="0" y="0" width="450" height="450">
-            <Variant mode="AMBIENT" target="alpha" value="0" />
-            <PartDraw name="solar_parameters" x="0" y="0" width="1" height="1">
-                <Transform target="x" value="150 + (([CONFIGURATION.sky_preview] != &quot;TRUE&quot; &amp;&amp; [REFERENCE.skyFrame] &gt; 0) ? ((72.0 + floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 262144.0) * 306.0 / 63.0) - 150) : (-78 + clamp((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) - 360) / 720.0, 0, 1) * 306))" />
-                <Transform target="y" value="252 - 174 * (1 - pow(1 - clamp(([REFERENCE.solarElevation] - 90) / 43, 0, 1), 2.2))" />
-                <Transform target="scaleY" value="1 + clamp((([REFERENCE.solarElevation] - 90) + 1.5) / 3.0, 0, 1)" />
-                <Transform target="scaleX" value="1 + ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? ([SECOND] &lt; 33 || [SECOND] &gt;= 45 ? 0 : [SECOND] &lt; 39 ? 1 : 2) : ([WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR] ? ([WEATHER.CONDITION] == 14 ? 1 : (([WEATHER.CONDITION] &gt;= 2 &amp;&amp; [WEATHER.CONDITION] &lt;= 7) || ([WEATHER.CONDITION] &gt;= 9 &amp;&amp; [WEATHER.CONDITION] &lt;= 13) ? 2 : 0)) : 0))" />
-                <Reference name="sunCenterX" source="x" defaultValue="0" />
-                <Reference name="sunCenterY" source="y" defaultValue="0" />
-                <Reference name="daylightScale" source="scaleY" defaultValue="1" />
-                <Reference name="cloudLevel" source="scaleX" defaultValue="1" />
-                <Rectangle x="0" y="0" width="1" height="1"><Fill color="#00000000" /></Rectangle>
-            </PartDraw>
-            <Group name="direct_sun_daylight" x="0" y="0" width="450" height="450">
-                <Transform target="alpha" value="255 * ([REFERENCE.daylightScale] - 1)" />
-                <PartImage name="direct_sun" x="0" y="0" width="300" height="300" alpha="0">
-                    <Transform target="x" value="[REFERENCE.sunCenterX] - 150" />
-                    <Transform target="y" value="[REFERENCE.sunCenterY] - 150" />
-                    <Transform target="alpha" value="[REFERENCE.cloudLevel] == 3 ? 0 : 255">
-                        <Animation duration="2.4" interpolation="EASE_IN_OUT" />
-                    </Transform>
-                    <Image resource="sun_glow" />
-                </PartImage>
-            </Group>
-            <PartImage name="broken_cloud" x="-55" y="0" width="560" height="270" alpha="0">
-                <Transform target="x" value="-55 + 12 * sin(([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) / 95.0)" />
-                <Reference name="cloudLeft" source="x" defaultValue="-55" />
-                <Transform target="alpha" value="[REFERENCE.cloudLevel] == 2 ? 255 : 0">
-                    <Animation duration="2.4" interpolation="EASE_IN_OUT" />
-                </Transform>
-                <Image resource="cloud_veil" />
-            </PartImage>
-            <PartImage name="overcast_deck" x="-55" y="0" width="560" height="360" alpha="0">
-                <Transform target="alpha" value="[REFERENCE.cloudLevel] == 3 ? 255 : 0">
-                    <Animation duration="2.4" interpolation="EASE_IN_OUT" />
-                </Transform>
-                <Image resource="overcast_clouds" />
-            </PartImage>
-            <Group name="diffuse_overcast_light_daylight" x="0" y="0" width="450" height="450">
-                <Transform target="alpha" value="255 * ([REFERENCE.daylightScale] - 1)" />
-                <PartImage name="diffuse_overcast_light" x="0" y="0" width="300" height="300" alpha="0">
-                    <Transform target="x" value="[REFERENCE.sunCenterX] - 150" />
-                    <Transform target="y" value="[REFERENCE.sunCenterY] - 150" />
-                    <Transform target="alpha" value="[REFERENCE.cloudLevel] == 3 ? 255 : 0">
-                        <Animation duration="2.4" interpolation="EASE_IN_OUT" />
-                    </Transform>
-                    <Image resource="sun_diffusion" />
-                </PartImage>
-            </Group>
-            <Group name="backlit_cloud_daylight" x="0" y="0" width="450" height="450">
-                <Transform target="alpha" value="255 * ([REFERENCE.daylightScale] - 1)" />
-                <Group name="backlit_cloud" x="0" y="0" width="450" height="450">
-                    <Transform target="alpha" value="[REFERENCE.cloudLevel] == 2 ? 255 : 0">
-                        <Animation duration="2.4" interpolation="EASE_IN_OUT" />
-                    </Transform>
-                    <PartImage x="0" y="0" width="300" height="300">
-                        <Transform target="x" value="[REFERENCE.sunCenterX] - 150" />
-                        <Transform target="y" value="[REFERENCE.sunCenterY] - 150" />
-                        <Image resource="sun_diffusion" />
+                <Group name="moon" x="0" y="0" width="240" height="240" alpha="0">
+                    <Transform target="alpha" value="((!([CONFIGURATION.sky_preview] == &quot;TRUE&quot;) &amp;&amp; [WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? [WEATHER.IS_DAY] : (([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &gt;= 6 &amp;&amp; ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &lt; 18)) ? 0 : 255" />
+                    <Transform target="x" value="-48 + clamp(((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &gt;= 12 ? ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) - 18 : ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) + 6) + ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 % 60 : [MINUTE]) / 60.0) / 12.0, 0, 1) * 306" />
+                    <Transform target="y" value="78 - 117 * sin(clamp(((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) &gt;= 12 ? ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) - 18 : ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? floor([SECOND] * 0.4) : [HOUR_0_23]) + 6) + ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 % 60 : [MINUTE]) / 60.0) / 12.0, 0, 1) * 3.14159265)" />
+                    <PartImage x="0" y="0" width="240" height="240" alpha="0">
+                        <Transform target="alpha" value="[MOON_PHASE_TYPE] == 0 ? 255 : 0" />
+                        <Image resource="moon_0" />
                     </PartImage>
-                    <PartImage x="-55" y="0" width="560" height="270" renderMode="MASK">
-                        <Transform target="x" value="[REFERENCE.cloudLeft]" />
-                        <Image resource="cloud_veil" />
+                    <PartImage x="0" y="0" width="240" height="240" alpha="0">
+                        <Transform target="alpha" value="[MOON_PHASE_TYPE] == 1 ? 255 : 0" />
+                        <Image resource="moon_1" />
+                    </PartImage>
+                    <PartImage x="0" y="0" width="240" height="240" alpha="0">
+                        <Transform target="alpha" value="[MOON_PHASE_TYPE] == 2 ? 255 : 0" />
+                        <Image resource="moon_2" />
+                    </PartImage>
+                    <PartImage x="0" y="0" width="240" height="240" alpha="0">
+                        <Transform target="alpha" value="[MOON_PHASE_TYPE] == 3 ? 255 : 0" />
+                        <Image resource="moon_3" />
+                    </PartImage>
+                    <PartImage x="0" y="0" width="240" height="240" alpha="0">
+                        <Transform target="alpha" value="[MOON_PHASE_TYPE] == 4 ? 255 : 0" />
+                        <Image resource="moon_4" />
+                    </PartImage>
+                    <PartImage x="0" y="0" width="240" height="240" alpha="0">
+                        <Transform target="alpha" value="[MOON_PHASE_TYPE] == 5 ? 255 : 0" />
+                        <Image resource="moon_5" />
+                    </PartImage>
+                    <PartImage x="0" y="0" width="240" height="240" alpha="0">
+                        <Transform target="alpha" value="[MOON_PHASE_TYPE] == 6 ? 255 : 0" />
+                        <Image resource="moon_6" />
+                    </PartImage>
+                    <PartImage x="0" y="0" width="240" height="240" alpha="0">
+                        <Transform target="alpha" value="[MOON_PHASE_TYPE] == 7 ? 255 : 0" />
+                        <Image resource="moon_7" />
                     </PartImage>
                 </Group>
             </Group>
-        </Group>
 
-        <!-- Preserve the original slot order during upgrades. The bottom slot replaces a retired placeholder.
-             The two visible arcs come from Samsung Watch Face Studio 1.9.9 (Info_clocks > Duo). -->
-        <!-- User-selectable curved bottom complication (Slot 9). -->
+            <Group name="local_sky" x="0" y="0" width="450" height="450">
+                <Variant mode="AMBIENT" target="alpha" value="0" />
+                <Condition>
+                    <Expressions>
+                        <Expression name="locationSky">[CONFIGURATION.sky_preview] != "TRUE" &amp;&amp; [REFERENCE.skyFrame] &gt; 0</Expression>
+                    </Expressions>
+                    <Compare expression="locationSky">
+                        <Group name="local_atmosphere" x="0" y="0" width="450" height="450">
+                            <PartImage x="0" y="0" width="450" height="450" alpha="0">
+                                <Transform target="alpha" value="(255 - clamp(((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36) + 6) * 42.5, 0, 255)) * (0.86 - (!([WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? 0 : ([WEATHER.CONDITION] == 14 ? 105 : (([WEATHER.CONDITION] &gt;= 2 &amp;&amp; [WEATHER.CONDITION] &lt;= 7) || ([WEATHER.CONDITION] &gt;= 9 &amp;&amp; [WEATHER.CONDITION] &lt;= 13) ? 215 : 0))) / 330.0)">
+                                    <Animation duration="2.4" interpolation="EASE_IN_OUT" />
+                                </Transform>
+                                <Image resource="stars" />
+                            </PartImage>
+                            <PartImage name="night_sky_glow" x="0" y="0" width="510" height="510" alpha="0">
+                                <Transform target="alpha" value="(([REFERENCE.skyFrame] * 16777216.0 - 1) % 64 * 2 - 36) &gt;= 0 ? (255 - clamp(((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36) + 6) * 42.5, 0, 255)) * 0.82 : 0" />
+                                <Transform target="x" value="(72.0 + (floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 64.0) % 64) * 306.0 / 63.0) - 255" />
+                                <Transform target="y" value="(198.0 - clamp((([REFERENCE.skyFrame] * 16777216.0 - 1) % 64 * 2 - 36), 0, 90) * 1.3) - 255" />
+                                <Image resource="night_glow" />
+                            </PartImage>
+                            <Group name="moon" x="0" y="0" width="240" height="240" alpha="0">
+                                <Transform target="alpha" value="(([REFERENCE.skyFrame] * 16777216.0 - 1) % 64 * 2 - 36) &gt;= 0 ? 255 - clamp(((floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 4096.0) % 64 * 2 - 36) + 6) * 42.5, 0, 255) * 0.4 : 0" />
+                                <Transform target="x" value="(72.0 + (floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 64.0) % 64) * 306.0 / 63.0) - 120" />
+                                <Transform target="y" value="(198.0 - clamp((([REFERENCE.skyFrame] * 16777216.0 - 1) % 64 * 2 - 36), 0, 90) * 1.3) - 120" />
+                                <PartImage x="0" y="0" width="240" height="240" alpha="0">
+                                    <Transform target="alpha" value="[MOON_PHASE_TYPE] == 0 ? 255 : 0" />
+                                    <Image resource="moon_0" />
+                                </PartImage>
+                                <PartImage x="0" y="0" width="240" height="240" alpha="0">
+                                    <Transform target="alpha" value="[MOON_PHASE_TYPE] == 1 ? 255 : 0" />
+                                    <Image resource="moon_1" />
+                                </PartImage>
+                                <PartImage x="0" y="0" width="240" height="240" alpha="0">
+                                    <Transform target="alpha" value="[MOON_PHASE_TYPE] == 2 ? 255 : 0" />
+                                    <Image resource="moon_2" />
+                                </PartImage>
+                                <PartImage x="0" y="0" width="240" height="240" alpha="0">
+                                    <Transform target="alpha" value="[MOON_PHASE_TYPE] == 3 ? 255 : 0" />
+                                    <Image resource="moon_3" />
+                                </PartImage>
+                                <PartImage x="0" y="0" width="240" height="240" alpha="0">
+                                    <Transform target="alpha" value="[MOON_PHASE_TYPE] == 4 ? 255 : 0" />
+                                    <Image resource="moon_4" />
+                                </PartImage>
+                                <PartImage x="0" y="0" width="240" height="240" alpha="0">
+                                    <Transform target="alpha" value="[MOON_PHASE_TYPE] == 5 ? 255 : 0" />
+                                    <Image resource="moon_5" />
+                                </PartImage>
+                                <PartImage x="0" y="0" width="240" height="240" alpha="0">
+                                    <Transform target="alpha" value="[MOON_PHASE_TYPE] == 6 ? 255 : 0" />
+                                    <Image resource="moon_6" />
+                                </PartImage>
+                                <PartImage x="0" y="0" width="240" height="240" alpha="0">
+                                    <Transform target="alpha" value="[MOON_PHASE_TYPE] == 7 ? 255 : 0" />
+                                    <Image resource="moon_7" />
+                                </PartImage>
+                            </Group>
+                        </Group>
+                    </Compare>
+                </Condition>
+            </Group>
+            <!-- Cloud density controls the sky composite. Broken cloud uses the same texture for the
+                 visible banks and the mask that confines warm backlight to their surface. -->
+            <Group name="solar_weather" x="0" y="0" width="450" height="450">
+                <Variant mode="AMBIENT" target="alpha" value="0" />
+                <PartDraw name="solar_parameters" x="0" y="0" width="1" height="1">
+                    <Transform target="x" value="150 + (([CONFIGURATION.sky_preview] != &quot;TRUE&quot; &amp;&amp; [REFERENCE.skyFrame] &gt; 0) ? ((72.0 + floor(([REFERENCE.skyFrame] * 16777216.0 - 1) / 262144.0) * 306.0 / 63.0) - 150) : (-78 + clamp((([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) - 360) / 720.0, 0, 1) * 306))" />
+                    <Transform target="y" value="252 - 174 * (1 - pow(1 - clamp(([REFERENCE.solarElevation] - 90) / 43, 0, 1), 2.2))" />
+                    <Transform target="scaleY" value="1 + clamp((([REFERENCE.solarElevation] - 90) + 1.5) / 3.0, 0, 1)" />
+                    <Transform target="scaleX" value="1 + ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? ([SECOND] &lt; 33 || [SECOND] &gt;= 45 ? 0 : [SECOND] &lt; 39 ? 1 : 2) : ([WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR] ? ([WEATHER.CONDITION] == 14 ? 1 : (([WEATHER.CONDITION] &gt;= 2 &amp;&amp; [WEATHER.CONDITION] &lt;= 7) || ([WEATHER.CONDITION] &gt;= 9 &amp;&amp; [WEATHER.CONDITION] &lt;= 13) ? 2 : 0)) : 0))" />
+                    <Reference name="sunCenterX" source="x" defaultValue="0" />
+                    <Reference name="sunCenterY" source="y" defaultValue="0" />
+                    <Reference name="daylightScale" source="scaleY" defaultValue="1" />
+                    <Reference name="cloudLevel" source="scaleX" defaultValue="1" />
+                    <Rectangle x="0" y="0" width="1" height="1"><Fill color="#00000000" /></Rectangle>
+                </PartDraw>
+                <Group name="direct_sun_daylight" x="0" y="0" width="450" height="450">
+                    <Transform target="alpha" value="255 * ([REFERENCE.daylightScale] - 1)" />
+                    <PartImage name="direct_sun" x="0" y="0" width="300" height="300" alpha="0">
+                        <Transform target="x" value="[REFERENCE.sunCenterX] - 150" />
+                        <Transform target="y" value="[REFERENCE.sunCenterY] - 150" />
+                        <Transform target="alpha" value="[REFERENCE.cloudLevel] == 3 ? 0 : 255">
+                            <Animation duration="2.4" interpolation="EASE_IN_OUT" />
+                        </Transform>
+                        <Image resource="sun_glow" />
+                    </PartImage>
+                </Group>
+                <PartImage name="broken_cloud" x="-55" y="0" width="560" height="270" alpha="0">
+                    <Transform target="x" value="-55 + 12 * sin(([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) / 95.0)" />
+                    <Reference name="cloudLeft" source="x" defaultValue="-55" />
+                    <Transform target="alpha" value="[REFERENCE.cloudLevel] == 2 ? 255 : 0">
+                        <Animation duration="2.4" interpolation="EASE_IN_OUT" />
+                    </Transform>
+                    <Image resource="cloud_veil" />
+                </PartImage>
+                <PartImage name="overcast_deck" x="-55" y="0" width="560" height="360" alpha="0">
+                    <Transform target="alpha" value="[REFERENCE.cloudLevel] == 3 ? 255 : 0">
+                        <Animation duration="2.4" interpolation="EASE_IN_OUT" />
+                    </Transform>
+                    <Image resource="overcast_clouds" />
+                </PartImage>
+                <Group name="diffuse_overcast_light_daylight" x="0" y="0" width="450" height="450">
+                    <Transform target="alpha" value="255 * ([REFERENCE.daylightScale] - 1)" />
+                    <PartImage name="diffuse_overcast_light" x="0" y="0" width="300" height="300" alpha="0">
+                        <Transform target="x" value="[REFERENCE.sunCenterX] - 150" />
+                        <Transform target="y" value="[REFERENCE.sunCenterY] - 150" />
+                        <Transform target="alpha" value="[REFERENCE.cloudLevel] == 3 ? 255 : 0">
+                            <Animation duration="2.4" interpolation="EASE_IN_OUT" />
+                        </Transform>
+                        <Image resource="sun_diffusion" />
+                    </PartImage>
+                </Group>
+                <Group name="backlit_cloud_daylight" x="0" y="0" width="450" height="450">
+                    <Transform target="alpha" value="255 * ([REFERENCE.daylightScale] - 1)" />
+                    <Group name="backlit_cloud" x="0" y="0" width="450" height="450">
+                        <Transform target="alpha" value="[REFERENCE.cloudLevel] == 2 ? 255 : 0">
+                            <Animation duration="2.4" interpolation="EASE_IN_OUT" />
+                        </Transform>
+                        <PartImage x="0" y="0" width="300" height="300">
+                            <Transform target="x" value="[REFERENCE.sunCenterX] - 150" />
+                            <Transform target="y" value="[REFERENCE.sunCenterY] - 150" />
+                            <Image resource="sun_diffusion" />
+                        </PartImage>
+                        <PartImage x="-55" y="0" width="560" height="270" renderMode="MASK">
+                            <Transform target="x" value="[REFERENCE.cloudLeft]" />
+                            <Image resource="cloud_veil" />
+                        </PartImage>
+                    </Group>
+                </Group>
+            </Group>
+
+            <!-- Preserve the original slot order during upgrades. The bottom slot replaces a retired placeholder.
+                 The two visible arcs come from Samsung Watch Face Studio 1.9.9 (Info_clocks > Duo). -->
+            <!-- User-selectable curved bottom complication (Slot 9). -->
+            </Compare>
+        </Condition>
+
         <ComplicationSlot
             x="116" y="379" width="218" height="51"
             slotId="9"
@@ -294,15 +314,16 @@
             <DefaultProviderPolicy defaultSystemProvider="DAY_AND_DATE" defaultSystemProviderType="SHORT_TEXT" />
             <BoundingBox x="0" y="0" width="218" height="51" />
             <Complication type="SHORT_TEXT">
-                <PartText x="0" y="0" width="218" height="51"><TextCircular centerX="109" centerY="-154" width="382" height="382" startAngle="210" endAngle="150" direction="COUNTER_CLOCKWISE" align="CENTER" ellipsis="TRUE"><Font family="ibm_plex_arabic_bold" size="17" weight="BOLD" color="#FFFFFFFF"><Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template></Font></TextCircular></PartText>
+                <PartText x="0" y="0" width="218" height="51"><TextCircular centerX="109" centerY="-154" width="382" height="382" startAngle="210" endAngle="150" direction="COUNTER_CLOCKWISE" align="CENTER" ellipsis="TRUE"><Font family="ibm_plex_arabic_bold" size="17" weight="BOLD" color="#FFFFFFFF"><Transform target="color" value="[REFERENCE.mainTextColor]" /><Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template></Font></TextCircular></PartText>
             </Complication>
             <Complication type="LONG_TEXT">
-                <PartText x="0" y="0" width="218" height="51"><TextCircular centerX="109" centerY="-154" width="382" height="382" startAngle="210" endAngle="150" direction="COUNTER_CLOCKWISE" align="CENTER" ellipsis="TRUE"><Font family="ibm_plex_arabic_bold" size="17" weight="BOLD" color="#FFFFFFFF"><Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template></Font></TextCircular></PartText>
+                <PartText x="0" y="0" width="218" height="51"><TextCircular centerX="109" centerY="-154" width="382" height="382" startAngle="210" endAngle="150" direction="COUNTER_CLOCKWISE" align="CENTER" ellipsis="TRUE"><Font family="ibm_plex_arabic_bold" size="17" weight="BOLD" color="#FFFFFFFF"><Transform target="color" value="[REFERENCE.mainTextColor]" /><Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template></Font></TextCircular></PartText>
             </Complication>
             <Complication type="RANGED_VALUE">
                 <PartText x="0" y="0" width="218" height="51">
                     <TextCircular centerX="109" centerY="-154" width="382" height="382" startAngle="210" endAngle="150" direction="COUNTER_CLOCKWISE" align="CENTER" ellipsis="TRUE">
                         <Font family="ibm_plex_arabic_bold" size="17" color="#FFFFFFFF">
+                            <Transform target="color" value="[REFERENCE.mainTextColor]" />
                             <Template>%s<Parameter expression="[COMPLICATION.TEXT] != &quot;&quot; ? [COMPLICATION.TEXT] : numberFormat(&quot;0.#&quot;, [COMPLICATION.RANGED_VALUE_VALUE])" /></Template>
                         </Font>
                     </TextCircular>
@@ -312,6 +333,7 @@
                 <PartText x="0" y="0" width="218" height="51">
                     <TextCircular centerX="109" centerY="-154" width="382" height="382" startAngle="210" endAngle="150" direction="COUNTER_CLOCKWISE" align="CENTER" ellipsis="TRUE">
                         <Font family="ibm_plex_arabic_bold" size="17" color="#FFFFFFFF">
+                            <Transform target="color" value="[REFERENCE.mainTextColor]" />
                             <Template>%s<Parameter expression="[COMPLICATION.TEXT] != &quot;&quot; ? [COMPLICATION.TEXT] : numberFormat(&quot;0.#&quot;, [COMPLICATION.GOAL_PROGRESS_VALUE])" /></Template>
                         </Font>
                     </TextCircular>
@@ -321,6 +343,7 @@
                 <PartText x="0" y="0" width="218" height="51">
                     <TextCircular centerX="109" centerY="-154" width="382" height="382" startAngle="210" endAngle="150" direction="COUNTER_CLOCKWISE" align="CENTER" ellipsis="TRUE">
                         <Font family="ibm_plex_arabic_bold" size="17" color="#FFFFFFFF">
+                            <Transform target="color" value="[REFERENCE.mainTextColor]" />
                             <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
                         </Font>
                     </TextCircular>
@@ -330,7 +353,9 @@
                 <Group x="97" y="19" width="24" height="24" name="accent_icon">
                     <PartDraw x="0" y="0" width="24" height="24">
                         <Rectangle x="0" y="0" width="24" height="24">
-                            <Fill color="#FFFFFFFF" />
+                            <Fill color="#FFFFFFFF">
+                                <Transform target="color" value="[REFERENCE.mainTextColor]" />
+                            </Fill>
                         </Rectangle>
                     </PartDraw>
                     <PartImage x="0" y="0" width="24" height="24" renderMode="MASK">
@@ -350,9 +375,20 @@
             </Complication>
         </ComplicationSlot>
 
-        <ComplicationSlot slotId="5" name="retired_corner_5" x="0" y="0" width="1" height="1" alpha="0" isCustomizable="FALSE" supportedTypes="EMPTY">
-            <DefaultProviderPolicy defaultSystemProvider="EMPTY" defaultSystemProviderType="EMPTY" />
+        <!-- Retired corner slot 5, reused (the format allows 8 slots) for the outdoor switch from the companion
+             app/tile: 0 or 1, carried as scale 1 or 2 in [REFERENCE.outdoorMode]. -->
+        <ComplicationSlot slotId="5" x="0" y="0" width="450" height="450" name="outdoor_mode" isCustomizable="FALSE" supportedTypes="RANGED_VALUE EMPTY">
+            <DefaultProviderPolicy primaryProvider="com.shia.tehranwatchface/com.shia.tehranwatchface.complications.OutdoorModeComplicationService" primaryProviderType="RANGED_VALUE" defaultSystemProvider="EMPTY" defaultSystemProviderType="EMPTY" />
             <BoundingBox x="0" y="0" width="1" height="1" />
+            <Complication type="RANGED_VALUE">
+                <PartDraw name="outdoor_flag" x="225" y="225" width="1" height="1">
+                    <Transform target="scaleX" value="[COMPLICATION.RANGED_VALUE_VALUE] &gt; 0.5 ? 2 : 1" />
+                    <Reference name="outdoorMode" source="scaleX" defaultValue="1" />
+                    <Rectangle x="0" y="0" width="1" height="1">
+                        <Fill color="#00000000" />
+                    </Rectangle>
+                </PartDraw>
+            </Complication>
             <Complication type="EMPTY" />
         </ComplicationSlot>
 
@@ -1232,15 +1268,16 @@
                 primaryProviderType="SHORT_TEXT" />
             <BoundingBox x="0" y="0" width="218" height="51" />
             <Complication type="SHORT_TEXT">
-                <PartText x="0" y="0" width="218" height="51"><TextCircular centerX="109" centerY="205" width="382" height="382" startAngle="330" endAngle="30" align="CENTER" ellipsis="TRUE"><Font family="ibm_plex_arabic_bold" size="17" weight="BOLD" color="#FFFFFFFF"><Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template></Font></TextCircular></PartText>
+                <PartText x="0" y="0" width="218" height="51"><TextCircular centerX="109" centerY="205" width="382" height="382" startAngle="330" endAngle="30" align="CENTER" ellipsis="TRUE"><Font family="ibm_plex_arabic_bold" size="17" weight="BOLD" color="#FFFFFFFF"><Transform target="color" value="[REFERENCE.mainTextColor]" /><Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template></Font></TextCircular></PartText>
             </Complication>
             <Complication type="LONG_TEXT">
-                <PartText x="0" y="0" width="218" height="51"><TextCircular centerX="109" centerY="205" width="382" height="382" startAngle="330" endAngle="30" align="CENTER" ellipsis="TRUE"><Font family="ibm_plex_arabic_bold" size="17" weight="BOLD" color="#FFFFFFFF"><Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template></Font></TextCircular></PartText>
+                <PartText x="0" y="0" width="218" height="51"><TextCircular centerX="109" centerY="205" width="382" height="382" startAngle="330" endAngle="30" align="CENTER" ellipsis="TRUE"><Font family="ibm_plex_arabic_bold" size="17" weight="BOLD" color="#FFFFFFFF"><Transform target="color" value="[REFERENCE.mainTextColor]" /><Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template></Font></TextCircular></PartText>
             </Complication>
             <Complication type="RANGED_VALUE">
                 <PartText x="39" y="2" width="140" height="36">
                     <Text align="CENTER" maxLines="1" ellipsis="TRUE">
                         <Font family="ibm_plex_arabic_bold" size="13" color="#FFFFFDF7">
+                            <Transform target="color" value="[REFERENCE.mainTextColor]" />
                             <Template>%s<Parameter expression="[COMPLICATION.TEXT] != &quot;&quot; ? [COMPLICATION.TEXT] : numberFormat(&quot;0.#&quot;, [COMPLICATION.RANGED_VALUE_VALUE])" /></Template>
                         </Font>
                     </Text>
@@ -1250,6 +1287,7 @@
                 <PartText x="39" y="2" width="140" height="36">
                     <Text align="CENTER" maxLines="1" ellipsis="TRUE">
                         <Font family="ibm_plex_arabic_bold" size="13" color="#FFFFFDF7">
+                            <Transform target="color" value="[REFERENCE.mainTextColor]" />
                             <Template>%s<Parameter expression="[COMPLICATION.TEXT] != &quot;&quot; ? [COMPLICATION.TEXT] : numberFormat(&quot;0.#&quot;, [COMPLICATION.GOAL_PROGRESS_VALUE])" /></Template>
                         </Font>
                     </Text>
@@ -1259,6 +1297,7 @@
                 <PartText x="39" y="2" width="140" height="36">
                     <Text align="CENTER" maxLines="1" ellipsis="TRUE">
                         <Font family="ibm_plex_arabic_bold" size="13" color="#FFFFFDF7">
+                            <Transform target="color" value="[REFERENCE.mainTextColor]" />
                             <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
                         </Font>
                     </Text>
@@ -1268,7 +1307,9 @@
                 <Group x="97" y="7" width="24" height="24" name="accent_icon">
                     <PartDraw x="0" y="0" width="24" height="24">
                         <Rectangle x="0" y="0" width="24" height="24">
-                            <Fill color="#FFFFFFFF" />
+                            <Fill color="#FFFFFFFF">
+                                <Transform target="color" value="[REFERENCE.mainTextColor]" />
+                            </Fill>
                         </Rectangle>
                     </PartDraw>
                     <PartImage x="0" y="0" width="24" height="24" renderMode="MASK">
@@ -1288,9 +1329,9 @@
             </Complication>
         </ComplicationSlot>
 
-        <!-- Resolves the main-text colour once; clock digits and prayer rows read [REFERENCE.mainTextColor]. -->
+        <!-- Resolves the text colour once; clock digits, prayer rows, top date and bottom slot read [REFERENCE.mainTextColor]. -->
         <PartDraw name="main_text_color" x="0" y="0" width="1" height="1" tintColor="#FFFFFDF7">
-            <Transform target="tintColor" value="[CONFIGURATION.text_color] == &quot;full&quot; ? [CONFIGURATION.face_color.0] : ([CONFIGURATION.text_color] == &quot;tint&quot; ? [CONFIGURATION.face_color.1] : colorRgb(255, 253, 247))" />
+            <Transform target="tintColor" value="[CONFIGURATION.text_color] == &quot;full&quot; ? [CONFIGURATION.face_color.0] : ([CONFIGURATION.text_color] == &quot;tint&quot; ? [CONFIGURATION.face_color.1] : ([CONFIGURATION.text_color] == &quot;yellow&quot; ? colorRgb(253, 235, 0) : ([CONFIGURATION.text_color] == &quot;green&quot; ? colorRgb(66, 255, 68) : ([CONFIGURATION.text_color] == &quot;white&quot; ? colorRgb(255, 255, 255) : colorRgb(255, 253, 247)))))" />
             <Reference name="mainTextColor" source="tintColor" defaultValue="#FFFFFDF7" />
             <Rectangle x="0" y="0" width="1" height="1"><Fill color="#00000000" /></Rectangle>
         </PartDraw>

@@ -39,6 +39,7 @@ import com.shia.tehranwatchface.complications.DailyScheduleComplicationService
 import com.shia.tehranwatchface.complications.HijriDateComplicationService
 import com.shia.tehranwatchface.complications.NextPrayerComplicationService
 import com.shia.tehranwatchface.complications.SkyComplicationService
+import com.shia.tehranwatchface.data.OutdoorMode
 import com.shia.tehranwatchface.data.PrayerPreferences
 import com.shia.tehranwatchface.data.PrayerSettings
 import com.shia.tehranwatchface.prayer.HijriCalendarHelper
@@ -81,6 +82,7 @@ fun TehranWatchFaceApp() {
     val listState = rememberScalingLazyListState()
     val settings by PrayerPreferences.settingsFlow(context).collectAsState(initial = PrayerSettings())
     val ticking by TickingService.active.collectAsState()
+    val outdoor by OutdoorMode.flow(context).collectAsState(initial = false)
     var gpsStatus by remember { mutableStateOf<String?>(null) }
 
     fun refreshComplications() {
@@ -209,6 +211,21 @@ fun TehranWatchFaceApp() {
                     },
                     toggleControl = { Switch(checked = ticking) },
                     modifier = Modifier.fillMaxWidth()
+                )
+            }
+
+            item {
+                ToggleChip(
+                    checked = outdoor,
+                    onCheckedChange = { enabled -> scope.launch { OutdoorMode.set(context, enabled) } },
+                    label = { Text(stringResource(R.string.outdoor_mode), fontSize = 12.sp) },
+                    secondaryLabel = {
+                        Text(stringResource(R.string.outdoor_hint), fontSize = 9.sp, maxLines = 2)
+                    },
+                    toggleControl = { Switch(checked = outdoor) },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 4.dp)
                 )
             }
 

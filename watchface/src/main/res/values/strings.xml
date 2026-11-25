@@ -18,6 +18,13 @@
     <string name="text_color_ivory">عاجي</string>
     <string name="text_color_tint">فاتح من اللون</string>
     <string name="text_color_full">نفس اللون</string>
+    <string name="text_color_yellow">أصفر نيون</string>
+    <string name="text_color_green">أخضر نيون</string>
+    <string name="text_color_white">أبيض</string>
+    <string name="background_name">الخلفية</string>
+    <string name="background_sky">السماء</string>
+    <string name="background_black">أسود دائمًا</string>
+    <string name="background_app">حسب مفتاح التطبيق</string>
     <string name="sky_preview_name">عرض تجريبي: دورة السماء في دقيقة</string>
     <string name="hindi_digits_name">أرقام الساعة المشرقية (٠١٢٣)</string>
     <string name="slot_bottom_name">الخانة السفلية المقوّسة</string>

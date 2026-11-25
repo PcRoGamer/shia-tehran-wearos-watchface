@@ -10,8 +10,8 @@ android {
         applicationId = "com.shia.tehranwatchface.wff"
         minSdk = 36
         targetSdk = 36
-        versionCode = 57
-        versionName = "1.6.46"
+        versionCode = 58
+        versionName = "1.6.47"
     }
 
     buildTypes {

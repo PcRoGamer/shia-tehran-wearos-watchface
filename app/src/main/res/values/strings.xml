@@ -10,4 +10,10 @@
     <string name="ticking_active">صوت التكتكة يعمل</string>
     <string name="ticking_channel">صوت التكتكة</string>
     <string name="ticking_unavailable">تعذّر تشغيل التكتكة. جرّب مرة ثانية.</string>
+    <string name="complication_outdoor_label">الوضع الخارجي</string>
+    <string name="outdoor_mode">الوضع الخارجي (خلفية سوداء)</string>
+    <string name="outdoor_hint">يعمل إذا كانت خلفية الواجهة «حسب مفتاح التطبيق»</string>
+    <string name="tile_outdoor_label">الوضع الخارجي</string>
+    <string name="tile_outdoor_on">الوضع الخارجي: يعمل</string>
+    <string name="tile_outdoor_off">الوضع الخارجي: متوقف</string>
 </resources>
