@@ -1446,13 +1446,13 @@
                 </Group>
             </ListOption>
         </ListConfiguration>
-        <Group name="clock_period" x="182" y="133" width="86" height="38" angle="90">
+        <Group name="clock_period" x="182" y="133" width="86" height="38" angle="270">
             <Transform target="x" value="[REFERENCE.clockSeparatorX] - 43" />
             <!-- Fit each shaped Arabic label into the separator. -->
             <Transform target="scaleX" value="[HOUR_0_23] &lt; 4 || [HOUR_0_23] &gt;= 21 ? 0.95 : [HOUR_0_23] &lt; 6 ? 1 : [HOUR_0_23] &lt; 12 ? 0.87 : [HOUR_0_23] &lt; 15 ? 1.10 : [HOUR_0_23] &lt; 18 ? 0.90 : 0.95" />
             <Reference name="periodScale" source="scaleX" defaultValue="1" />
             <Transform target="scaleY" value="[REFERENCE.periodScale]" />
-            <PartText name="clock_day_period_shadow" x="-1" y="0" width="86" height="38">
+            <PartText name="clock_day_period_shadow" x="1" y="0" width="86" height="38">
                 <Variant mode="AMBIENT" target="alpha" value="0" />
                 <Text align="CENTER" maxLines="1">
                     <Font family="ibm_plex_arabic_bold" size="31" weight="BOLD" color="#63081525">
