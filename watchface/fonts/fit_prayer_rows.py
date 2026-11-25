@@ -23,11 +23,18 @@ KASHIDA = {
     "نصف الليل": ("نص", "ف الليل"),
 }
 # Rank-specific ink width, point sizes, and the existing vertical row geometry.
+# Time sizes are the fallback for an unknown label: the Outfit digit height
+# (717 units) sits level with the Arabic alif (740 units) at the reference
+# name size, so the numbers read the same size as the words.
 RANKS = {
-    "featured": (124, 54, 44, 78, 294, 8, 76, 255),
-    "following": (101, 42, 35, 95, 270, -8, 56, 246),
-    "third": (78, 34, 28, 95, 270, 46, 40, 213),
+    "featured": (124, 45, 44, 78, 294, 8, 76, 255),
+    "following": (101, 36, 35, 95, 270, -8, 56, 246),
+    "third": (78, 29, 28, 95, 270, 46, 40, 213),
 }
+# Known labels size their digits from the word actually drawn, within this
+# range of the rank's time size so the row hierarchy survives.
+DIGIT_TO_ALIF = 740 / 717
+TIME_RANGE = (0.9, 1.2)
 DIVIDER = 225
 HALF_GUTTER = 10
 DIGITS = "0123456789"
@@ -148,7 +155,7 @@ def number_style(target, reference, natural_width, gaps):
     for units in TRACKING:
         tracking = units / 1000
         width = natural_width + tracking * gaps
-        size = round(min(reference * 1.28, max(reference * 0.8, target / width)), 2)
+        size = round(min(reference * 1.03, max(reference * 0.97, target / width)), 2)
         cost = abs(size - reference) + 58 * abs(tracking - 0.05)
         cost += 10 * abs(width * size - target)
         options.append((cost, size, units))
@@ -225,34 +232,43 @@ def render_row(rank, field, label, time_font, name_font, short=False):
         '</Group>'
     )
 
-    times = []
-    for hours in (range(1, 10), range(10, 13)):
-        widths = [
-            ink_width(time_font, f"{hour}:{minute:02}")
-            for hour, minute in product(hours, range(60))
-        ]
-        low, high = min(widths), max(widths)
-        bins = 10
-        step = (high - low) / bins
-        first_digit = '==' if 1 in hours else '!='
-        count_check = f'subText({field}, 0, 1) {first_digit} "0"'
-        reference = f"[REFERENCE.{width_ref}]"
-        for i in range(bins):
-            size, units = number_style(
-                target, time_size, low + step * (i + 0.5), 3 if 1 in hours else 4
-            )
-            tests = [count_check]
-            if i > 0:
-                tests.append(f"{reference} >= {low + step * i:.5f}")
-            if i < bins - 1:
-                tests.append(f"{reference} < {low + step * (i + 1):.5f}")
-            number_offset = y + (round(max(0, size - 46) * 0.35) if rank == "following" else 0)
-            drawing = text_part(
-                number_offset, height, 0, DIVIDER - HALF_GUTTER - slot_x + round(size * units / 1000), alpha,
-                "END", tracking_family(units), size, "[CONFIGURATION.theme_color.2]",
-                template,
-            )
-            times.append((f"timeFit{len(times)}", " && ".join(tests), drawing))
+    def time_condition(size_reference):
+        times = []
+        for hours in (range(1, 10), range(10, 13)):
+            widths = [
+                ink_width(time_font, f"{hour}:{minute:02}")
+                for hour, minute in product(hours, range(60))
+            ]
+            low, high = min(widths), max(widths)
+            bins = 10
+            step = (high - low) / bins
+            first_digit = '==' if 1 in hours else '!='
+            count_check = f'subText({field}, 0, 1) {first_digit} "0"'
+            reference = f"[REFERENCE.{width_ref}]"
+            for i in range(bins):
+                size, units = number_style(
+                    target, size_reference, low + step * (i + 0.5), 3 if 1 in hours else 4
+                )
+                tests = [count_check]
+                if i > 0:
+                    tests.append(f"{reference} >= {low + step * i:.5f}")
+                if i < bins - 1:
+                    tests.append(f"{reference} < {low + step * (i + 1):.5f}")
+                number_offset = y + (round(max(0, size - 46) * 0.35) if rank == "following" else 0)
+                drawing = text_part(
+                    number_offset, height, 0, DIVIDER - HALF_GUTTER - slot_x + round(size * units / 1000), alpha,
+                    "END", tracking_family(units), size, "[CONFIGURATION.theme_color.2]",
+                    template,
+                )
+                times.append((f"timeFit{len(times)}", " && ".join(tests), drawing))
+        return condition(times)
+
+    word_times = []
+    for word in KASHIDA:
+        _, word_size = arabic_style(name_font, word, target, name_size)
+        low, high = (time_size * bound for bound in TIME_RANGE)
+        size_reference = round(min(high, max(low, word_size * DIGIT_TO_ALIF)), 2)
+        word_times.append((f"timeWord{len(word_times)}", f'{label} == "{word}"', time_condition(size_reference)))
 
     names = []
     x = DIVIDER + HALF_GUTTER - slot_x
@@ -269,7 +285,10 @@ def render_row(rank, field, label, time_font, name_font, short=False):
         y, height, x, slot_width - x, alpha, "START", "ibm_plex_arabic_bold",
         name_size, color, f'%s<Parameter expression="{label_template}" />',
     )
-    parts = (measure_group, condition(times), divider(rank, slot_x), condition(names, default_name))
+    parts = (
+        measure_group, condition(word_times, time_condition(time_size)),
+        divider(rank, slot_x), condition(names, default_name),
+    )
     return "\n".join(part for part in parts if part)
 
 
