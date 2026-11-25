@@ -352,7 +352,7 @@
             <Complication type="EMPTY" />
         </ComplicationSlot>
 
-        <ComplicationSlot slotId="6" displayName="slot_edge_left" isCustomizable="TRUE" supportedTypes="GOAL_PROGRESS RANGED_VALUE EMPTY" x="0" y="88" width="72" height="274" name="LeftEdgeComplication_2" alpha="255">
+        <ComplicationSlot slotId="6" displayName="slot_edge_left" isCustomizable="TRUE" supportedTypes="GOAL_PROGRESS RANGED_VALUE EMPTY" x="0" y="88" width="72" height="274" name="LeftEdgeComplication_2" alpha="255" pivotX="3.125" pivotY="0.5" angle="-9">
             <DefaultProviderPolicy defaultSystemProvider="STEP_COUNT" defaultSystemProviderType="GOAL_PROGRESS" />
             <BoundingArc centerX="225" centerY="137" width="450" height="450" startAngle="232.5" endAngle="307.5" thickness="32" isRoundEdge="TRUE" />
             <Complication type="RANGED_VALUE">
@@ -783,7 +783,7 @@
             <Variant mode="AMBIENT" target="alpha" value="0" />
         </ComplicationSlot>
 
-        <ComplicationSlot slotId="4" displayName="slot_edge_right" isCustomizable="TRUE" supportedTypes="RANGED_VALUE GOAL_PROGRESS EMPTY" x="378" y="88" width="72" height="274" name="RightEdgeComplication_3" alpha="255">
+        <ComplicationSlot slotId="4" displayName="slot_edge_right" isCustomizable="TRUE" supportedTypes="RANGED_VALUE GOAL_PROGRESS EMPTY" x="378" y="88" width="72" height="274" name="RightEdgeComplication_3" alpha="255" pivotX="-2.125" pivotY="0.5" angle="9">
             <DefaultProviderPolicy defaultSystemProvider="WATCH_BATTERY" defaultSystemProviderType="RANGED_VALUE" />
             <BoundingArc centerX="-153" centerY="137" width="450" height="450" startAngle="52.5" endAngle="127.5" thickness="32" isRoundEdge="TRUE" />
             <Complication type="RANGED_VALUE">
@@ -1406,14 +1406,14 @@
             <PartText name="clock_day_period_shadow" x="1" y="0" width="119" height="52">
                 <Variant mode="AMBIENT" target="alpha" value="0" />
                 <Text align="CENTER" maxLines="1">
-                    <Font family="ibm_plex_arabic_bold" size="43" weight="BOLD" color="#63081525">
+                    <Font family="ibm_plex_arabic_bold" size="39" weight="BOLD" color="#63081525">
                         <Template>%s<Parameter expression="[HOUR_0_23] &lt; 4 || [HOUR_0_23] &gt;= 21 ? &quot;ليلًا&quot; : [HOUR_0_23] &lt; 6 ? &quot;فجرًا&quot; : [HOUR_0_23] &lt; 12 ? &quot;صباحًا&quot; : [HOUR_0_23] &lt; 15 ? &quot;ظهرًا&quot; : [HOUR_0_23] &lt; 18 ? &quot;عصرًا&quot; : &quot;مساءً&quot;" /></Template>
                     </Font>
                 </Text>
             </PartText>
             <PartText name="clock_day_period" x="0" y="0" width="119" height="52">
                 <Text align="CENTER" maxLines="1">
-                    <Font family="ibm_plex_arabic_bold" size="43" weight="BOLD" color="[CONFIGURATION.edge_color.0]">
+                    <Font family="ibm_plex_arabic_bold" size="39" weight="BOLD" color="[CONFIGURATION.edge_color.0]">
                         <Template>%s<Parameter expression="[HOUR_0_23] &lt; 4 || [HOUR_0_23] &gt;= 21 ? &quot;ليلًا&quot; : [HOUR_0_23] &lt; 6 ? &quot;فجرًا&quot; : [HOUR_0_23] &lt; 12 ? &quot;صباحًا&quot; : [HOUR_0_23] &lt; 15 ? &quot;ظهرًا&quot; : [HOUR_0_23] &lt; 18 ? &quot;عصرًا&quot; : &quot;مساءً&quot;" /></Template>
                     </Font>
                 </Text>
