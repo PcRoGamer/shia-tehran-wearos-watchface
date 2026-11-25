@@ -7,18 +7,19 @@
     <UserConfigurations>
         <!-- One accent colour: day-period label, current prayer, prayer icons, and the edge-arc fills
              and icons. Information text (dates, values, bottom slot) stays white for legibility.
-             Each option carries [accent, light tint]; the tint is OKLCH C~0.05 at the accent hue
-             (L 0.97 for yellow/green, L 0.93 for red/orange/pink to stay in sRGB). -->
+             Each option carries [accent, light tint, full-colour text]; the tint is OKLCH C~0.05 at the
+             accent hue (L 0.97 for yellow/green, L 0.93 for red/orange/pink to stay in sRGB). Full-colour
+             text equals the accent, except pink, whose text uses the brighter neon pink for legibility. -->
         <ColorConfiguration id="face_color" displayName="face_color_name" defaultValue="white">
-            <ColorOption id="white" displayName="color_white" colors="#FFFFFFFF #FFFFFDF7" />
-            <ColorOption id="red" displayName="color_red" colors="#FFFF6650 #FFFFE0DA" />
-            <ColorOption id="orange" displayName="color_orange" colors="#FFFF912D #FFFFE2CD" />
-            <ColorOption id="yellow" displayName="color_yellow" colors="#FFFDEB00 #FFFAF7D1" />
-            <ColorOption id="green" displayName="color_green" colors="#FF42FF44 #FFE2FEE0" />
-            <ColorOption id="pink" displayName="color_pink" colors="#FFFF6EB4 #FFFFDDEA" />
+            <ColorOption id="white" displayName="color_white" colors="#FFFFFFFF #FFFFFDF7 #FFFFFFFF" />
+            <ColorOption id="red" displayName="color_red" colors="#FFFF6650 #FFFFE0DA #FFFF6650" />
+            <ColorOption id="orange" displayName="color_orange" colors="#FFFF912D #FFFFE2CD #FFFF912D" />
+            <ColorOption id="yellow" displayName="color_yellow" colors="#FFFDEB00 #FFFAF7D1 #FFFDEB00" />
+            <ColorOption id="green" displayName="color_green" colors="#FF42FF44 #FFE2FEE0 #FF42FF44" />
+            <ColorOption id="pink" displayName="color_pink" colors="#FFFF6EB4 #FFFFDDEA #FFFFB4DA" />
         </ColorConfiguration>
         <!-- Text (clock digits, prayer rows, top date and bottom slot): ivory, a light tint of the
-             colour, the colour itself, or a fixed neon/white for mix-and-match (e.g. yellow on green). -->
+             colour, the colour itself, or a fixed neon/white/neon pink for mix-and-match (e.g. yellow on green). -->
         <ListConfiguration id="text_color" displayName="text_color_name" defaultValue="ivory">
             <ListOption id="ivory" displayName="text_color_ivory" />
             <ListOption id="tint" displayName="text_color_tint" />
@@ -26,6 +27,7 @@
             <ListOption id="yellow" displayName="text_color_yellow" />
             <ListOption id="green" displayName="text_color_green" />
             <ListOption id="white" displayName="text_color_white" />
+            <ListOption id="pink" displayName="text_color_pink" />
         </ListConfiguration>
         <!-- Background: animated sky, pure black (sky layers are not drawn), or black only while the
              outdoor switch in the companion app / tile is on (slot 5 -> [REFERENCE.outdoorMode]). -->
@@ -1331,7 +1333,7 @@
 
         <!-- Resolves the text colour once; clock digits, prayer rows, top date and bottom slot read [REFERENCE.mainTextColor]. -->
         <PartDraw name="main_text_color" x="0" y="0" width="1" height="1" tintColor="#FFFFFDF7">
-            <Transform target="tintColor" value="[CONFIGURATION.text_color] == &quot;full&quot; ? [CONFIGURATION.face_color.0] : ([CONFIGURATION.text_color] == &quot;tint&quot; ? [CONFIGURATION.face_color.1] : ([CONFIGURATION.text_color] == &quot;yellow&quot; ? colorRgb(253, 235, 0) : ([CONFIGURATION.text_color] == &quot;green&quot; ? colorRgb(66, 255, 68) : ([CONFIGURATION.text_color] == &quot;white&quot; ? colorRgb(255, 255, 255) : colorRgb(255, 253, 247)))))" />
+            <Transform target="tintColor" value="[CONFIGURATION.text_color] == &quot;full&quot; ? [CONFIGURATION.face_color.2] : ([CONFIGURATION.text_color] == &quot;tint&quot; ? [CONFIGURATION.face_color.1] : ([CONFIGURATION.text_color] == &quot;yellow&quot; ? colorRgb(253, 235, 0) : ([CONFIGURATION.text_color] == &quot;green&quot; ? colorRgb(66, 255, 68) : ([CONFIGURATION.text_color] == &quot;white&quot; ? colorRgb(255, 255, 255) : ([CONFIGURATION.text_color] == &quot;pink&quot; ? colorRgb(255, 180, 218) : colorRgb(255, 253, 247))))))" />
             <Reference name="mainTextColor" source="tintColor" defaultValue="#FFFFFDF7" />
             <Rectangle x="0" y="0" width="1" height="1"><Fill color="#00000000" /></Rectangle>
         </PartDraw>
