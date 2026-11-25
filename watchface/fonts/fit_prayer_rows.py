@@ -94,24 +94,25 @@ def fit_part(part, x, pivot, expression):
 
 
 def fit_row(row, rank, slot_x, field, label):
-    font = hb.Font(hb.Face((RES / "font" / f"prayer_{rank}.ttf").read_bytes()))
+    time_font = hb.Font(hb.Face((RES / "font/prayer_time.ttf").read_bytes()))
+    name_font = hb.Font(hb.Face((RES / "font/prayer_name.ttf").read_bytes()))
     time, name = PART_TEXT.findall(row)
     time_size = int(re.search(r'<Font[^>]+size="(\d+)"', time)[1])
     name_size = int(re.search(r'<Font[^>]+size="(\d+)"', name)[1])
     # 100 units is the width shared by every name and number at the normalization
     # stage. Only the final multiplier is different across the three row ranks.
-    def scale(width, size):
+    def scale(font, width, size):
         return f"({BASE_WIDTH} * {font.face.upem} / ({size} * {width})) * {RANKS[rank]}"
 
     widths = {}
     for word in LABELS:
-        advance, left, right = measure(font, word)
+        advance, left, right = measure(name_font, word)
         assert right > left
-        assert advance * name_size / font.face.upem < TEXT_BOX
+        assert advance * name_size / name_font.face.upem < TEXT_BOX
         widths[word] = right - left
 
-    name_scale = choose(label, {word: scale(str(width), name_size) for word, width in widths.items()}, 1)
-    row = row.replace(time, fit_part(time, DIVIDER - HALF_GUTTER - slot_x - TEXT_BOX, 1, scale(time_width(font, field), time_size)))
+    name_scale = choose(label, {word: scale(name_font, str(width), name_size) for word, width in widths.items()}, 1)
+    row = row.replace(time, fit_part(time, DIVIDER - HALF_GUTTER - slot_x - TEXT_BOX, 1, scale(time_font, time_width(time_font, field), time_size)))
     row = row.replace(name, fit_part(name, DIVIDER + HALF_GUTTER - slot_x, 0, name_scale))
     row = re.sub(r'(name="(?:primary_prayer|prayer_schedule)_divider" x=")\d+"', rf'\g<1>{DIVIDER - slot_x - 1}"', row)
     return row
