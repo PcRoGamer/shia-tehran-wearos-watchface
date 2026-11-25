@@ -1334,28 +1334,20 @@
             </Complication>
         </ComplicationSlot>
 
-        <!-- Align the digits around the center colon. -->
+        <!-- Center the entire time across single- and double-digit hours. -->
         <ListConfiguration id="clock_font">
             <ListOption id="0">
                 <Group name="clock_font_0" x="0" y="0" width="450" height="450">
                     <Group name="geometric_latin" x="0" y="0" width="450" height="450">
                         <Transform target="alpha" value="[CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? 0 : 255" />
-                        <PartText name="hours" x="47" y="92" width="164" height="96">
-                            <Text align="END" maxLines="1">
+                        <PartText name="clock_time" x="52" y="101" width="346" height="96">
+                            <Text align="CENTER" maxLines="1">
                                 <Font family="outfit_bold" size="82" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
-                                    <Template>%s%s
-                                        <Parameter expression="(([HOUR_0_23] + 11) % 12 + 1) &gt;= 10 ? subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), floor((([HOUR_0_23] + 11) % 12 + 1) / 10), (floor((([HOUR_0_23] + 11) % 12 + 1) / 10)) + 1) : &quot;&quot;" />
-                                        <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), (([HOUR_0_23] + 11) % 12 + 1) % 10, ((([HOUR_0_23] + 11) % 12 + 1) % 10) + 1)" />
-                                    </Template>
-                                </Font>
-                            </Text>
-                        </PartText>
-                        <PartText name="minutes" x="239" y="92" width="164" height="96">
-                            <Text align="START" maxLines="1">
-                                <Font family="outfit_bold" size="82" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
-                                    <Template>%s%s
-                                        <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), floor([MINUTE] / 10), (floor([MINUTE] / 10)) + 1)" />
-                                        <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), [MINUTE] % 10, ([MINUTE] % 10) + 1)" />
+                                    <Template>%s%s:%s%s
+                                    <Parameter expression="(([HOUR_0_23] + 11) % 12 + 1) &gt;= 10 ? subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), floor((([HOUR_0_23] + 11) % 12 + 1) / 10), (floor((([HOUR_0_23] + 11) % 12 + 1) / 10)) + 1) : &quot;&quot;" />
+                                    <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), (([HOUR_0_23] + 11) % 12 + 1) % 10, ((([HOUR_0_23] + 11) % 12 + 1) % 10) + 1)" />
+                                    <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), floor([MINUTE] / 10), (floor([MINUTE] / 10)) + 1)" />
+                                    <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), [MINUTE] % 10, ([MINUTE] % 10) + 1)" />
                                     </Template>
                                 </Font>
                             </Text>
@@ -1363,22 +1355,14 @@
                     </Group>
                     <Group name="geometric_arabic" x="0" y="0" width="450" height="450">
                         <Transform target="alpha" value="[CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? 255 : 0" />
-                        <PartText name="hours" x="47" y="92" width="164" height="96">
-                            <Text align="END" maxLines="1">
+                        <PartText name="clock_time" x="52" y="101" width="346" height="96">
+                            <Text align="CENTER" maxLines="1">
                                 <Font family="ibm_plex_arabic_bold" size="82" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
-                                    <Template>%s%s
-                                        <Parameter expression="(([HOUR_0_23] + 11) % 12 + 1) &gt;= 10 ? subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), floor((([HOUR_0_23] + 11) % 12 + 1) / 10), (floor((([HOUR_0_23] + 11) % 12 + 1) / 10)) + 1) : &quot;&quot;" />
-                                        <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), (([HOUR_0_23] + 11) % 12 + 1) % 10, ((([HOUR_0_23] + 11) % 12 + 1) % 10) + 1)" />
-                                    </Template>
-                                </Font>
-                            </Text>
-                        </PartText>
-                        <PartText name="minutes" x="239" y="92" width="164" height="96">
-                            <Text align="START" maxLines="1">
-                                <Font family="ibm_plex_arabic_bold" size="82" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
-                                    <Template>%s%s
-                                        <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), floor([MINUTE] / 10), (floor([MINUTE] / 10)) + 1)" />
-                                        <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), [MINUTE] % 10, ([MINUTE] % 10) + 1)" />
+                                    <Template>%s%s:%s%s
+                                    <Parameter expression="(([HOUR_0_23] + 11) % 12 + 1) &gt;= 10 ? subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), floor((([HOUR_0_23] + 11) % 12 + 1) / 10), (floor((([HOUR_0_23] + 11) % 12 + 1) / 10)) + 1) : &quot;&quot;" />
+                                    <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), (([HOUR_0_23] + 11) % 12 + 1) % 10, ((([HOUR_0_23] + 11) % 12 + 1) % 10) + 1)" />
+                                    <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), floor([MINUTE] / 10), (floor([MINUTE] / 10)) + 1)" />
+                                    <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), [MINUTE] % 10, ([MINUTE] % 10) + 1)" />
                                     </Template>
                                 </Font>
                             </Text>
@@ -1388,22 +1372,14 @@
             </ListOption>
             <ListOption id="1">
                 <Group name="clock_font_1" x="0" y="0" width="450" height="450">
-                    <PartText name="hours" x="47" y="92" width="164" height="96">
-                        <Text align="END" maxLines="1">
+                    <PartText name="clock_time" x="52" y="101" width="346" height="96">
+                        <Text align="CENTER" maxLines="1">
                             <Font family="ibm_plex_arabic_bold" size="82" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
-                                <Template>%s%s
-                                    <Parameter expression="(([HOUR_0_23] + 11) % 12 + 1) &gt;= 10 ? subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), floor((([HOUR_0_23] + 11) % 12 + 1) / 10), (floor((([HOUR_0_23] + 11) % 12 + 1) / 10)) + 1) : &quot;&quot;" />
-                                    <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), (([HOUR_0_23] + 11) % 12 + 1) % 10, ((([HOUR_0_23] + 11) % 12 + 1) % 10) + 1)" />
-                                </Template>
-                            </Font>
-                        </Text>
-                    </PartText>
-                    <PartText name="minutes" x="239" y="92" width="164" height="96">
-                        <Text align="START" maxLines="1">
-                            <Font family="ibm_plex_arabic_bold" size="82" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
-                                <Template>%s%s
-                                    <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), floor([MINUTE] / 10), (floor([MINUTE] / 10)) + 1)" />
-                                    <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), [MINUTE] % 10, ([MINUTE] % 10) + 1)" />
+                                <Template>%s%s:%s%s
+                                <Parameter expression="(([HOUR_0_23] + 11) % 12 + 1) &gt;= 10 ? subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), floor((([HOUR_0_23] + 11) % 12 + 1) / 10), (floor((([HOUR_0_23] + 11) % 12 + 1) / 10)) + 1) : &quot;&quot;" />
+                                <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), (([HOUR_0_23] + 11) % 12 + 1) % 10, ((([HOUR_0_23] + 11) % 12 + 1) % 10) + 1)" />
+                                <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), floor([MINUTE] / 10), (floor([MINUTE] / 10)) + 1)" />
+                                <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), [MINUTE] % 10, ([MINUTE] % 10) + 1)" />
                                 </Template>
                             </Font>
                         </Text>
@@ -1412,22 +1388,14 @@
             </ListOption>
             <ListOption id="2">
                 <Group name="clock_font_2" x="0" y="0" width="450" height="450">
-                    <PartText name="hours" x="47" y="92" width="164" height="96">
-                        <Text align="END" maxLines="1">
+                    <PartText name="clock_time" x="52" y="101" width="346" height="96">
+                        <Text align="CENTER" maxLines="1">
                             <Font family="SYNC_TO_DEVICE" size="82" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
-                                <Template>%s%s
-                                    <Parameter expression="(([HOUR_0_23] + 11) % 12 + 1) &gt;= 10 ? subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), floor((([HOUR_0_23] + 11) % 12 + 1) / 10), (floor((([HOUR_0_23] + 11) % 12 + 1) / 10)) + 1) : &quot;&quot;" />
-                                    <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), (([HOUR_0_23] + 11) % 12 + 1) % 10, ((([HOUR_0_23] + 11) % 12 + 1) % 10) + 1)" />
-                                </Template>
-                            </Font>
-                        </Text>
-                    </PartText>
-                    <PartText name="minutes" x="239" y="92" width="164" height="96">
-                        <Text align="START" maxLines="1">
-                            <Font family="SYNC_TO_DEVICE" size="82" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
-                                <Template>%s%s
-                                    <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), floor([MINUTE] / 10), (floor([MINUTE] / 10)) + 1)" />
-                                    <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), [MINUTE] % 10, ([MINUTE] % 10) + 1)" />
+                                <Template>%s%s:%s%s
+                                <Parameter expression="(([HOUR_0_23] + 11) % 12 + 1) &gt;= 10 ? subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), floor((([HOUR_0_23] + 11) % 12 + 1) / 10), (floor((([HOUR_0_23] + 11) % 12 + 1) / 10)) + 1) : &quot;&quot;" />
+                                <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), (([HOUR_0_23] + 11) % 12 + 1) % 10, ((([HOUR_0_23] + 11) % 12 + 1) % 10) + 1)" />
+                                <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), floor([MINUTE] / 10), (floor([MINUTE] / 10)) + 1)" />
+                                <Parameter expression="subText(([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? &quot;٠١٢٣٤٥٦٧٨٩&quot; : &quot;0123456789&quot;), [MINUTE] % 10, ([MINUTE] % 10) + 1)" />
                                 </Template>
                             </Font>
                         </Text>
@@ -1435,17 +1403,9 @@
                 </Group>
             </ListOption>
         </ListConfiguration>
-        <PartDraw name="clock_separator" x="219" y="129" width="12" height="36">
-            <Ellipse x="0" y="0" width="12" height="12">
-                <Fill color="[CONFIGURATION.theme_color.2]" />
-            </Ellipse>
-            <Ellipse x="0" y="24" width="12" height="12">
-                <Fill color="[CONFIGURATION.theme_color.2]" />
-            </Ellipse>
-        </PartDraw>
-        <Group name="clock_period" x="256" y="166" width="78" height="28">
-            <Transform target="x" value="239 + ([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? (floor([MINUTE] / 10) &lt; 2 ? 24 : 44) : ([CONFIGURATION.clock_font] == &quot;0&quot; ? (floor([MINUTE] / 10) == 0 ? 55 : floor([MINUTE] / 10) == 1 ? 31 : 47) : 46)) + ([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? ([MINUTE] % 10 &lt; 2 ? 24 : 44) : ([CONFIGURATION.clock_font] == &quot;0&quot; ? ([MINUTE] % 10 == 0 ? 55 : [MINUTE] % 10 == 1 ? 31 : 47) : 46)) - 76" />
-            <Variant mode="AMBIENT" target="y" value="183" />
+        <Group name="clock_period" x="256" y="175" width="78" height="28">
+            <Transform target="x" value="154 + (((([HOUR_0_23] + 11) % 12 + 1) &gt;= 10 ? ([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? 23 : [CONFIGURATION.clock_font] == &quot;0&quot; ? 31 : 46) : 0) + ([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? ((([HOUR_0_23] + 11) % 12 + 1) % 10 &lt; 2 ? 24 : (([HOUR_0_23] + 11) % 12 + 1) % 10 == 3 ? 52 : 44) : ([CONFIGURATION.clock_font] == &quot;0&quot; ? ((([HOUR_0_23] + 11) % 12 + 1) % 10 == 0 ? 55 : (([HOUR_0_23] + 11) % 12 + 1) % 10 == 1 ? 31 : 47) : 46)) + ([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? 27 : 23) + ([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? (floor([MINUTE] / 10) &lt; 2 ? 24 : floor([MINUTE] / 10) == 3 ? 52 : 44) : ([CONFIGURATION.clock_font] == &quot;0&quot; ? (floor([MINUTE] / 10) == 0 ? 55 : floor([MINUTE] / 10) == 1 ? 31 : 47) : 46)) + ([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? ([MINUTE] % 10 &lt; 2 ? 24 : [MINUTE] % 10 == 3 ? 52 : 44) : ([CONFIGURATION.clock_font] == &quot;0&quot; ? ([MINUTE] % 10 == 0 ? 55 : [MINUTE] % 10 == 1 ? 31 : 47) : 46))) / 2" />
+            <Variant mode="AMBIENT" target="y" value="192" />
             <PartText name="clock_day_period_shadow" x="6" y="2" width="67" height="27">
                 <Variant mode="AMBIENT" target="alpha" value="0" />
                 <Text align="END" maxLines="1">
@@ -1466,7 +1426,7 @@
         </Group>
 
         <!-- Frosted prayer panel (Slot 2) -->
-        <PartDraw x="124" y="233" width="202" height="76" name="prayer_panel">
+        <PartDraw x="124" y="221" width="202" height="76" name="prayer_panel">
             <Variant mode="AMBIENT" target="alpha" value="0" />
             <RoundRectangle x="1" y="1" width="200" height="74" cornerRadiusX="22" cornerRadiusY="22">
                 <Fill color="#528EAED1">
@@ -1478,7 +1438,7 @@
             </RoundRectangle>
         </PartDraw>
         <ComplicationSlot
-            x="124" y="233" width="202" height="76"
+            x="124" y="221" width="202" height="76"
             slotId="2"
             displayName="slot_next_prayer_name"
             supportedTypes="SHORT_TEXT LONG_TEXT RANGED_VALUE GOAL_PROGRESS WEIGHTED_ELEMENTS MONOCHROMATIC_IMAGE SMALL_IMAGE PHOTO_IMAGE" isCustomizable="TRUE">
@@ -1609,7 +1569,7 @@
 
         <!-- UNFOCUSED Secondary Row Below (Slot 3): Prayer After Next -->
         <ComplicationSlot
-            x="95" y="315" width="260" height="28"
+            x="95" y="308" width="260" height="28"
             slotId="3"
             displayName="slot_schedule_name"
             supportedTypes="SHORT_TEXT LONG_TEXT RANGED_VALUE GOAL_PROGRESS WEIGHTED_ELEMENTS MONOCHROMATIC_IMAGE SMALL_IMAGE PHOTO_IMAGE" isCustomizable="TRUE">
