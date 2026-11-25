@@ -16,7 +16,6 @@ BASE_WIDTH = 100
 DIVIDER = 225
 HALF_GUTTER = 11
 TEXT_BOX = 260
-GLYPH_HEIGHT_SCALE = 1.14
 DIGITS = "0123456789"
 ROW = re.compile(
     r'<Compare expression="(splitPrayerTime|followingPrayer|thirdPrayer)">'
@@ -93,14 +92,13 @@ def fit_part(part, x, pivot, expression):
     scale = escape(expression, {'"': "&quot;"})
     return (
         f'{opening} pivotX="{pivot}" pivotY="0.5">\n'
-        f'                            <Transform target="scaleX" value="{scale}" />\n'
-        f'                            <Transform target="scaleY" value="{GLYPH_HEIGHT_SCALE}" />{content}'
+        f'                            <Transform target="scaleX" value="{scale}" />{content}'
     )
 
 
 def fit_row(row, rank, slot_x, field, label):
-    time_font = hb.Font(hb.Face((RES / "font/prayer_time.ttf").read_bytes()))
-    name_font = hb.Font(hb.Face((RES / "font/prayer_name.ttf").read_bytes()))
+    time_font = hb.Font(hb.Face((RES / "font/outfit_bold.ttf").read_bytes()))
+    name_font = hb.Font(hb.Face((RES / "font/ibm_plex_arabic_bold.ttf").read_bytes()))
     time, name = PART_TEXT.findall(row)
     time_size = int(re.search(r'<Font[^>]+size="(\d+)"', time)[1])
     name_size = int(re.search(r'<Font[^>]+size="(\d+)"', name)[1])
