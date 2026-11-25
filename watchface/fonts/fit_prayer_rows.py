@@ -16,6 +16,7 @@ BASE_WIDTH = 100
 DIVIDER = 225
 HALF_GUTTER = 11
 TEXT_BOX = 260
+GLYPH_HEIGHT_SCALE = 1.14
 DIGITS = "0123456789"
 ROW = re.compile(
     r'<Compare expression="(splitPrayerTime|followingPrayer|thirdPrayer)">'
@@ -86,11 +87,15 @@ def fit_part(part, x, pivot, expression):
     opening, content = part.split(">", 1)
     opening = re.sub(r'\bx="[^"]+"', f'x="{x}"', opening)
     opening = re.sub(r'\bwidth="[^"]+"', f'width="{TEXT_BOX}"', opening)
-    opening = re.sub(r' pivotX="[^"]+"', "", opening)
-    content = re.sub(r'\n                            <Transform target="scaleX"[^\n]+', "", content)
+    opening = re.sub(r' pivot[XY]="[^"]+"', "", opening)
+    content = re.sub(r'\n                            <Transform target="scale[XY]"[^\n]+', "", content)
     content = content.replace(' isAutoSize="TRUE"', "")
     scale = escape(expression, {'"': "&quot;"})
-    return f'{opening} pivotX="{pivot}">\n                            <Transform target="scaleX" value="{scale}" />{content}'
+    return (
+        f'{opening} pivotX="{pivot}" pivotY="0.5">\n'
+        f'                            <Transform target="scaleX" value="{scale}" />\n'
+        f'                            <Transform target="scaleY" value="{GLYPH_HEIGHT_SCALE}" />{content}'
+    )
 
 
 def fit_row(row, rank, slot_x, field, label):
