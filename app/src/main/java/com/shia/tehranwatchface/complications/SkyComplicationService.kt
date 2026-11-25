@@ -11,6 +11,7 @@ import androidx.wear.watchface.complications.datasource.SuspendingTimelineCompli
 import androidx.wear.watchface.complications.datasource.TimeInterval
 import androidx.wear.watchface.complications.datasource.TimelineEntry
 import com.shia.tehranwatchface.R
+import com.shia.tehranwatchface.data.CloudForecast
 import com.shia.tehranwatchface.data.PrayerPreferences
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -36,22 +37,27 @@ class SkyComplicationService : SuspendingTimelineComplicationDataSourceService()
             return ComplicationDataTimeline(fallback, emptyList())
         }
 
+        // Cloud colour inputs ride in the (otherwise unused) minimum as -(1..256); 0 = no forecast.
+        val forecast = CloudForecast.get(this, settings.latitude, settings.longitude)
         val start = Instant.now().truncatedTo(ChronoUnit.MINUTES)
         val entries = withContext(Dispatchers.Default) {
             List(60) { index ->
                 val from = start.plusSeconds(index * 120L)
                 val until = from.plusSeconds(120)
+                val mid = from.plusSeconds(60)
                 val position = SkyPosition.packed(
-                    time = from.plusSeconds(60),
+                    time = mid,
                     latitude = settings.latitude,
                     longitude = settings.longitude,
                     elevation = settings.elevationMeters.coerceAtLeast(0.0)
                 )
+                val evening = SkyPosition.sunAzimuth(mid, settings.latitude, settings.longitude) > 180.0
+                val cloudCode = forecast?.hourAt(mid, evening)?.let { CloudPalette.evaluate(it).code } ?: 0
                 TimelineEntry(
                     validity = TimeInterval(from, until),
                     complicationData = RangedValueComplicationData.Builder(
                         value = position.toFloat(),
-                        min = 0f,
+                        min = -cloudCode.toFloat(),
                         max = SkyPosition.MAX_VALUE.toFloat(),
                         contentDescription = description
                     ).setText(description).build()

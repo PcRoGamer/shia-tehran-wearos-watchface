@@ -270,6 +270,35 @@
                     <Reference name="cloudLevel" source="scaleX" defaultValue="1" />
                     <Rectangle x="0" y="0" width="1" height="1"><Fill color="#00000000" /></Rectangle>
                 </PartDraw>
+                <!-- Cloud palette weights (all +1 so the references stay positive): gloom/vivid come from the
+                     companion forecast when present, else from the weather condition; the sun elevation then
+                     gives gold around +4 deg and pink/purple "cotton candy" around -2.5 deg when vivid is high. -->
+                <PartDraw name="cloud_inputs" x="0" y="0" width="1" height="1">
+                    <Transform target="scaleX" value="1 + (([CONFIGURATION.sky_preview] != &quot;TRUE&quot; &amp;&amp; [REFERENCE.cloudCode] &gt; 1.5) ? floor(([REFERENCE.cloudCode] - 2) / 16.0) / 15.0 : ([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? ([REFERENCE.cloudLevel] == 3 ? 0.5 : 0) : (([WEATHER.IS_AVAILABLE] &amp;&amp; ![WEATHER.IS_ERROR]) ? ([WEATHER.CONDITION] == 9 ? 1 : [WEATHER.CONDITION] == 4 ? 0.9 : ([WEATHER.CONDITION] == 6 || [WEATHER.CONDITION] == 10 || [WEATHER.CONDITION] == 5) ? 0.7 : ([WEATHER.CONDITION] == 12 || [WEATHER.CONDITION] == 11 || [WEATHER.CONDITION] == 7) ? 0.55 : ([WEATHER.CONDITION] == 2 || [WEATHER.CONDITION] == 3 || [WEATHER.CONDITION] == 13) ? 0.4 : 0) : 0)))" />
+                    <Transform target="scaleY" value="1 + (([CONFIGURATION.sky_preview] != &quot;TRUE&quot; &amp;&amp; [REFERENCE.cloudCode] &gt; 1.5) ? (([REFERENCE.cloudCode] - 2) % 16) / 15.0 : ([REFERENCE.cloudLevel] == 2 ? 0.5 : [REFERENCE.cloudLevel] == 3 ? 0.1 : 0))" />
+                    <Reference name="cloudG" source="scaleX" defaultValue="1" />
+                    <Reference name="cloudV" source="scaleY" defaultValue="1" />
+                    <Rectangle x="0" y="0" width="1" height="1"><Fill color="#00000000" /></Rectangle>
+                </PartDraw>
+                <PartDraw name="cloud_twilight" x="0" y="0" width="1" height="1">
+                    <Transform target="scaleX" value="1 + clamp(1 - abs(([REFERENCE.solarElevation] - 90) + 2.5) / 4.0, 0, 1) * clamp((([REFERENCE.cloudV] - 1) - 0.35) / 0.45, 0, 1) * (1 - ([REFERENCE.cloudG] - 1))" />
+                    <Transform target="scaleY" value="1 + ([REFERENCE.cloudG] - 1) * clamp((([REFERENCE.solarElevation] - 90) + 8) / 12.0, 0, 1)" />
+                    <Reference name="cloudCandy" source="scaleX" defaultValue="1" />
+                    <Reference name="cloudGloom" source="scaleY" defaultValue="1" />
+                    <Rectangle x="0" y="0" width="1" height="1"><Fill color="#00000000" /></Rectangle>
+                </PartDraw>
+                <PartDraw name="cloud_gold" x="0" y="0" width="1" height="1">
+                    <Transform target="scaleX" value="1 + clamp(1 - abs(([REFERENCE.solarElevation] - 90) - 4) / 7.0, 0, 1) * (1 - 0.8 * ([REFERENCE.cloudG] - 1)) * (0.45 + 0.55 * ([REFERENCE.cloudV] - 1)) * (1 - ([REFERENCE.cloudCandy] - 1))" />
+                    <Reference name="cloudGold" source="scaleX" defaultValue="1" />
+                    <Rectangle x="0" y="0" width="1" height="1"><Fill color="#00000000" /></Rectangle>
+                </PartDraw>
+                <PartDraw name="cloud_white" x="0" y="0" width="1" height="1">
+                    <Transform target="scaleX" value="1 + clamp((([REFERENCE.solarElevation] - 90) + 4) / 10.0, 0, 1) * (1 - ([REFERENCE.cloudG] - 1)) * (1 - ([REFERENCE.cloudGold] - 1)) * (1 - ([REFERENCE.cloudCandy] - 1))" />
+                    <Transform target="scaleY" value="1 + clamp(0.5 * ([REFERENCE.cloudWhite] - 1) + 0.35 * ([REFERENCE.cloudGold] - 1) + 0.25 * ([REFERENCE.cloudCandy] - 1), 0, 0.5)" />
+                    <Reference name="cloudWhite" source="scaleX" defaultValue="1" />
+                    <Reference name="cloudBand" source="scaleY" defaultValue="1" />
+                    <Rectangle x="0" y="0" width="1" height="1"><Fill color="#00000000" /></Rectangle>
+                </PartDraw>
                 <Group name="direct_sun_daylight" x="0" y="0" width="450" height="450">
                     <Transform target="alpha" value="255 * ([REFERENCE.daylightScale] - 1)" />
                     <PartImage name="direct_sun" x="0" y="0" width="300" height="300" alpha="0">
@@ -282,22 +311,89 @@
                         <Image resource="sun_glow" />
                     </PartImage>
                 </Group>
-                <PartImage name="broken_cloud" x="-55" y="0" width="560" height="270" alpha="0">
-                    <Gyro x="([CONFIGURATION.parallax] == &quot;TRUE&quot; &amp;&amp; [ACCELEROMETER_IS_SUPPORTED]) ? clamp([ACCELEROMETER_ANGLE_X], -45, 45) * 0.15 : 0" y="([CONFIGURATION.parallax] == &quot;TRUE&quot; &amp;&amp; [ACCELEROMETER_IS_SUPPORTED]) ? clamp([ACCELEROMETER_ANGLE_Y], -45, 45) * 0.1 : 0" />
-                    <Transform target="x" value="-55 + 12 * sin(([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) / 95.0)" />
-                    <Reference name="cloudLeft" source="x" defaultValue="-55" />
+                <Group name="broken_cloud_layer" x="0" y="0" width="450" height="450">
                     <Transform target="alpha" value="[REFERENCE.cloudLevel] == 2 ? 255 : 0">
                         <Animation duration="2.4" interpolation="EASE_IN_OUT" />
                     </Transform>
-                    <Image resource="cloud_veil" />
-                </PartImage>
-                <PartImage name="overcast_deck" x="-55" y="0" width="560" height="360" alpha="0">
-                    <Gyro x="([CONFIGURATION.parallax] == &quot;TRUE&quot; &amp;&amp; [ACCELEROMETER_IS_SUPPORTED]) ? clamp([ACCELEROMETER_ANGLE_X], -45, 45) * 0.15 : 0" y="([CONFIGURATION.parallax] == &quot;TRUE&quot; &amp;&amp; [ACCELEROMETER_IS_SUPPORTED]) ? clamp([ACCELEROMETER_ANGLE_Y], -45, 45) * 0.1 : 0" />
+                    <Group name="broken_cloud_tinted" x="0" y="0" width="450" height="450">
+                        <PartImage name="broken_cloud" x="-55" y="0" width="560" height="270">
+                            <Gyro x="([CONFIGURATION.parallax] == &quot;TRUE&quot; &amp;&amp; [ACCELEROMETER_IS_SUPPORTED]) ? clamp([ACCELEROMETER_ANGLE_X], -45, 45) * 0.15 : 0" y="([CONFIGURATION.parallax] == &quot;TRUE&quot; &amp;&amp; [ACCELEROMETER_IS_SUPPORTED]) ? clamp([ACCELEROMETER_ANGLE_Y], -45, 45) * 0.1 : 0" />
+                            <Transform target="x" value="-55 + 12 * sin(([CONFIGURATION.sky_preview] == &quot;TRUE&quot; ? [SECOND] * 24 : [HOUR_0_23] * 60 + [MINUTE]) / 95.0)" />
+                            <Reference name="cloudLeft" source="x" defaultValue="-55" />
+                            <Image resource="cloud_veil" />
+                        </PartImage>
+                        <PartDraw name="broken_cloud_tint_white" x="0" y="0" width="450" height="450" alpha="0">
+                            <Transform target="alpha" value="255 * 0.6 * ([REFERENCE.cloudWhite] - 1)" />
+                            <Rectangle x="0" y="0" width="450" height="450"><Fill color="#FFFFFFFF"><LinearGradient startX="225" startY="0" endX="225" endY="270" colors="#FFF7F9FC #FFE6ECF3" positions="0 1" /></Fill></Rectangle>
+                        </PartDraw>
+                        <PartDraw name="broken_cloud_tint_gloom" x="0" y="0" width="450" height="450" alpha="0">
+                            <Transform target="alpha" value="255 * 0.72 * ([REFERENCE.cloudGloom] - 1)" />
+                            <Rectangle x="0" y="0" width="450" height="450"><Fill color="#FFFFFFFF"><LinearGradient startX="225" startY="0" endX="225" endY="270" colors="#FF566072 #FF353C4A" positions="0 1" /></Fill></Rectangle>
+                        </PartDraw>
+                        <PartDraw name="broken_cloud_tint_gold" x="0" y="0" width="450" height="450" alpha="0">
+                            <Transform target="alpha" value="255 * 0.78 * ([REFERENCE.cloudGold] - 1)" />
+                            <Rectangle x="0" y="0" width="450" height="450"><Fill color="#FFFFFFFF"><LinearGradient startX="225" startY="0" endX="225" endY="270" colors="#FFFFE6B0 #FFF5A65A" positions="0 1" /></Fill></Rectangle>
+                        </PartDraw>
+                        <PartDraw name="broken_cloud_tint_candy" x="0" y="0" width="450" height="450" alpha="0">
+                            <Transform target="alpha" value="255 * 0.82 * ([REFERENCE.cloudCandy] - 1)" />
+                            <Rectangle x="0" y="0" width="450" height="450"><Fill color="#FFFFFFFF"><LinearGradient startX="225" startY="0" endX="225" endY="270" colors="#FFFFBFD9 #FFE7A6D6 #FFAE9BE6" positions="0 0.5 1" /></Fill></Rectangle>
+                        </PartDraw>
+                        <PartImage x="-55" y="0" width="560" height="270" renderMode="MASK">
+                            <Gyro x="([CONFIGURATION.parallax] == &quot;TRUE&quot; &amp;&amp; [ACCELEROMETER_IS_SUPPORTED]) ? clamp([ACCELEROMETER_ANGLE_X], -45, 45) * 0.15 : 0" y="([CONFIGURATION.parallax] == &quot;TRUE&quot; &amp;&amp; [ACCELEROMETER_IS_SUPPORTED]) ? clamp([ACCELEROMETER_ANGLE_Y], -45, 45) * 0.1 : 0" />
+                            <Transform target="x" value="[REFERENCE.cloudLeft]" />
+                            <Image resource="cloud_veil" />
+                        </PartImage>
+                    </Group>
+                    <!-- Readability: bright palettes are thinned behind the top date (y 0-45) and the clock and prayer rows (y 99-300). The
+                         mask is the union of a uniform layer (1 - band) and a band that is opaque outside the text. -->
+                    <PartDraw x="0" y="0" width="450" height="450" renderMode="MASK">
+                        <Transform target="alpha" value="255 * (1 - ([REFERENCE.cloudBand] - 1))" />
+                        <Rectangle x="0" y="0" width="450" height="450"><Fill color="#FFFFFFFF" /></Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="450" height="450" renderMode="MASK">
+                        <Rectangle x="0" y="0" width="450" height="450"><Fill color="#FFFFFFFF"><LinearGradient startX="225" startY="0" endX="225" endY="450" colors="#00FFFFFF #00FFFFFF #FFFFFFFF #FFFFFFFF #00FFFFFF #00FFFFFF #FFFFFFFF #FFFFFFFF" positions="0 0.1 0.15 0.17 0.22 0.67 0.75 1" /></Fill></Rectangle>
+                    </PartDraw>
+                </Group>
+                <Group name="overcast_deck_layer" x="0" y="0" width="450" height="450">
                     <Transform target="alpha" value="[REFERENCE.cloudLevel] == 3 ? 255 : 0">
                         <Animation duration="2.4" interpolation="EASE_IN_OUT" />
                     </Transform>
-                    <Image resource="overcast_clouds" />
-                </PartImage>
+                    <Group name="overcast_deck_tinted" x="0" y="0" width="450" height="450">
+                        <PartImage name="overcast_deck" x="-55" y="0" width="560" height="360">
+                            <Gyro x="([CONFIGURATION.parallax] == &quot;TRUE&quot; &amp;&amp; [ACCELEROMETER_IS_SUPPORTED]) ? clamp([ACCELEROMETER_ANGLE_X], -45, 45) * 0.15 : 0" y="([CONFIGURATION.parallax] == &quot;TRUE&quot; &amp;&amp; [ACCELEROMETER_IS_SUPPORTED]) ? clamp([ACCELEROMETER_ANGLE_Y], -45, 45) * 0.1 : 0" />
+                            <Image resource="overcast_clouds" />
+                        </PartImage>
+                        <PartDraw name="overcast_deck_tint_white" x="0" y="0" width="450" height="450" alpha="0">
+                            <Transform target="alpha" value="255 * 0.35 * ([REFERENCE.cloudWhite] - 1)" />
+                            <Rectangle x="0" y="0" width="450" height="450"><Fill color="#FFFFFFFF"><LinearGradient startX="225" startY="0" endX="225" endY="360" colors="#FFF7F9FC #FFE6ECF3" positions="0 1" /></Fill></Rectangle>
+                        </PartDraw>
+                        <PartDraw name="overcast_deck_tint_gloom" x="0" y="0" width="450" height="450" alpha="0">
+                            <Transform target="alpha" value="255 * 0.82 * ([REFERENCE.cloudGloom] - 1)" />
+                            <Rectangle x="0" y="0" width="450" height="450"><Fill color="#FFFFFFFF"><LinearGradient startX="225" startY="0" endX="225" endY="360" colors="#FF566072 #FF353C4A" positions="0 1" /></Fill></Rectangle>
+                        </PartDraw>
+                        <PartDraw name="overcast_deck_tint_gold" x="0" y="0" width="450" height="450" alpha="0">
+                            <Transform target="alpha" value="255 * 0.78 * ([REFERENCE.cloudGold] - 1)" />
+                            <Rectangle x="0" y="0" width="450" height="450"><Fill color="#FFFFFFFF"><LinearGradient startX="225" startY="0" endX="225" endY="360" colors="#FFFFE6B0 #FFF5A65A" positions="0 1" /></Fill></Rectangle>
+                        </PartDraw>
+                        <PartDraw name="overcast_deck_tint_candy" x="0" y="0" width="450" height="450" alpha="0">
+                            <Transform target="alpha" value="255 * 0.82 * ([REFERENCE.cloudCandy] - 1)" />
+                            <Rectangle x="0" y="0" width="450" height="450"><Fill color="#FFFFFFFF"><LinearGradient startX="225" startY="0" endX="225" endY="360" colors="#FFFFBFD9 #FFE7A6D6 #FFAE9BE6" positions="0 0.5 1" /></Fill></Rectangle>
+                        </PartDraw>
+                        <PartImage x="-55" y="0" width="560" height="360" renderMode="MASK">
+                            <Gyro x="([CONFIGURATION.parallax] == &quot;TRUE&quot; &amp;&amp; [ACCELEROMETER_IS_SUPPORTED]) ? clamp([ACCELEROMETER_ANGLE_X], -45, 45) * 0.15 : 0" y="([CONFIGURATION.parallax] == &quot;TRUE&quot; &amp;&amp; [ACCELEROMETER_IS_SUPPORTED]) ? clamp([ACCELEROMETER_ANGLE_Y], -45, 45) * 0.1 : 0" />
+                            <Image resource="overcast_clouds" />
+                        </PartImage>
+                    </Group>
+                    <!-- Readability: bright palettes are thinned behind the top date (y 0-45) and the clock and prayer rows (y 99-300). The
+                         mask is the union of a uniform layer (1 - band) and a band that is opaque outside the text. -->
+                    <PartDraw x="0" y="0" width="450" height="450" renderMode="MASK">
+                        <Transform target="alpha" value="255 * (1 - ([REFERENCE.cloudBand] - 1))" />
+                        <Rectangle x="0" y="0" width="450" height="450"><Fill color="#FFFFFFFF" /></Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="450" height="450" renderMode="MASK">
+                        <Rectangle x="0" y="0" width="450" height="450"><Fill color="#FFFFFFFF"><LinearGradient startX="225" startY="0" endX="225" endY="450" colors="#00FFFFFF #00FFFFFF #FFFFFFFF #FFFFFFFF #00FFFFFF #00FFFFFF #FFFFFFFF #FFFFFFFF" positions="0 0.1 0.15 0.17 0.22 0.67 0.75 1" /></Fill></Rectangle>
+                    </PartDraw>
+                </Group>
                 <Group name="diffuse_overcast_light_daylight" x="0" y="0" width="450" height="450">
                     <Transform target="alpha" value="255 * ([REFERENCE.daylightScale] - 1)" />
                     <PartImage name="diffuse_overcast_light" x="0" y="0" width="300" height="300" alpha="0">
@@ -8495,7 +8591,10 @@
             <Complication type="RANGED_VALUE">
                 <PartDraw name="sky_frame" x="225" y="225" width="1" height="1">
                     <Transform target="scaleX" value="[COMPLICATION.RANGED_VALUE_MAX] == 16777215 ? ([COMPLICATION.RANGED_VALUE_VALUE] + 1.0) / 16777216.0 : 0" />
+                    <Transform target="scaleY" value="1 + ([COMPLICATION.RANGED_VALUE_MAX] == 16777215 &amp;&amp; [COMPLICATION.RANGED_VALUE_MIN] &lt; -0.5 ? -[COMPLICATION.RANGED_VALUE_MIN] : 0)" />
                     <Reference name="skyFrame" source="scaleX" defaultValue="0" />
+                    <!-- Cloud colour inputs: -min = 1 + vivid(0..15) + 16 * gloom(0..15); 0 = no forecast. -->
+                    <Reference name="cloudCode" source="scaleY" defaultValue="1" />
                     <Rectangle x="0" y="0" width="1" height="1">
                         <Fill color="#00000000" />
                     </Rectangle>

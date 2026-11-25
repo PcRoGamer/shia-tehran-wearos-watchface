@@ -19,6 +19,9 @@ internal object SkyPosition {
             (screenX(moon.azimuth, moon.altitude) shl 6) or encodeAltitude(moon.altitude)
     }
 
+    fun sunAzimuth(time: Instant, latitude: Double, longitude: Double): Double =
+        SunPosition.compute().on(time).at(latitude, longitude).execute().azimuth
+
     // East appears on the left and west on the right. Altitude compresses the horizon circle
     // toward the center as an object approaches the zenith.
     private fun screenX(azimuth: Double, altitude: Double): Int {
