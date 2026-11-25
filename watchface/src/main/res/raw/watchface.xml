@@ -1443,15 +1443,19 @@
                 <Fill color="[CONFIGURATION.theme_color.2]" />
             </Ellipse>
         </PartDraw>
-        <Group name="clock_period_badge" x="256" y="166" width="78" height="28">
+        <Group name="clock_period" x="256" y="166" width="78" height="28">
             <Transform target="x" value="239 + ([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? (floor([MINUTE] / 10) &lt; 2 ? 24 : 44) : ([CONFIGURATION.clock_font] == &quot;0&quot; ? (floor([MINUTE] / 10) == 0 ? 55 : floor([MINUTE] / 10) == 1 ? 31 : 47) : 46)) + ([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? ([MINUTE] % 10 &lt; 2 ? 24 : 44) : ([CONFIGURATION.clock_font] == &quot;0&quot; ? ([MINUTE] % 10 == 0 ? 55 : [MINUTE] % 10 == 1 ? 31 : 47) : 46)) - 76" />
             <Variant mode="AMBIENT" target="y" value="183" />
-            <PartDraw x="0" y="0" width="78" height="28">
+            <PartText name="clock_day_period_shadow" x="6" y="2" width="67" height="27">
                 <Variant mode="AMBIENT" target="alpha" value="0" />
-                <RoundRectangle x="1" y="1" width="76" height="26" cornerRadiusX="5" cornerRadiusY="5">
-                    <Fill color="#E0102339" />
-                </RoundRectangle>
-            </PartDraw>
+                <Text align="END" maxLines="1">
+                    <Font family="ibm_plex_arabic_bold" size="18" color="#FF081525">
+                        <Outline width="1.6" color="#FF081525">
+                            <Template>%s<Parameter expression="[HOUR_0_23] &lt; 4 || [HOUR_0_23] &gt;= 21 ? &quot;ليلًا&quot; : [HOUR_0_23] &lt; 6 ? &quot;فجرًا&quot; : [HOUR_0_23] &lt; 12 ? &quot;صباحًا&quot; : [HOUR_0_23] &lt; 15 ? &quot;ظهرًا&quot; : [HOUR_0_23] &lt; 18 ? &quot;عصرًا&quot; : &quot;مساءً&quot;" /></Template>
+                        </Outline>
+                    </Font>
+                </Text>
+            </PartText>
             <PartText name="clock_day_period" x="4" y="0" width="67" height="27">
                 <Text align="END" maxLines="1">
                     <Font family="ibm_plex_arabic_bold" size="18" color="[CONFIGURATION.edge_color.0]">
