@@ -38,6 +38,8 @@ RANKS = {
 DIGIT_TO_ALIF = 740 / 717
 TIME_RANGE = (0.9, 1.2)
 IVORY = "#FFFFFDF7"
+# Main text follows the «لون النص» setting through a scene-level Reference (ivory by default).
+MAIN_TEXT_TRANSFORM = '            <Transform target="color" value="[REFERENCE.mainTextColor]" />\n'
 DIVIDER = 225
 HALF_GUTTER = 10
 DIGITS = "0123456789"
@@ -174,7 +176,8 @@ def text_part(offset, height, x, width, alpha, align, font, size, color, templat
         f'<PartText {attrs}>\n'
         f'    <Text align="{align}" maxLines="1">\n'
         f'        <Font family="{font}" size="{size}" color="{color}">\n'
-        f'            <Template>{template}</Template>\n'
+        + (MAIN_TEXT_TRANSFORM if color == IVORY else "")
+        + f'            <Template>{template}</Template>\n'
         '        </Font>\n'
         '    </Text>\n'
         '</PartText>'

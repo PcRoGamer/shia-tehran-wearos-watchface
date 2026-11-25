@@ -14,6 +14,10 @@
     <string name="color_yellow">أصفر نيون</string>
     <string name="color_green">أخضر نيون</string>
     <string name="color_pink">وردي فاقع</string>
+    <string name="text_color_name">لون النص</string>
+    <string name="text_color_ivory">عاجي</string>
+    <string name="text_color_tint">فاتح من اللون</string>
+    <string name="text_color_full">نفس اللون</string>
     <string name="sky_preview_name">عرض تجريبي: دورة السماء في دقيقة</string>
     <string name="hindi_digits_name">أرقام الساعة المشرقية (٠١٢٣)</string>
     <string name="slot_bottom_name">الخانة السفلية المقوّسة</string>
