@@ -24,12 +24,12 @@ KASHIDA = {
 }
 # Rank-specific ink width, point sizes, and the existing vertical row geometry.
 RANKS = {
-    "featured": (124, 54, 44, 78, 294, 6, 76, 255),
-    "following": (102, 43, 36, 95, 270, -5, 56, 246),
-    "third": (80, 35, 29, 95, 270, 44, 40, 213),
+    "featured": (124, 54, 44, 78, 294, 8, 76, 255),
+    "following": (101, 42, 35, 95, 270, -8, 56, 246),
+    "third": (78, 34, 28, 95, 270, 46, 40, 213),
 }
 DIVIDER = 225
-HALF_GUTTER = 11
+HALF_GUTTER = 10
 DIGITS = "0123456789"
 # Offsets are in the Outfit font’s 1,000-unit em.
 TRACKING = (-35, 0, 35, 70, 105, 140)
@@ -196,8 +196,8 @@ def divider(rank, slot_x):
         return ""
     primary = rank == "featured"
     name = "primary_prayer_divider" if primary else "prayer_schedule_divider"
-    y = 29 if primary else 0
-    height = 49 if primary else 77
+    y = 31 if primary else 0
+    height = 47 if primary else 79
     variant = '    <Variant mode="AMBIENT" target="alpha" value="0" />\n' if primary else ""
     return (
         f'<PartDraw name="{name}" x="{DIVIDER - slot_x - 1}" y="{y}" width="2" height="{height}">\n'
@@ -246,8 +246,9 @@ def render_row(rank, field, label, time_font, name_font, short=False):
                 tests.append(f"{reference} >= {low + step * i:.5f}")
             if i < bins - 1:
                 tests.append(f"{reference} < {low + step * (i + 1):.5f}")
+            number_offset = y + (round(max(0, size - 46) * 0.35) if rank == "following" else 0)
             drawing = text_part(
-                y, height, 0, DIVIDER - HALF_GUTTER - slot_x + round(size * units / 1000), alpha,
+                number_offset, height, 0, DIVIDER - HALF_GUTTER - slot_x + round(size * units / 1000), alpha,
                 "END", tracking_family(units), size, "[CONFIGURATION.theme_color.2]",
                 template,
             )
