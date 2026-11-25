@@ -9,11 +9,11 @@
              and icons. Information text (dates, values, bottom slot) stays white for legibility. -->
         <ColorConfiguration id="face_color" displayName="face_color_name" defaultValue="white">
             <ColorOption id="white" displayName="color_white" colors="#FFFFFFFF" />
-            <ColorOption id="red" displayName="color_red" colors="#FFFF4640" />
+            <ColorOption id="red" displayName="color_red" colors="#FFFF6650" />
             <ColorOption id="orange" displayName="color_orange" colors="#FFFF912D" />
             <ColorOption id="yellow" displayName="color_yellow" colors="#FFFDEB00" />
             <ColorOption id="green" displayName="color_green" colors="#FF42FF44" />
-            <ColorOption id="pink" displayName="color_pink" colors="#FFFF2C96" />
+            <ColorOption id="pink" displayName="color_pink" colors="#FFFF6EB4" />
         </ColorConfiguration>
         <ListConfiguration id="clock_font" displayName="clock_font_name" defaultValue="0">
             <ListOption id="0" displayName="clock_font_geometric" />
@@ -2908,14 +2908,6 @@
                                 <Expression name="prayerName5"><![CDATA[subText([COMPLICATION.TITLE], 8, textLength([COMPLICATION.TITLE])) == "نصف الليل"]]></Expression>
                             </Expressions>
                             <Compare expression="prayerName0">
-                                <PartText x="158" y="9" width="137" height="76">
-                                    <Variant mode="AMBIENT" target="alpha" value="0" />
-                                    <Text align="START" maxLines="1">
-                                        <Font family="ibm_plex_arabic_bold" size="52.72" color="#63081525">
-                                            <Template>%s<Parameter expression="&quot;الفـــجر&quot;" /></Template>
-                                        </Font>
-                                    </Text>
-                                </PartText>
                                 <PartText x="157" y="8" width="137" height="76">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="52.72" color="[CONFIGURATION.face_color.0]">
@@ -2925,14 +2917,6 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="prayerName1">
-                                <PartText x="158" y="9" width="137" height="76">
-                                    <Variant mode="AMBIENT" target="alpha" value="0" />
-                                    <Text align="START" maxLines="1">
-                                        <Font family="ibm_plex_arabic_bold" size="43.96" color="#63081525">
-                                            <Template>%s<Parameter expression="&quot;الشروق&quot;" /></Template>
-                                        </Font>
-                                    </Text>
-                                </PartText>
                                 <PartText x="157" y="8" width="137" height="76">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="43.96" color="[CONFIGURATION.face_color.0]">
@@ -2942,14 +2926,6 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="prayerName2">
-                                <PartText x="158" y="9" width="137" height="76">
-                                    <Variant mode="AMBIENT" target="alpha" value="0" />
-                                    <Text align="START" maxLines="1">
-                                        <Font family="ibm_plex_arabic_bold" size="50.8" color="#63081525">
-                                            <Template>%s<Parameter expression="&quot;الظـــهر&quot;" /></Template>
-                                        </Font>
-                                    </Text>
-                                </PartText>
                                 <PartText x="157" y="8" width="137" height="76">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="50.8" color="[CONFIGURATION.face_color.0]">
@@ -2959,14 +2935,6 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="prayerName3">
-                                <PartText x="158" y="9" width="137" height="76">
-                                    <Variant mode="AMBIENT" target="alpha" value="0" />
-                                    <Text align="START" maxLines="1">
-                                        <Font family="ibm_plex_arabic_bold" size="44.32" color="#63081525">
-                                            <Template>%s<Parameter expression="&quot;الغـروب&quot;" /></Template>
-                                        </Font>
-                                    </Text>
-                                </PartText>
                                 <PartText x="157" y="8" width="137" height="76">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="44.32" color="[CONFIGURATION.face_color.0]">
@@ -2976,14 +2944,6 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="prayerName4">
-                                <PartText x="158" y="9" width="137" height="76">
-                                    <Variant mode="AMBIENT" target="alpha" value="0" />
-                                    <Text align="START" maxLines="1">
-                                        <Font family="ibm_plex_arabic_bold" size="44.67" color="#63081525">
-                                            <Template>%s<Parameter expression="&quot;المغرب&quot;" /></Template>
-                                        </Font>
-                                    </Text>
-                                </PartText>
                                 <PartText x="157" y="8" width="137" height="76">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="44.67" color="[CONFIGURATION.face_color.0]">
@@ -2993,14 +2953,6 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="prayerName5">
-                                <PartText x="158" y="9" width="137" height="76">
-                                    <Variant mode="AMBIENT" target="alpha" value="0" />
-                                    <Text align="START" maxLines="1">
-                                        <Font family="ibm_plex_arabic_bold" size="28.56" color="#63081525">
-                                            <Template>%s<Parameter expression="&quot;نصف الليل&quot;" /></Template>
-                                        </Font>
-                                    </Text>
-                                </PartText>
                                 <PartText x="157" y="8" width="137" height="76">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="28.56" color="[CONFIGURATION.face_color.0]">
@@ -3010,14 +2962,6 @@
                                 </PartText>
                             </Compare>
                             <Default>
-                                <PartText x="158" y="9" width="137" height="76">
-                                    <Variant mode="AMBIENT" target="alpha" value="0" />
-                                    <Text align="START" maxLines="1">
-                                        <Font family="ibm_plex_arabic_bold" size="44" color="#63081525">
-                                            <Template>%s<Parameter expression="subText([COMPLICATION.TITLE], 8, textLength([COMPLICATION.TITLE]))" /></Template>
-                                        </Font>
-                                    </Text>
-                                </PartText>
                                 <PartText x="157" y="8" width="137" height="76">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="44" color="[CONFIGURATION.face_color.0]">
@@ -4542,14 +4486,6 @@
                                 <Expression name="prayerName5"><![CDATA[[COMPLICATION.TITLE] == "نصف الليل"]]></Expression>
                             </Expressions>
                             <Compare expression="prayerName0">
-                                <PartText x="158" y="9" width="137" height="76">
-                                    <Variant mode="AMBIENT" target="alpha" value="0" />
-                                    <Text align="START" maxLines="1">
-                                        <Font family="ibm_plex_arabic_bold" size="52.72" color="#63081525">
-                                            <Template>%s<Parameter expression="&quot;الفـــجر&quot;" /></Template>
-                                        </Font>
-                                    </Text>
-                                </PartText>
                                 <PartText x="157" y="8" width="137" height="76">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="52.72" color="[CONFIGURATION.face_color.0]">
@@ -4559,14 +4495,6 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="prayerName1">
-                                <PartText x="158" y="9" width="137" height="76">
-                                    <Variant mode="AMBIENT" target="alpha" value="0" />
-                                    <Text align="START" maxLines="1">
-                                        <Font family="ibm_plex_arabic_bold" size="43.96" color="#63081525">
-                                            <Template>%s<Parameter expression="&quot;الشروق&quot;" /></Template>
-                                        </Font>
-                                    </Text>
-                                </PartText>
                                 <PartText x="157" y="8" width="137" height="76">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="43.96" color="[CONFIGURATION.face_color.0]">
@@ -4576,14 +4504,6 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="prayerName2">
-                                <PartText x="158" y="9" width="137" height="76">
-                                    <Variant mode="AMBIENT" target="alpha" value="0" />
-                                    <Text align="START" maxLines="1">
-                                        <Font family="ibm_plex_arabic_bold" size="50.8" color="#63081525">
-                                            <Template>%s<Parameter expression="&quot;الظـــهر&quot;" /></Template>
-                                        </Font>
-                                    </Text>
-                                </PartText>
                                 <PartText x="157" y="8" width="137" height="76">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="50.8" color="[CONFIGURATION.face_color.0]">
@@ -4593,14 +4513,6 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="prayerName3">
-                                <PartText x="158" y="9" width="137" height="76">
-                                    <Variant mode="AMBIENT" target="alpha" value="0" />
-                                    <Text align="START" maxLines="1">
-                                        <Font family="ibm_plex_arabic_bold" size="44.32" color="#63081525">
-                                            <Template>%s<Parameter expression="&quot;الغـروب&quot;" /></Template>
-                                        </Font>
-                                    </Text>
-                                </PartText>
                                 <PartText x="157" y="8" width="137" height="76">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="44.32" color="[CONFIGURATION.face_color.0]">
@@ -4610,14 +4522,6 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="prayerName4">
-                                <PartText x="158" y="9" width="137" height="76">
-                                    <Variant mode="AMBIENT" target="alpha" value="0" />
-                                    <Text align="START" maxLines="1">
-                                        <Font family="ibm_plex_arabic_bold" size="44.67" color="#63081525">
-                                            <Template>%s<Parameter expression="&quot;المغرب&quot;" /></Template>
-                                        </Font>
-                                    </Text>
-                                </PartText>
                                 <PartText x="157" y="8" width="137" height="76">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="44.67" color="[CONFIGURATION.face_color.0]">
@@ -4627,14 +4531,6 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="prayerName5">
-                                <PartText x="158" y="9" width="137" height="76">
-                                    <Variant mode="AMBIENT" target="alpha" value="0" />
-                                    <Text align="START" maxLines="1">
-                                        <Font family="ibm_plex_arabic_bold" size="28.56" color="#63081525">
-                                            <Template>%s<Parameter expression="&quot;نصف الليل&quot;" /></Template>
-                                        </Font>
-                                    </Text>
-                                </PartText>
                                 <PartText x="157" y="8" width="137" height="76">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="28.56" color="[CONFIGURATION.face_color.0]">
@@ -4644,14 +4540,6 @@
                                 </PartText>
                             </Compare>
                             <Default>
-                                <PartText x="158" y="9" width="137" height="76">
-                                    <Variant mode="AMBIENT" target="alpha" value="0" />
-                                    <Text align="START" maxLines="1">
-                                        <Font family="ibm_plex_arabic_bold" size="44" color="#63081525">
-                                            <Template>%s<Parameter expression="[COMPLICATION.TITLE]" /></Template>
-                                        </Font>
-                                    </Text>
-                                </PartText>
                                 <PartText x="157" y="8" width="137" height="76">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="44" color="[CONFIGURATION.face_color.0]">
