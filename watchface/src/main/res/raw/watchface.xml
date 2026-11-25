@@ -1487,26 +1487,44 @@
                         <Expression name="splitPrayerTime"><![CDATA[textLength([COMPLICATION.TITLE]) > 8 && subText([COMPLICATION.TITLE], 5, 8) == " • "]]></Expression>
                     </Expressions>
                     <Compare expression="splitPrayerTime">
-                        <PartText x="1" y="6" width="117" height="76">
+                        <PartText x="1" y="6" width="123" height="76" pivotX="1">
+                            <Transform target="scaleX" value="subText([COMPLICATION.TITLE], 8, textLength([COMPLICATION.TITLE])) == &quot;الظهر والعصر&quot; ? 0.75 : 1" />
+                            <Transform target="scaleY" value="subText([COMPLICATION.TITLE], 8, textLength([COMPLICATION.TITLE])) == &quot;الظهر والعصر&quot; ? 0.75 : 1" />
                             <Text align="END" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
-                                <Font family="outfit_bold" size="54" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
+                                <Font family="prayer_featured" size="41" color="[CONFIGURATION.theme_color.2]">
                                     <Template>%s<Parameter expression="subText([COMPLICATION.TITLE], 0, 1) == &quot;0&quot; ? subText([COMPLICATION.TITLE], 1, 5) : subText([COMPLICATION.TITLE], 0, 5)" /></Template>
                                 </Font>
                             </Text>
                         </PartText>
-                        <PartDraw x="138" y="6" width="2" height="76">
+                        <PartDraw x="132" y="6" width="2" height="76">
                             <Variant mode="AMBIENT" target="alpha" value="0" />
                             <Line startX="1" startY="22" endX="1" endY="54">
                                 <Stroke color="#43DCEAFF" thickness="1" />
                             </Line>
                         </PartDraw>
-                        <PartText x="162" y="6" width="131" height="76">
-                            <Text align="START" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
-                                <Font family="ibm_plex_arabic_bold" size="37" weight="BOLD" color="[CONFIGURATION.edge_color.0]">
-                                    <Template>%s<Parameter expression="subText([COMPLICATION.TITLE], 8, textLength([COMPLICATION.TITLE]))" /></Template>
-                                </Font>
-                            </Text>
-                        </PartText>
+                        <Condition>
+                            <Expressions>
+                                <Expression name="combinedNoon"><![CDATA[subText([COMPLICATION.TITLE], 8, textLength([COMPLICATION.TITLE])) == "الظهر والعصر"]]></Expression>
+                            </Expressions>
+                            <Compare expression="combinedNoon">
+                                <PartText x="144" y="6" width="149" height="76">
+                                    <Text align="START" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
+                                        <Font family="prayer_third" size="34" color="[CONFIGURATION.edge_color.0]">
+                                            <Template>%s<Parameter expression="subText([COMPLICATION.TITLE], 8, textLength([COMPLICATION.TITLE]))" /></Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
+                            </Compare>
+                            <Default>
+                                <PartText x="144" y="6" width="149" height="76">
+                                    <Text align="START" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
+                                        <Font family="prayer_featured" size="40" color="[CONFIGURATION.edge_color.0]">
+                                            <Template>%s<Parameter expression="subText([COMPLICATION.TITLE], 8, textLength([COMPLICATION.TITLE]))" /></Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
+                            </Default>
+                        </Condition>
                     </Compare>
                     <Default>
                         <Condition>
@@ -1550,26 +1568,44 @@
                         <Expression name="splitPrayerTime"><![CDATA[[COMPLICATION.TITLE] != null && [COMPLICATION.TITLE] != "" && [COMPLICATION.TEXT] != null && (textLength([COMPLICATION.TEXT]) == 6 || textLength([COMPLICATION.TEXT]) == 7) && subText([COMPLICATION.TEXT], max(0, textLength([COMPLICATION.TEXT]) - 5), max(0, textLength([COMPLICATION.TEXT]) - 4)) == ":" && (subText([COMPLICATION.TEXT], max(0, textLength([COMPLICATION.TEXT]) - 2), max(0, textLength([COMPLICATION.TEXT]) - 0)) == " م" || subText([COMPLICATION.TEXT], max(0, textLength([COMPLICATION.TEXT]) - 2), max(0, textLength([COMPLICATION.TEXT]) - 0)) == " ص")]]></Expression>
                     </Expressions>
                     <Compare expression="splitPrayerTime">
-                        <PartText x="1" y="6" width="117" height="76">
+                        <PartText x="1" y="6" width="123" height="76" pivotX="1">
+                            <Transform target="scaleX" value="[COMPLICATION.TITLE] == &quot;الظهر والعصر&quot; ? 0.75 : 1" />
+                            <Transform target="scaleY" value="[COMPLICATION.TITLE] == &quot;الظهر والعصر&quot; ? 0.75 : 1" />
                             <Text align="END" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
-                                <Font family="outfit_bold" size="54" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
+                                <Font family="prayer_featured" size="41" color="[CONFIGURATION.theme_color.2]">
                                     <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 0, max(0, textLength([COMPLICATION.TEXT]) - 2))" /></Template>
                                 </Font>
                             </Text>
                         </PartText>
-                        <PartDraw x="138" y="6" width="2" height="76">
+                        <PartDraw x="132" y="6" width="2" height="76">
                             <Variant mode="AMBIENT" target="alpha" value="0" />
                             <Line startX="1" startY="22" endX="1" endY="54">
                                 <Stroke color="#43DCEAFF" thickness="1" />
                             </Line>
                         </PartDraw>
-                        <PartText x="162" y="6" width="131" height="76">
-                            <Text align="START" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
-                                <Font family="ibm_plex_arabic_bold" size="37" weight="BOLD" color="[CONFIGURATION.edge_color.0]">
-                                    <Template>%s<Parameter expression="[COMPLICATION.TITLE]" /></Template>
-                                </Font>
-                            </Text>
-                        </PartText>
+                        <Condition>
+                            <Expressions>
+                                <Expression name="combinedNoon"><![CDATA[[COMPLICATION.TITLE] == "الظهر والعصر"]]></Expression>
+                            </Expressions>
+                            <Compare expression="combinedNoon">
+                                <PartText x="144" y="6" width="149" height="76">
+                                    <Text align="START" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
+                                        <Font family="prayer_third" size="34" color="[CONFIGURATION.edge_color.0]">
+                                            <Template>%s<Parameter expression="[COMPLICATION.TITLE]" /></Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
+                            </Compare>
+                            <Default>
+                                <PartText x="144" y="6" width="149" height="76">
+                                    <Text align="START" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
+                                        <Font family="prayer_featured" size="40" color="[CONFIGURATION.edge_color.0]">
+                                            <Template>%s<Parameter expression="[COMPLICATION.TITLE]" /></Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
+                            </Default>
+                        </Condition>
                     </Compare>
                     <Default>
                         <Condition>
@@ -1677,25 +1713,41 @@
                         <Expression name="followingPrayer"><![CDATA[textLength([COMPLICATION.TEXT]) > 8 && subText([COMPLICATION.TEXT], 5, 8) == " • "]]></Expression>
                     </Expressions>
                     <Compare expression="followingPrayer">
-                        <PartText x="7" y="0" width="101" height="34" alpha="246">
+                        <PartText x="7" y="0" width="100" height="34" alpha="246">
                             <Text align="END" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
-                                <Font family="ibm_plex_arabic_bold" size="36" color="[CONFIGURATION.theme_color.2]">
+                                <Font family="prayer_following" size="29" color="[CONFIGURATION.theme_color.2]">
                                     <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 0, 1) == &quot;0&quot; ? subText([COMPLICATION.TEXT], 1, 5) : subText([COMPLICATION.TEXT], 0, 5)" /></Template>
                                 </Font>
                             </Text>
                         </PartText>
-                        <PartDraw x="121" y="3" width="2" height="28">
+                        <PartDraw x="115" y="3" width="2" height="28">
                             <Line startX="1" startY="8" endX="1" endY="20">
                                 <Stroke color="#43DCEAFF" thickness="1" />
                             </Line>
                         </PartDraw>
-                        <PartText x="136" y="0" width="124" height="34" alpha="246">
-                            <Text align="START" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
-                                <Font family="ibm_plex_arabic_bold" size="29" color="[CONFIGURATION.theme_color.2]">
-                                    <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 8, textLength([COMPLICATION.TEXT]))" /></Template>
-                                </Font>
-                            </Text>
-                        </PartText>
+                        <Condition>
+                            <Expressions>
+                                <Expression name="combinedNoon"><![CDATA[subText([COMPLICATION.TEXT], 8, textLength([COMPLICATION.TEXT])) == "الظهر والعصر"]]></Expression>
+                            </Expressions>
+                            <Compare expression="combinedNoon">
+                                <PartText x="127" y="0" width="133" height="34" alpha="246">
+                                    <Text align="START" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
+                                        <Font family="prayer_third" size="29" color="[CONFIGURATION.theme_color.2]">
+                                            <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 8, textLength([COMPLICATION.TEXT]))" /></Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
+                            </Compare>
+                            <Default>
+                                <PartText x="127" y="0" width="133" height="34" alpha="246">
+                                    <Text align="START" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
+                                        <Font family="prayer_following" size="31" color="[CONFIGURATION.theme_color.2]">
+                                            <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 8, textLength([COMPLICATION.TEXT]))" /></Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
+                            </Default>
+                        </Condition>
                     </Compare>
                     <Default>
                             <PartText x="0" y="2" width="260" height="24" alpha="158"><Text align="CENTER"><Font family="ibm_plex_arabic_bold" size="13" weight="BOLD" color="[CONFIGURATION.theme_color.2]"><Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template></Font></Text></PartText>
@@ -1706,21 +1758,21 @@
                         <Expression name="thirdPrayer"><![CDATA[textLength([COMPLICATION.TITLE]) > 8 && subText([COMPLICATION.TITLE], 5, 8) == " • "]]></Expression>
                     </Expressions>
                     <Compare expression="thirdPrayer">
-                        <PartText x="7" y="38" width="107" height="32" alpha="213">
+                        <PartText x="7" y="38" width="100" height="32" alpha="213">
                             <Text align="END" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
-                                <Font family="ibm_plex_arabic_bold" size="26" color="[CONFIGURATION.theme_color.2]">
+                                <Font family="prayer_third" size="22" color="[CONFIGURATION.theme_color.2]">
                                     <Template>%s<Parameter expression="subText([COMPLICATION.TITLE], 0, 1) == &quot;0&quot; ? subText([COMPLICATION.TITLE], 1, 5) : subText([COMPLICATION.TITLE], 0, 5)" /></Template>
                                 </Font>
                             </Text>
                         </PartText>
-                        <PartDraw x="121" y="40" width="2" height="28">
+                        <PartDraw x="115" y="40" width="2" height="28">
                             <Line startX="1" startY="8" endX="1" endY="20">
                                 <Stroke color="#43DCEAFF" thickness="1" />
                             </Line>
                         </PartDraw>
-                        <PartText x="130" y="38" width="130" height="32" alpha="213">
+                        <PartText x="127" y="38" width="133" height="32" alpha="213">
                             <Text align="START" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
-                                <Font family="ibm_plex_arabic_bold" size="24" color="[CONFIGURATION.theme_color.2]">
+                                <Font family="prayer_third" size="25" color="[CONFIGURATION.theme_color.2]">
                                     <Template>%s<Parameter expression="subText([COMPLICATION.TITLE], 8, textLength([COMPLICATION.TITLE]))" /></Template>
                                 </Font>
                             </Text>
