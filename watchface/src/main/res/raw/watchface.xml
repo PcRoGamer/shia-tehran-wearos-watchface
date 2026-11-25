@@ -1403,14 +1403,14 @@
                 </Group>
             </ListOption>
         </ListConfiguration>
-        <Group name="clock_period" x="256" y="175" width="78" height="28">
-            <Transform target="x" value="154 + (((([HOUR_0_23] + 11) % 12 + 1) &gt;= 10 ? ([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? 23 : [CONFIGURATION.clock_font] == &quot;0&quot; ? 31 : 46) : 0) + ([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? ((([HOUR_0_23] + 11) % 12 + 1) % 10 &lt; 2 ? 24 : (([HOUR_0_23] + 11) % 12 + 1) % 10 == 3 ? 52 : 44) : ([CONFIGURATION.clock_font] == &quot;0&quot; ? ((([HOUR_0_23] + 11) % 12 + 1) % 10 == 0 ? 55 : (([HOUR_0_23] + 11) % 12 + 1) % 10 == 1 ? 31 : 47) : 46)) + ([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? 27 : 23) + ([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? (floor([MINUTE] / 10) &lt; 2 ? 24 : floor([MINUTE] / 10) == 3 ? 52 : 44) : ([CONFIGURATION.clock_font] == &quot;0&quot; ? (floor([MINUTE] / 10) == 0 ? 55 : floor([MINUTE] / 10) == 1 ? 31 : 47) : 46)) + ([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? ([MINUTE] % 10 &lt; 2 ? 24 : [MINUTE] % 10 == 3 ? 52 : 44) : ([CONFIGURATION.clock_font] == &quot;0&quot; ? ([MINUTE] % 10 == 0 ? 55 : [MINUTE] % 10 == 1 ? 31 : 47) : 46))) / 2" />
+        <Group name="clock_period" x="252" y="171" width="78" height="28">
+            <Transform target="x" value="150 + (((([HOUR_0_23] + 11) % 12 + 1) &gt;= 10 ? ([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? 23 : [CONFIGURATION.clock_font] == &quot;0&quot; ? 31 : 46) : 0) + ([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? ((([HOUR_0_23] + 11) % 12 + 1) % 10 &lt; 2 ? 24 : (([HOUR_0_23] + 11) % 12 + 1) % 10 == 3 ? 52 : 44) : ([CONFIGURATION.clock_font] == &quot;0&quot; ? ((([HOUR_0_23] + 11) % 12 + 1) % 10 == 0 ? 55 : (([HOUR_0_23] + 11) % 12 + 1) % 10 == 1 ? 31 : 47) : 46)) + ([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? 27 : 23) + ([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? (floor([MINUTE] / 10) &lt; 2 ? 24 : floor([MINUTE] / 10) == 3 ? 52 : 44) : ([CONFIGURATION.clock_font] == &quot;0&quot; ? (floor([MINUTE] / 10) == 0 ? 55 : floor([MINUTE] / 10) == 1 ? 31 : 47) : 46)) + ([CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? ([MINUTE] % 10 &lt; 2 ? 24 : [MINUTE] % 10 == 3 ? 52 : 44) : ([CONFIGURATION.clock_font] == &quot;0&quot; ? ([MINUTE] % 10 == 0 ? 55 : [MINUTE] % 10 == 1 ? 31 : 47) : 46))) / 2" />
             <Variant mode="AMBIENT" target="y" value="192" />
-            <PartText name="clock_day_period_shadow" x="6" y="2" width="67" height="27">
+            <PartText name="clock_day_period_shadow" x="4" y="-2" width="67" height="27">
                 <Variant mode="AMBIENT" target="alpha" value="0" />
                 <Text align="END" maxLines="1">
-                    <Font family="ibm_plex_arabic_bold" size="18" color="#FF081525">
-                        <Outline width="1.6" color="#FF081525">
+                    <Font family="ibm_plex_arabic_bold" size="18" color="#B0081525">
+                        <Outline width="0.8" color="#B0081525">
                             <Template>%s<Parameter expression="[HOUR_0_23] &lt; 4 || [HOUR_0_23] &gt;= 21 ? &quot;ليلًا&quot; : [HOUR_0_23] &lt; 6 ? &quot;فجرًا&quot; : [HOUR_0_23] &lt; 12 ? &quot;صباحًا&quot; : [HOUR_0_23] &lt; 15 ? &quot;ظهرًا&quot; : [HOUR_0_23] &lt; 18 ? &quot;عصرًا&quot; : &quot;مساءً&quot;" /></Template>
                         </Outline>
                     </Font>
