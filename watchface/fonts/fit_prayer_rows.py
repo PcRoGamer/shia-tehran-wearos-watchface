@@ -22,14 +22,16 @@ KASHIDA = {
     "المغرب": ("المغ", "رب"),
     "نصف الليل": ("نص", "ف الليل"),
 }
-# Rank-specific ink width, point sizes, and the existing vertical row geometry.
+# Rank-specific ink width, point sizes, and the vertical row geometry. The
+# slots in watchface.xml reach past these boxes so descenders (ر in الظهر, ج in
+# الفجر) are not cut off by the slot bounds.
 # Time sizes are the fallback for an unknown label: the Outfit digit height
 # (717 units) sits level with the Arabic alif (740 units) at the reference
 # name size, so the numbers read the same size as the words.
 RANKS = {
     "featured": (124, 45, 44, 78, 294, 8, 76, 255),
-    "following": (101, 36, 35, 95, 270, -8, 56, 246),
-    "third": (78, 29, 28, 95, 270, 46, 40, 213),
+    "following": (101, 36, 35, 95, 270, -6, 56, 246),
+    "third": (78, 29, 28, 95, 270, 47, 40, 213),
 }
 # Known labels size their digits from the word actually drawn, within this
 # range of the rank's time size so the row hierarchy survives.
