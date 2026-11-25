@@ -1,29 +1,43 @@
-"""Fit each prayer label and time to a common width, then apply its row's rank.
+"""Typeset prayer rows with kashida, font size and numeral tracking.
 
 Run with uharfbuzz installed: python watchface/fonts/fit_prayer_rows.py
 """
+from itertools import product
 from pathlib import Path
 import re
 from xml.sax.saxutils import escape
+
+from fontTools import subset
+from fontTools.ttLib import TTFont
 
 import uharfbuzz as hb
 
 
 RES = Path(__file__).resolve().parents[1] / "src/main/res"
-LABELS = ("الفجر", "الشروق", "الظهر", "الغروب", "المغرب", "نصف الليل")
-RANKS = {"featured": 1.24, "following": 1.02, "third": 0.80}
-BASE_WIDTH = 100
+KASHIDA = {
+    "الفجر": ("الف", "جر"),
+    "الشروق": ("الش", "روق"),
+    "الظهر": ("الظ", "هر"),
+    "الغروب": ("الغ", "روب"),
+    "المغرب": ("المغ", "رب"),
+    "نصف الليل": ("نص", "ف الليل"),
+}
+# Rank-specific ink width, point sizes, and the existing vertical row geometry.
+RANKS = {
+    "featured": (124, 54, 44, 78, 294, 6, 76, 255),
+    "following": (102, 43, 36, 95, 270, -8, 44, 246),
+    "third": (80, 35, 29, 95, 270, 34, 40, 213),
+}
 DIVIDER = 225
 HALF_GUTTER = 11
-TEXT_BOX = 260
 DIGITS = "0123456789"
+# Offsets are in the Outfit font’s 1,000-unit em.
+TRACKING = (-35, 0, 35, 70, 105, 140)
 ROW = re.compile(
-    r'<Compare expression="(splitPrayerTime|followingPrayer|thirdPrayer)">'
-    r'.*?</Compare>',
-    re.S,
+    r'^ {20}<Compare expression="(splitPrayerTime|followingPrayer|thirdPrayer)">'
+    r'.*?^ {20}</Compare>',
+    re.S | re.M,
 )
-PART_TEXT = re.compile(r"<PartText [^\n]+>.*?</PartText>", re.S)
-
 
 def measure(font, text):
     """Return the shaped advance and ink bounds in font units."""
@@ -82,65 +96,204 @@ def time_width(font, field):
     return f"({hour} + {colon} + {digit(3, advance)} + {digit(4, trailing)})"
 
 
-def fit_part(part, x, pivot, expression):
-    opening, content = part.split(">", 1)
-    opening = re.sub(r'\bx="[^"]+"', f'x="{x}"', opening)
-    opening = re.sub(r'\bwidth="[^"]+"', f'width="{TEXT_BOX}"', opening)
-    opening = re.sub(r' pivot[XY]="[^"]+"', "", opening)
-    content = re.sub(r'\n                            <Transform target="scale[XY]"[^\n]+', "", content)
-    content = content.replace(' isAutoSize="TRUE"', "")
-    scale = escape(expression, {'"': "&quot;"})
+def ink_width(font, text):
+    _, left, right = measure(font, text)
+    return (right - left) / font.face.upem
+
+
+def arabic_style(font, word, target, reference):
+    before, after = KASHIDA[word]
+    variants = [(before + "ـ" * n + after, n) for n in range(4)]
+    options = [
+        (abs(size - reference) + n * 1.2, embellished, size)
+        for embellished, n in variants
+        for size in [target / ink_width(font, embellished)]
+    ]
+    _, embellished, size = min(options)
+    return embellished, round(size, 2)
+
+
+def tracking_family(units):
+    if not units:
+        return "outfit_bold"
+    tag = f"m{-units}" if units < 0 else f"p{units}"
+    return f"outfit_prayer_{tag}"
+
+
+def build_tracking_fonts():
+    source = RES / "font/outfit_bold.ttf"
+    for units in TRACKING:
+        if not units:
+            continue
+        font = TTFont(source, recalcTimestamp=False)
+        cmap = font.getBestCmap()
+        for ch in DIGITS + ":":
+            glyph = cmap[ord(ch)]
+            advance, bearing = font["hmtx"][glyph]
+            font["hmtx"][glyph] = advance + units, bearing
+        sub = subset.Subsetter()
+        sub.populate(text=DIGITS + ":")
+        sub.subset(font)
+        resource = tracking_family(units)
+        for id_ in (1, 2, 3, 4, 6, 16, 17):
+            font["name"].removeNames(nameID=id_)
+            font["name"].setName(
+                "Regular" if id_ in (2, 17) else resource, id_, 3, 1, 0x409
+            )
+        font.save(RES / "font" / f"{resource}.ttf")
+
+
+def number_style(target, reference, natural_width, gaps):
+    options = []
+    for units in TRACKING:
+        tracking = units / 1000
+        width = natural_width + tracking * gaps
+        size = round(min(reference * 1.28, max(reference * 0.8, target / width)), 2)
+        cost = abs(size - reference) + 58 * abs(tracking - 0.05)
+        cost += 10 * abs(width * size - target)
+        options.append((cost, size, units))
+    _, size, units = min(options)
+    return size, units
+
+
+def text_part(offset, height, x, width, alpha, align, font, size, color, template):
+    attrs = f'x="{x}" y="{offset}" width="{width}" height="{height}"'
+    if alpha != 255:
+        attrs += f' alpha="{alpha}"'
     return (
-        f'{opening} pivotX="{pivot}" pivotY="0.5">\n'
-        f'                            <Transform target="scaleX" value="{scale}" />{content}'
+        f'<PartText {attrs}>\n'
+        f'    <Text align="{align}" maxLines="1">\n'
+        f'        <Font family="{font}" size="{size}" color="{color}">\n'
+        f'            <Template>{template}</Template>\n'
+        '        </Font>\n'
+        '    </Text>\n'
+        '</PartText>'
     )
 
 
-def fit_row(row, rank, slot_x, field, label):
-    time_font = hb.Font(hb.Face((RES / "font/outfit_bold.ttf").read_bytes()))
-    name_font = hb.Font(hb.Face((RES / "font/ibm_plex_arabic_bold.ttf").read_bytes()))
-    time, name = PART_TEXT.findall(row)
-    time_size = int(re.search(r'<Font[^>]+size="(\d+)"', time)[1])
-    name_size = int(re.search(r'<Font[^>]+size="(\d+)"', name)[1])
-    # 100 units is the width shared by every name and number at the normalization
-    # stage. Only the final multiplier is different across the three row ranks.
-    def scale(font, width, size):
-        return f"({BASE_WIDTH} * {font.face.upem} / ({size} * {width})) * {RANKS[rank]}"
+def condition(entries, fallback=None):
+    lines = ["<Condition>", "    <Expressions>"]
+    for name, expression, _ in entries:
+        lines.append(f'        <Expression name="{name}"><![CDATA[{expression}]]></Expression>')
+    lines.append("    </Expressions>")
+    for name, _, drawing in entries:
+        lines.extend((
+            f'    <Compare expression="{name}">',
+            indent(drawing, 8),
+            "    </Compare>",
+        ))
+    if fallback is not None:
+        lines.extend(("    <Default>", indent(fallback, 8), "    </Default>"))
+    return "\n".join((*lines, "</Condition>"))
 
-    widths = {}
-    for word in LABELS:
-        advance, left, right = measure(name_font, word)
-        assert right > left
-        assert advance * name_size / name_font.face.upem < TEXT_BOX
-        widths[word] = right - left
 
-    name_scale = choose(label, {word: scale(name_font, str(width), name_size) for word, width in widths.items()}, 1)
-    row = row.replace(time, fit_part(time, DIVIDER - HALF_GUTTER - slot_x - TEXT_BOX, 1, scale(time_font, time_width(time_font, field), time_size)))
-    row = row.replace(name, fit_part(name, DIVIDER + HALF_GUTTER - slot_x, 0, name_scale))
-    row = re.sub(r'(name="(?:primary_prayer|prayer_schedule)_divider" x=")\d+"', rf'\g<1>{DIVIDER - slot_x - 1}"', row)
-    return row
+def indent(text, spaces):
+    return "\n".join(" " * spaces + line for line in text.splitlines())
+
+
+def divider(rank, slot_x):
+    if rank == "third":
+        return ""
+    primary = rank == "featured"
+    name = "primary_prayer_divider" if primary else "prayer_schedule_divider"
+    y = 29 if primary else 0
+    height = 49 if primary else 67
+    variant = '    <Variant mode="AMBIENT" target="alpha" value="0" />\n' if primary else ""
+    return (
+        f'<PartDraw name="{name}" x="{DIVIDER - slot_x - 1}" y="{y}" width="2" height="{height}">\n'
+        f'{variant}'
+        f'    <Line startX="1" startY="0" endX="1" endY="{height}">\n'
+        '        <Stroke color="#55DCEAFF" thickness="1.2" />\n'
+        '    </Line>\n'
+        '</PartDraw>'
+    )
+
+
+def render_row(rank, field, label, time_font, name_font, short=False):
+    target, time_size, name_size, slot_x, slot_width, y, height, alpha = RANKS[rank]
+    row_id = rank + ("Short" if short else "Long")
+    width_ref = row_id + "InkWidth"
+    template = (
+        '%s<Parameter expression="subText(' + field + ', 0, 1) == &quot;0&quot; ? '
+        'subText(' + field + ', 1, 5) : subText(' + field + ', 0, 5)" />'
+    )
+    width_expression = time_width(time_font, field)
+    measure_group = (
+        f'<Group name="{row_id}Measure" x="0" y="0" width="1" height="1">\n'
+        f'    <Transform target="scaleX" value="{escape(width_expression, {chr(34): "&quot;"})} / {time_font.face.upem}" />\n'
+        f'    <Reference name="{width_ref}" source="scaleX" defaultValue="2" />\n'
+        '</Group>'
+    )
+
+    times = []
+    for hours in (range(1, 10), range(10, 13)):
+        widths = [
+            ink_width(time_font, f"{hour}:{minute:02}")
+            for hour, minute in product(hours, range(60))
+        ]
+        low, high = min(widths), max(widths)
+        bins = 10
+        step = (high - low) / bins
+        first_digit = '==' if 1 in hours else '!='
+        count_check = f'subText({field}, 0, 1) {first_digit} "0"'
+        reference = f"[REFERENCE.{width_ref}]"
+        for i in range(bins):
+            size, units = number_style(
+                target, time_size, low + step * (i + 0.5), 3 if 1 in hours else 4
+            )
+            tests = [count_check]
+            if i > 0:
+                tests.append(f"{reference} >= {low + step * i:.5f}")
+            if i < bins - 1:
+                tests.append(f"{reference} < {low + step * (i + 1):.5f}")
+            drawing = text_part(
+                y, height, 0, DIVIDER - HALF_GUTTER - slot_x + round(size * units / 1000), alpha,
+                "END", tracking_family(units), size, "[CONFIGURATION.theme_color.2]",
+                template,
+            )
+            times.append((f"timeFit{len(times)}", " && ".join(tests), drawing))
+
+    names = []
+    x = DIVIDER + HALF_GUTTER - slot_x
+    color = "[CONFIGURATION.edge_color.0]" if rank == "featured" else "[CONFIGURATION.theme_color.2]"
+    for word in KASHIDA:
+        display, size = arabic_style(name_font, word, target, name_size)
+        drawing = text_part(
+            y, height, x, slot_width - x, alpha, "START",
+            "ibm_plex_arabic_bold", size, color, f'%s<Parameter expression="&quot;{display}&quot;" />',
+        )
+        names.append((f"prayerName{len(names)}", f'{label} == "{word}"', drawing))
+    label_template = escape(label, {'"': "&quot;"})
+    default_name = text_part(
+        y, height, x, slot_width - x, alpha, "START", "ibm_plex_arabic_bold",
+        name_size, color, f'%s<Parameter expression="{label_template}" />',
+    )
+    parts = (measure_group, condition(times), divider(rank, slot_x), condition(names, default_name))
+    return "\n".join(part for part in parts if part)
 
 
 def main():
+    build_tracking_fonts()
     file = RES / "raw/watchface.xml"
     xml = file.read_text(encoding="utf-8")
     start = xml.index("<!-- Open-type next prayer")
     end = xml.index('            <Complication type="SHORT_TEXT">', xml.index("<!-- Following two prayer milestones"))
+    primary_short = xml.index('            <Complication type="SHORT_TEXT">', start)
+    time_font = hb.Font(hb.Face((RES / "font/outfit_bold.ttf").read_bytes()))
+    name_font = hb.Font(hb.Face((RES / "font/ibm_plex_arabic_bold.ttf").read_bytes()))
+
     def replace(match):
-        row = match[0]
-        if match[1] == "splitPrayerTime":
-            is_short = '<Parameter expression="[COMPLICATION.TITLE]" />' in row
-            if is_short:
-                row = row.replace(
-                    'subText([COMPLICATION.TEXT], 0, max(0, textLength([COMPLICATION.TEXT]) - 2))',
-                    'subText([COMPLICATION.TEXT], 0, 1) == &quot;0&quot; ? subText([COMPLICATION.TEXT], 1, 5) : subText([COMPLICATION.TEXT], 0, 5)',
-                )
-            field = "[COMPLICATION.TEXT]" if is_short else "[COMPLICATION.TITLE]"
-            label = "[COMPLICATION.TITLE]" if is_short else f"subText({field}, 8, textLength({field}))"
-            return fit_row(row, "featured", 78, field, label)
-        rank = "following" if match[1] == "followingPrayer" else "third"
-        field = "[COMPLICATION.TEXT]" if rank == "following" else "[COMPLICATION.TITLE]"
-        return fit_row(row, rank, 95, field, f"subText({field}, 8, textLength({field}))")
+        role = match[1]
+        short = role == "splitPrayerTime" and start + match.start() > primary_short
+        if role == "splitPrayerTime":
+            rank = "featured"
+            field = "[COMPLICATION.TEXT]" if short else "[COMPLICATION.TITLE]"
+        else:
+            rank = "following" if role == "followingPrayer" else "third"
+            field = "[COMPLICATION.TEXT]" if rank == "following" else "[COMPLICATION.TITLE]"
+        label = "[COMPLICATION.TITLE]" if short else f"subText({field}, 8, textLength({field}))"
+        drawing = render_row(rank, field, label, time_font, name_font, short)
+        return f'                    <Compare expression="{role}">\n{indent(drawing, 24)}\n                    </Compare>'
 
     rows, count = ROW.subn(replace, xml[start:end])
     assert count == 4
