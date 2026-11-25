@@ -18,8 +18,8 @@ SOURCE = (
 )
 FONT_DIR = Path(__file__).resolve().parents[1] / "src/main/res/font"
 STYLES = (
-    ("featured", 58, 680),
-    ("following", 29, 655),
+    ("featured", 38, 680),
+    ("following", 17, 655),
     ("third", 0, 625),
 )
 

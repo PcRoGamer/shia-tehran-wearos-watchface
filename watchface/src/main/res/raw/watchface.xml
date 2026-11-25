@@ -1471,7 +1471,7 @@
 
         <!-- Open-type next prayer (Slot 2) -->
         <ComplicationSlot
-            x="78" y="217" width="294" height="76"
+            x="78" y="217" width="294" height="78"
             slotId="2"
             displayName="slot_next_prayer_name"
             supportedTypes="SHORT_TEXT LONG_TEXT RANGED_VALUE GOAL_PROGRESS WEIGHTED_ELEMENTS MONOCHROMATIC_IMAGE SMALL_IMAGE PHOTO_IMAGE" isCustomizable="TRUE">
@@ -1480,7 +1480,7 @@
                 defaultSystemProviderType="LONG_TEXT"
                 primaryProvider="com.shia.tehranwatchface/com.shia.tehranwatchface.complications.NextPrayerComplicationService"
                 primaryProviderType="LONG_TEXT" />
-            <BoundingRoundBox x="0" y="0" width="294" height="76" cornerRadius="16" />
+            <BoundingRoundBox x="0" y="0" width="294" height="78" cornerRadius="16" />
             <Complication type="LONG_TEXT">
                 <Condition>
                     <Expressions>
@@ -1489,20 +1489,20 @@
                     <Compare expression="splitPrayerTime">
                         <PartText x="1" y="6" width="123" height="76">
                             <Text align="END" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
-                                <Font family="prayer_featured" size="41" color="[CONFIGURATION.theme_color.2]">
+                                <Font family="prayer_featured" size="40" color="[CONFIGURATION.theme_color.2]">
                                     <Template>%s<Parameter expression="subText([COMPLICATION.TITLE], 0, 1) == &quot;0&quot; ? subText([COMPLICATION.TITLE], 1, 5) : subText([COMPLICATION.TITLE], 0, 5)" /></Template>
                                 </Font>
                             </Text>
                         </PartText>
-                        <PartDraw x="132" y="6" width="2" height="76">
+                        <PartDraw name="primary_prayer_divider" x="132" y="29" width="2" height="49">
                             <Variant mode="AMBIENT" target="alpha" value="0" />
-                            <Line startX="1" startY="22" endX="1" endY="54">
-                                <Stroke color="#43DCEAFF" thickness="1" />
+                            <Line startX="1" startY="0" endX="1" endY="49">
+                                <Stroke color="#55DCEAFF" thickness="1.2" />
                             </Line>
                         </PartDraw>
-                        <PartText x="144" y="6" width="149" height="76">
+                        <PartText x="143" y="6" width="151" height="76">
                             <Text align="START" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
-                                <Font family="prayer_featured" size="40" color="[CONFIGURATION.edge_color.0]">
+                                <Font family="prayer_featured" size="38" color="[CONFIGURATION.edge_color.0]">
                                     <Template>%s<Parameter expression="subText([COMPLICATION.TITLE], 8, textLength([COMPLICATION.TITLE]))" /></Template>
                                 </Font>
                             </Text>
@@ -1552,20 +1552,20 @@
                     <Compare expression="splitPrayerTime">
                         <PartText x="1" y="6" width="123" height="76">
                             <Text align="END" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
-                                <Font family="prayer_featured" size="41" color="[CONFIGURATION.theme_color.2]">
+                                <Font family="prayer_featured" size="40" color="[CONFIGURATION.theme_color.2]">
                                     <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 0, max(0, textLength([COMPLICATION.TEXT]) - 2))" /></Template>
                                 </Font>
                             </Text>
                         </PartText>
-                        <PartDraw x="132" y="6" width="2" height="76">
+                        <PartDraw name="primary_prayer_divider" x="132" y="29" width="2" height="49">
                             <Variant mode="AMBIENT" target="alpha" value="0" />
-                            <Line startX="1" startY="22" endX="1" endY="54">
-                                <Stroke color="#43DCEAFF" thickness="1" />
+                            <Line startX="1" startY="0" endX="1" endY="49">
+                                <Stroke color="#55DCEAFF" thickness="1.2" />
                             </Line>
                         </PartDraw>
-                        <PartText x="144" y="6" width="149" height="76">
+                        <PartText x="143" y="6" width="151" height="76">
                             <Text align="START" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
-                                <Font family="prayer_featured" size="40" color="[CONFIGURATION.edge_color.0]">
+                                <Font family="prayer_featured" size="38" color="[CONFIGURATION.edge_color.0]">
                                     <Template>%s<Parameter expression="[COMPLICATION.TITLE]" /></Template>
                                 </Font>
                             </Text>
@@ -1677,21 +1677,21 @@
                         <Expression name="followingPrayer"><![CDATA[textLength([COMPLICATION.TEXT]) > 8 && subText([COMPLICATION.TEXT], 5, 8) == " • "]]></Expression>
                     </Expressions>
                     <Compare expression="followingPrayer">
-                        <PartText x="7" y="-3" width="100" height="40" alpha="246">
+                        <PartText x="7" y="-6" width="100" height="40" alpha="246">
                             <Text align="END" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
-                                <Font family="prayer_following" size="33" color="[CONFIGURATION.theme_color.2]">
+                                <Font family="prayer_following" size="32" color="[CONFIGURATION.theme_color.2]">
                                     <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 0, 1) == &quot;0&quot; ? subText([COMPLICATION.TEXT], 1, 5) : subText([COMPLICATION.TEXT], 0, 5)" /></Template>
                                 </Font>
                             </Text>
                         </PartText>
-                        <PartDraw x="115" y="3" width="2" height="28">
-                            <Line startX="1" startY="8" endX="1" endY="20">
-                                <Stroke color="#43DCEAFF" thickness="1" />
+                        <PartDraw name="prayer_schedule_divider" x="115" y="0" width="2" height="67">
+                            <Line startX="1" startY="0" endX="1" endY="67">
+                                <Stroke color="#55DCEAFF" thickness="1.2" />
                             </Line>
                         </PartDraw>
-                        <PartText x="127" y="-3" width="143" height="40" alpha="246">
+                        <PartText x="126" y="-6" width="144" height="40" alpha="246">
                             <Text align="START" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
-                                <Font family="prayer_following" size="35" color="[CONFIGURATION.theme_color.2]">
+                                <Font family="prayer_following" size="30" color="[CONFIGURATION.theme_color.2]">
                                     <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 8, textLength([COMPLICATION.TEXT]))" /></Template>
                                 </Font>
                             </Text>
@@ -1708,19 +1708,14 @@
                     <Compare expression="thirdPrayer">
                         <PartText x="7" y="38" width="100" height="32" alpha="213">
                             <Text align="END" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
-                                <Font family="prayer_third" size="22" color="[CONFIGURATION.theme_color.2]">
+                                <Font family="prayer_third" size="24" color="[CONFIGURATION.theme_color.2]">
                                     <Template>%s<Parameter expression="subText([COMPLICATION.TITLE], 0, 1) == &quot;0&quot; ? subText([COMPLICATION.TITLE], 1, 5) : subText([COMPLICATION.TITLE], 0, 5)" /></Template>
                                 </Font>
                             </Text>
                         </PartText>
-                        <PartDraw x="115" y="40" width="2" height="28">
-                            <Line startX="1" startY="8" endX="1" endY="20">
-                                <Stroke color="#43DCEAFF" thickness="1" />
-                            </Line>
-                        </PartDraw>
                         <PartText x="127" y="38" width="133" height="32" alpha="213">
                             <Text align="START" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
-                                <Font family="prayer_third" size="25" color="[CONFIGURATION.theme_color.2]">
+                                <Font family="prayer_third" size="24" color="[CONFIGURATION.theme_color.2]">
                                     <Template>%s<Parameter expression="subText([COMPLICATION.TITLE], 8, textLength([COMPLICATION.TITLE]))" /></Template>
                                 </Font>
                             </Text>
