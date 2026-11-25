@@ -19,6 +19,7 @@ class UpcomingPrayersTest {
     fun `sunrise marks the end of fajr`() {
         val events = upcoming(times.fajr.toInstant())
         assertEquals(listOf(PrayerName.SUNRISE, PrayerName.DHUHR, PrayerName.SUNSET), events.map { it.name })
+        assertEquals(listOf("الشروق", "الظهر والعصر", "الغروب"), events.map { it.name.watchLabel })
         assertEquals(times.fajr, events.first().previousTime)
         assertEquals(times.sunrise, events.first().time)
     }
@@ -27,6 +28,7 @@ class UpcomingPrayersTest {
     fun `actual sunset and maghrib are separate milestones`() {
         val events = upcoming(times.sunset.toInstant().minusSeconds(1))
         assertEquals(listOf(PrayerName.SUNSET, PrayerName.MAGHRIB, PrayerName.MIDNIGHT), events.map { it.name })
+        assertEquals(listOf("الغروب", "المغرب والعشاء", "نصف الليل الشرعي"), events.map { it.name.watchLabel })
         assertEquals(listOf(times.sunset, times.maghrib, times.midnight), events.map { it.time })
     }
 

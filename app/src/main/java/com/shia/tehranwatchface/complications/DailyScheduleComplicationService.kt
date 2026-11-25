@@ -14,18 +14,18 @@ import java.util.Locale
 
 class DailyScheduleComplicationService : SuspendingComplicationDataSourceService() {
 
-    private val fmt12AmPm = DateTimeFormatter.ofPattern("h:mm a", Locale("ar"))
+    private val fmt12AmPm = DateTimeFormatter.ofPattern("hh:mm a", Locale("ar"))
 
     override fun getPreviewData(type: ComplicationType): ComplicationData? {
-        val text = PlainComplicationText.Builder("يليها: آخر العشاء • 11:35 م").build()
-        val desc = PlainComplicationText.Builder("آخر العشاء 11:35 م، ثم الفجر 4:12 ص").build()
+        val text = PlainComplicationText.Builder("11:35 • نصف الليل الشرعي").build()
+        val desc = PlainComplicationText.Builder("نصف الليل الشرعي 11:35 م، ثم الفجر 4:12 ص").build()
         return when (type) {
             ComplicationType.LONG_TEXT -> LongTextComplicationData.Builder(text, desc)
-                .setTitle(PlainComplicationText.Builder("يليها: الفجر • 4:12 ص").build())
+                .setTitle(PlainComplicationText.Builder("04:12 • الفجر").build())
                 .build()
             ComplicationType.SHORT_TEXT -> ShortTextComplicationData.Builder(
                 PlainComplicationText.Builder("11:35 م").build(), desc
-            ).setTitle(PlainComplicationText.Builder("يليها آخر العشاء").build()).build()
+            ).setTitle(PlainComplicationText.Builder("يليها نصف الليل الشرعي").build()).build()
             else -> null
         }
     }
@@ -53,9 +53,9 @@ class DailyScheduleComplicationService : SuspendingComplicationDataSourceService
 
         return when (request.complicationType) {
             ComplicationType.LONG_TEXT -> LongTextComplicationData.Builder(
-                text = PlainComplicationText.Builder("يليها: $secondName • $secondTime").build(),
+                text = PlainComplicationText.Builder("${secondTime.take(5)} • $secondName").build(),
                 contentDescription = PlainComplicationText.Builder("$secondName $secondTime، ثم $thirdName $thirdTime").build()
-            ).setTitle(PlainComplicationText.Builder("يليها: $thirdName • $thirdTime").build())
+            ).setTitle(PlainComplicationText.Builder("${thirdTime.take(5)} • $thirdName").build())
                 .setTapAction(tapIntent)
                 .build()
 

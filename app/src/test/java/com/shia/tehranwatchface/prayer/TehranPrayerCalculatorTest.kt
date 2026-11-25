@@ -26,9 +26,11 @@ class TehranPrayerCalculatorTest {
         assertTrue(times.dhuhr.isBefore(times.asr))
         assertTrue(times.asr.isBefore(times.sunset))
 
-        // Tehran method: Maghrib is at 4.5° below horizon (~18-25 min after sunset)
-        val maghribDiffMin = Duration.between(times.sunset, times.maghrib).toMinutes()
-        assertTrue("Expected Maghrib 15-30m after sunset, was $maghribDiffMin", maghribDiffMin in 15..30)
+        // The elevation correction shifts sunset, so the offset to Maghrib is variable.
+        val seaLevel = TehranPrayerCalculator.calculate(date, 35.6892, 51.3890, 0.0, tehranZone)
+        assertTrue(seaLevel.sunset.isBefore(times.sunset))
+        assertTrue(times.sunset.isBefore(times.maghrib))
+        assertTrue(times.maghrib.isEqual(seaLevel.maghrib))
         assertTrue(times.maghrib.isBefore(times.isha))
     }
 

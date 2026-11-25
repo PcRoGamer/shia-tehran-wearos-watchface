@@ -18,10 +18,10 @@ import java.util.concurrent.TimeUnit
 
 class NextPrayerComplicationService : SuspendingComplicationDataSourceService() {
 
-    private val timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale("ar"))
+    private val timeFormatter = DateTimeFormatter.ofPattern("hh:mm a", Locale("ar"))
 
     override fun getPreviewData(type: ComplicationType): ComplicationData? {
-        val title = PlainComplicationText.Builder("المغرب • 5:20 م").build()
+        val title = PlainComplicationText.Builder("05:20 • المغرب والعشاء").build()
         val text = PlainComplicationText.Builder("بعد 01:15").build()
         val desc = PlainComplicationText.Builder("الصلاة القادمة حسب معهد طهران").build()
 
@@ -31,10 +31,10 @@ class NextPrayerComplicationService : SuspendingComplicationDataSourceService() 
                 .build()
             ComplicationType.SHORT_TEXT -> ShortTextComplicationData.Builder(
                 PlainComplicationText.Builder("5:20 م").build(), desc
-            ).setTitle(PlainComplicationText.Builder("المغرب").build()).build()
+            ).setTitle(PlainComplicationText.Builder("المغرب والعشاء").build()).build()
             ComplicationType.RANGED_VALUE -> RangedValueComplicationData.Builder(
                 value = 65f, min = 0f, max = 100f, contentDescription = desc
-            ).setTitle(PlainComplicationText.Builder("المغرب").build())
+            ).setTitle(PlainComplicationText.Builder("المغرب والعشاء").build())
                 .setText(PlainComplicationText.Builder("5:20 م").build())
                 .build()
             else -> null
@@ -83,7 +83,7 @@ class NextPrayerComplicationService : SuspendingComplicationDataSourceService() 
                 text = countdownText,
                 contentDescription = contentDesc
             )
-                .setTitle(PlainComplicationText.Builder("${next.name.watchLabel} • $formattedTime").build())
+                .setTitle(PlainComplicationText.Builder("${formattedTime.take(5)} • ${next.name.watchLabel}").build())
                 .setMonochromaticImage(icon)
                 .setTapAction(tapIntent)
                 .build()
