@@ -7,12 +7,10 @@
     <string name="slot_schedule_name">الصلاة التي تليها</string>
     <string name="slot_edge_left">القوس الأيسر</string>
     <string name="slot_edge_right">القوس الأيمن</string>
-    <string name="accent_color_name">لون التمييز</string>
-    <string name="complication_color_name">لون المضاعفات</string>
+    <string name="face_color_name">اللون</string>
     <string name="color_white">أبيض</string>
     <string name="color_sand">رملي ذهبي</string>
     <string name="color_sage">نعناعي هادئ</string>
-    <string name="color_sky">سماوي ناعم</string>
     <string name="color_coral">مرجاني</string>
     <string name="color_lavender">خزامى</string>
     <string name="sky_preview_name">عرض تجريبي: دورة السماء في دقيقة</string>

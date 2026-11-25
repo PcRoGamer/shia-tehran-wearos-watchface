@@ -275,7 +275,7 @@ def render_row(rank, field, label, time_font, name_font, short=False):
 
     names = []
     x = DIVIDER + HALF_GUTTER - slot_x
-    color = "[CONFIGURATION.accent_color.0]" if rank == "featured" else IVORY
+    color = "[CONFIGURATION.face_color.0]" if rank == "featured" else IVORY
     for word in KASHIDA:
         display, size = arabic_style(name_font, word, target, name_size)
         drawing = text_part(
