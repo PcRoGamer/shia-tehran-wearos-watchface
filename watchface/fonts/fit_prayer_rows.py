@@ -38,6 +38,7 @@ RANKS = {
 DIGIT_TO_ALIF = 740 / 717
 TIME_RANGE = (0.9, 1.2)
 IVORY = "#FFFFFDF7"
+NAME_SHADOW = "#63081525"
 DIVIDER = 225
 HALF_GUTTER = 10
 DIGITS = "0123456789"
@@ -275,19 +276,30 @@ def render_row(rank, field, label, time_font, name_font, short=False):
 
     names = []
     x = DIVIDER + HALF_GUTTER - slot_x
-    color = "[CONFIGURATION.face_color.0]" if rank == "featured" else IVORY
-    for word in KASHIDA:
-        display, size = arabic_style(name_font, word, target, name_size)
+    featured = rank == "featured"
+    color = "[CONFIGURATION.face_color.0]" if featured else IVORY
+
+    def name_part(size, template):
         drawing = text_part(
             y, height, x, slot_width - x, alpha, "START",
-            "ibm_plex_arabic_bold", size, color, f'%s<Parameter expression="&quot;{display}&quot;" />',
+            "ibm_plex_arabic_bold", size, color, template,
         )
+        if not featured:
+            return drawing
+        # Bold accents such as red sit close to the day sky's lightness, so the
+        # current prayer gets the same soft dark edge as the day-period label.
+        shadow = text_part(
+            y + 1, height, x + 1, slot_width - x, alpha, "START",
+            "ibm_plex_arabic_bold", size, NAME_SHADOW, template,
+        ).replace(">\n", '>\n    <Variant mode="AMBIENT" target="alpha" value="0" />\n', 1)
+        return shadow + "\n" + drawing
+
+    for word in KASHIDA:
+        display, size = arabic_style(name_font, word, target, name_size)
+        drawing = name_part(size, f'%s<Parameter expression="&quot;{display}&quot;" />')
         names.append((f"prayerName{len(names)}", f'{label} == "{word}"', drawing))
     label_template = escape(label, {'"': "&quot;"})
-    default_name = text_part(
-        y, height, x, slot_width - x, alpha, "START", "ibm_plex_arabic_bold",
-        name_size, color, f'%s<Parameter expression="{label_template}" />',
-    )
+    default_name = name_part(name_size, f'%s<Parameter expression="{label_template}" />')
     parts = (
         measure_group, condition(word_times, time_condition(time_size)),
         divider(rank, slot_x), condition(names, default_name),

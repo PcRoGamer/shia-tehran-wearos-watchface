@@ -9,10 +9,11 @@
     <string name="slot_edge_right">القوس الأيمن</string>
     <string name="face_color_name">اللون</string>
     <string name="color_white">أبيض</string>
-    <string name="color_sand">رملي ذهبي</string>
-    <string name="color_sage">نعناعي هادئ</string>
-    <string name="color_coral">مرجاني</string>
-    <string name="color_lavender">خزامى</string>
+    <string name="color_red">أحمر</string>
+    <string name="color_orange">برتقالي</string>
+    <string name="color_yellow">أصفر نيون</string>
+    <string name="color_green">أخضر نيون</string>
+    <string name="color_pink">وردي فاقع</string>
     <string name="sky_preview_name">عرض تجريبي: دورة السماء في دقيقة</string>
     <string name="hindi_digits_name">أرقام الساعة المشرقية (٠١٢٣)</string>
     <string name="slot_bottom_name">الخانة السفلية المقوّسة</string>

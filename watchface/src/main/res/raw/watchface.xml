@@ -5,13 +5,15 @@
     <Metadata key="STEP_GOAL" value="8000" />
 
     <UserConfigurations>
-        <!-- One colour for the day-period label, the current prayer and every complication. -->
+        <!-- One accent colour: day-period label, current prayer, prayer icons, and the edge-arc fills
+             and icons. Information text (dates, values, bottom slot) stays white for legibility. -->
         <ColorConfiguration id="face_color" displayName="face_color_name" defaultValue="white">
             <ColorOption id="white" displayName="color_white" colors="#FFFFFFFF" />
-            <ColorOption id="sand" displayName="color_sand" colors="#FFEBD3A2" />
-            <ColorOption id="sage" displayName="color_sage" colors="#FFB4E0C4" />
-            <ColorOption id="coral" displayName="color_coral" colors="#FFF5B5A3" />
-            <ColorOption id="lavender" displayName="color_lavender" colors="#FFCDBFF0" />
+            <ColorOption id="red" displayName="color_red" colors="#FFFF4640" />
+            <ColorOption id="orange" displayName="color_orange" colors="#FFFF912D" />
+            <ColorOption id="yellow" displayName="color_yellow" colors="#FFFDEB00" />
+            <ColorOption id="green" displayName="color_green" colors="#FF42FF44" />
+            <ColorOption id="pink" displayName="color_pink" colors="#FFFF2C96" />
         </ColorConfiguration>
         <ListConfiguration id="clock_font" displayName="clock_font_name" defaultValue="0">
             <ListOption id="0" displayName="clock_font_geometric" />
@@ -284,15 +286,15 @@
             <DefaultProviderPolicy defaultSystemProvider="DAY_AND_DATE" defaultSystemProviderType="SHORT_TEXT" />
             <BoundingBox x="0" y="0" width="218" height="51" />
             <Complication type="SHORT_TEXT">
-                <PartText x="0" y="0" width="218" height="51"><TextCircular centerX="109" centerY="-154" width="382" height="382" startAngle="210" endAngle="150" direction="COUNTER_CLOCKWISE" align="CENTER" ellipsis="TRUE"><Font family="ibm_plex_arabic_bold" size="17" weight="BOLD" color="[CONFIGURATION.face_color.0]"><Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template></Font></TextCircular></PartText>
+                <PartText x="0" y="0" width="218" height="51"><TextCircular centerX="109" centerY="-154" width="382" height="382" startAngle="210" endAngle="150" direction="COUNTER_CLOCKWISE" align="CENTER" ellipsis="TRUE"><Font family="ibm_plex_arabic_bold" size="17" weight="BOLD" color="#FFFFFFFF"><Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template></Font></TextCircular></PartText>
             </Complication>
             <Complication type="LONG_TEXT">
-                <PartText x="0" y="0" width="218" height="51"><TextCircular centerX="109" centerY="-154" width="382" height="382" startAngle="210" endAngle="150" direction="COUNTER_CLOCKWISE" align="CENTER" ellipsis="TRUE"><Font family="ibm_plex_arabic_bold" size="17" weight="BOLD" color="[CONFIGURATION.face_color.0]"><Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template></Font></TextCircular></PartText>
+                <PartText x="0" y="0" width="218" height="51"><TextCircular centerX="109" centerY="-154" width="382" height="382" startAngle="210" endAngle="150" direction="COUNTER_CLOCKWISE" align="CENTER" ellipsis="TRUE"><Font family="ibm_plex_arabic_bold" size="17" weight="BOLD" color="#FFFFFFFF"><Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template></Font></TextCircular></PartText>
             </Complication>
             <Complication type="RANGED_VALUE">
                 <PartText x="0" y="0" width="218" height="51">
                     <TextCircular centerX="109" centerY="-154" width="382" height="382" startAngle="210" endAngle="150" direction="COUNTER_CLOCKWISE" align="CENTER" ellipsis="TRUE">
-                        <Font family="ibm_plex_arabic_bold" size="17" color="[CONFIGURATION.face_color.0]">
+                        <Font family="ibm_plex_arabic_bold" size="17" color="#FFFFFFFF">
                             <Template>%s<Parameter expression="[COMPLICATION.TEXT] != &quot;&quot; ? [COMPLICATION.TEXT] : numberFormat(&quot;0.#&quot;, [COMPLICATION.RANGED_VALUE_VALUE])" /></Template>
                         </Font>
                     </TextCircular>
@@ -301,7 +303,7 @@
             <Complication type="GOAL_PROGRESS">
                 <PartText x="0" y="0" width="218" height="51">
                     <TextCircular centerX="109" centerY="-154" width="382" height="382" startAngle="210" endAngle="150" direction="COUNTER_CLOCKWISE" align="CENTER" ellipsis="TRUE">
-                        <Font family="ibm_plex_arabic_bold" size="17" color="[CONFIGURATION.face_color.0]">
+                        <Font family="ibm_plex_arabic_bold" size="17" color="#FFFFFFFF">
                             <Template>%s<Parameter expression="[COMPLICATION.TEXT] != &quot;&quot; ? [COMPLICATION.TEXT] : numberFormat(&quot;0.#&quot;, [COMPLICATION.GOAL_PROGRESS_VALUE])" /></Template>
                         </Font>
                     </TextCircular>
@@ -310,7 +312,7 @@
             <Complication type="WEIGHTED_ELEMENTS">
                 <PartText x="0" y="0" width="218" height="51">
                     <TextCircular centerX="109" centerY="-154" width="382" height="382" startAngle="210" endAngle="150" direction="COUNTER_CLOCKWISE" align="CENTER" ellipsis="TRUE">
-                        <Font family="ibm_plex_arabic_bold" size="17" color="[CONFIGURATION.face_color.0]">
+                        <Font family="ibm_plex_arabic_bold" size="17" color="#FFFFFFFF">
                             <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
                         </Font>
                     </TextCircular>
@@ -320,7 +322,7 @@
                 <Group x="97" y="19" width="24" height="24" name="accent_icon">
                     <PartDraw x="0" y="0" width="24" height="24">
                         <Rectangle x="0" y="0" width="24" height="24">
-                            <Fill color="[CONFIGURATION.face_color.0]" />
+                            <Fill color="#FFFFFFFF" />
                         </Rectangle>
                     </PartDraw>
                     <PartImage x="0" y="0" width="24" height="24" renderMode="MASK">
@@ -360,7 +362,7 @@
                     <Compare expression="rangeIconText">
                         <PartDraw pivotX="6.2828" pivotY="0.6387" x="3" y="52" width="35" height="133" name="ProgressBar_676f" tintColor="[CONFIGURATION.face_color.0]" alpha="255">
                             <Arc direction="CLOCKWISE" startAngle="257.5" endAngle="292.5" centerX="222.5" centerY="85.1471" width="425" height="425">
-                                <Stroke color="#33000000" cap="ROUND" thickness="20" />
+                                <Stroke color="#2EFFFFFF" cap="ROUND" thickness="20" />
                             </Arc>
                             <Arc direction="CLOCKWISE" startAngle="257.5" endAngle="283.75" centerX="222.5" centerY="85.1471" width="425" height="425">
                                 <Transform target="endAngle" value="257.5 + (((clamp(([COMPLICATION.RANGED_VALUE_VALUE]), ([COMPLICATION.RANGED_VALUE_MIN]), ([COMPLICATION.RANGED_VALUE_MAX])) - ([COMPLICATION.RANGED_VALUE_MIN])) / (([COMPLICATION.RANGED_VALUE_MAX]) - ([COMPLICATION.RANGED_VALUE_MIN]))) * (35))" />
@@ -377,7 +379,7 @@
                                 <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                             </PartImage>
                         </Group>
-                        <PartText pivotX="3.7614" pivotY="-0.6902" x="10" y="193" width="57" height="81" name="Text_0f6d" tintColor="[CONFIGURATION.face_color.0]" alpha="255">
+                        <PartText pivotX="3.7614" pivotY="-0.6902" x="10" y="193" width="57" height="81" name="Text_0f6d" tintColor="#FFFFFFFF" alpha="255">
                             <TextCircular align="START" ellipsis="TRUE" width="423" height="423" startAngle="253.75" endAngle="232.5" centerX="215" centerY="-56" direction="COUNTER_CLOCKWISE">
                                 <Font family="SYNC_TO_DEVICE" size="22" weight="NORMAL" slant="NORMAL" color="#ffffffff">
                                     <Template>%s<Parameter expression="[COMPLICATION.TEXT] != null ? [COMPLICATION.TEXT] : [COMPLICATION.TITLE]" />
@@ -389,7 +391,7 @@
                     <Compare expression="rangeIcon">
                         <PartDraw pivotX="3.9295999999999998" pivotY="0.4002" x="3" y="52" width="57" height="213" name="ProgressBar_827c" tintColor="[CONFIGURATION.face_color.0]" alpha="255">
                             <Arc direction="CLOCKWISE" startAngle="235" endAngle="292.5" centerX="222.5" centerY="85.1471" width="425" height="425">
-                                <Stroke color="#33000000" cap="ROUND" thickness="20" />
+                                <Stroke color="#2EFFFFFF" cap="ROUND" thickness="20" />
                             </Arc>
                             <Arc direction="CLOCKWISE" startAngle="235" endAngle="278.125" centerX="222.5" centerY="85.1471" width="425" height="425">
                                 <Transform target="endAngle" value="235 + (((clamp(([COMPLICATION.RANGED_VALUE_VALUE]), ([COMPLICATION.RANGED_VALUE_MIN]), ([COMPLICATION.RANGED_VALUE_MAX])) - ([COMPLICATION.RANGED_VALUE_MIN])) / (([COMPLICATION.RANGED_VALUE_MAX]) - ([COMPLICATION.RANGED_VALUE_MIN]))) * (58))" />
@@ -410,14 +412,14 @@
                     <Compare expression="rangeTextTitle">
                         <PartDraw pivotX="3.9295999999999998" pivotY="0.9293" x="3" y="9" width="57" height="137" name="ProgressBar_d61f" tintColor="[CONFIGURATION.face_color.0]" alpha="255">
                             <Arc direction="CLOCKWISE" startAngle="267.5" endAngle="305" centerX="222.5" centerY="127.6208" width="425" height="425">
-                                <Stroke color="#33000000" cap="ROUND" thickness="20" />
+                                <Stroke color="#2EFFFFFF" cap="ROUND" thickness="20" />
                             </Arc>
                             <Arc direction="CLOCKWISE" startAngle="267.5" endAngle="295.625" centerX="222.5" centerY="127.6208" width="425" height="425">
                                 <Transform target="endAngle" value="267.5 + (((clamp(([COMPLICATION.RANGED_VALUE_VALUE]), ([COMPLICATION.RANGED_VALUE_MIN]), ([COMPLICATION.RANGED_VALUE_MAX])) - ([COMPLICATION.RANGED_VALUE_MIN])) / (([COMPLICATION.RANGED_VALUE_MAX]) - ([COMPLICATION.RANGED_VALUE_MIN]))) * (38))" />
                                 <Stroke color="#ffffffff" cap="ROUND" thickness="20" />
                             </Arc>
                         </PartDraw>
-                        <PartText pivotX="4.2173" pivotY="-1.2648" x="18" y="213" width="49" height="60" name="Text_2865" tintColor="[CONFIGURATION.face_color.0]" alpha="255">
+                        <PartText pivotX="4.2173" pivotY="-1.2648" x="18" y="213" width="49" height="60" name="Text_2865" tintColor="#FFFFFFFF" alpha="255">
                             <TextCircular align="START" ellipsis="TRUE" width="423" height="423" startAngle="247.5" endAngle="232.5" centerX="207" centerY="-76" direction="COUNTER_CLOCKWISE">
                                 <Font family="SYNC_TO_DEVICE" size="22" weight="NORMAL" slant="NORMAL" color="#ffffffff">
                                     <Template>%s<Parameter expression="[COMPLICATION.TEXT] != null ? [COMPLICATION.TEXT] : [COMPLICATION.TITLE]" />
@@ -425,7 +427,7 @@
                                 </Font>
                             </TextCircular>
                         </PartText>
-                        <PartText pivotX="6.3299" pivotY="-0.513" x="3" y="163" width="35" height="51" name="Title_8a8d" tintColor="[CONFIGURATION.face_color.0]" alpha="255">
+                        <PartText pivotX="6.3299" pivotY="-0.513" x="3" y="163" width="35" height="51" name="Title_8a8d" tintColor="#FFFFFFFF" alpha="255">
                             <TextCircular align="START" ellipsis="TRUE" width="423" height="423" startAngle="262.5" endAngle="250" centerX="222" centerY="-26" direction="COUNTER_CLOCKWISE">
                                 <Font family="SYNC_TO_DEVICE" size="22" weight="NORMAL" slant="NORMAL" color="#ffffffff">
                                     <Template>%s<Parameter expression="[COMPLICATION.TITLE]" />
@@ -437,14 +439,14 @@
                     <Compare expression="rangeText">
                         <PartDraw pivotX="3.9295999999999998" pivotY="0.9293" x="3" y="9" width="57" height="137" name="ProgressBar_23a4" tintColor="[CONFIGURATION.face_color.0]" alpha="255">
                             <Arc direction="CLOCKWISE" startAngle="267.5" endAngle="305" centerX="222.5" centerY="127.6208" width="425" height="425">
-                                <Stroke color="#33000000" cap="ROUND" thickness="20" />
+                                <Stroke color="#2EFFFFFF" cap="ROUND" thickness="20" />
                             </Arc>
                             <Arc direction="CLOCKWISE" startAngle="267.5" endAngle="295.625" centerX="222.5" centerY="127.6208" width="425" height="425">
                                 <Transform target="endAngle" value="267.5 + (((clamp(([COMPLICATION.RANGED_VALUE_VALUE]), ([COMPLICATION.RANGED_VALUE_MIN]), ([COMPLICATION.RANGED_VALUE_MAX])) - ([COMPLICATION.RANGED_VALUE_MIN])) / (([COMPLICATION.RANGED_VALUE_MAX]) - ([COMPLICATION.RANGED_VALUE_MIN]))) * (38))" />
                                 <Stroke color="#ffffffff" cap="ROUND" thickness="20" />
                             </Arc>
                         </PartDraw>
-                        <PartText pivotX="3.4589" pivotY="-0.2353" x="3" y="163" width="64" height="110" name="Text_b889" tintColor="[CONFIGURATION.face_color.0]" alpha="255">
+                        <PartText pivotX="3.4589" pivotY="-0.2353" x="3" y="163" width="64" height="110" name="Text_b889" tintColor="#FFFFFFFF" alpha="255">
                             <TextCircular align="START" ellipsis="TRUE" width="423" height="423" startAngle="262.5" endAngle="232.5" centerX="222" centerY="-26" direction="COUNTER_CLOCKWISE">
                                 <Font family="SYNC_TO_DEVICE" size="22" weight="NORMAL" slant="NORMAL" color="#ffffffff">
                                     <Template>%s<Parameter expression="[COMPLICATION.TEXT] != null ? [COMPLICATION.TEXT] : [COMPLICATION.TITLE]" />
@@ -456,7 +458,7 @@
                     <Default>
                         <PartDraw pivotX="3.9295999999999998" pivotY="0.5" x="3" y="9" width="57" height="255" name="ProgressBar_f2a2" tintColor="[CONFIGURATION.face_color.0]" alpha="255">
                             <Arc direction="CLOCKWISE" startAngle="235" endAngle="305" centerX="222.5" centerY="127.6208" width="425" height="425">
-                                <Stroke color="#33000000" cap="ROUND" thickness="20" />
+                                <Stroke color="#2EFFFFFF" cap="ROUND" thickness="20" />
                             </Arc>
                             <Arc direction="CLOCKWISE" startAngle="235" endAngle="287.5" centerX="222.5" centerY="127.6208" width="425" height="425">
                                 <Transform target="endAngle" value="235 + (((clamp(([COMPLICATION.RANGED_VALUE_VALUE]), ([COMPLICATION.RANGED_VALUE_MIN]), ([COMPLICATION.RANGED_VALUE_MAX])) - ([COMPLICATION.RANGED_VALUE_MIN])) / (([COMPLICATION.RANGED_VALUE_MAX]) - ([COMPLICATION.RANGED_VALUE_MIN]))) * (70))" />
@@ -483,7 +485,7 @@
                                 <Compare expression="GOAL_PROGRESS_COLORS">
                                     <PartDraw pivotX="6.2828" pivotY="0.6387" x="3" y="52" width="35" height="133" name="ProgressBar_676f" tintColor="[CONFIGURATION.face_color.0]">
                                         <Arc direction="CLOCKWISE" startAngle="257.5" endAngle="292.5" centerX="222.5" centerY="85.1471" width="425" height="425">
-                                            <Stroke color="#33000000" cap="ROUND" thickness="20" />
+                                            <Stroke color="#2EFFFFFF" cap="ROUND" thickness="20" />
                                         </Arc>
                                     </PartDraw>
                                     <Group x="0" y="0" width="38" height="185" name="ProgressBar_676f_MASK">
@@ -503,7 +505,7 @@
                                 <Default>
                                     <PartDraw pivotX="6.2828" pivotY="0.6387" x="3" y="52" width="35" height="133" name="ProgressBar_676f" tintColor="[CONFIGURATION.face_color.0]">
                                         <Arc direction="CLOCKWISE" startAngle="257.5" endAngle="292.5" centerX="222.5" centerY="85.1471" width="425" height="425">
-                                            <Stroke color="#33000000" cap="ROUND" thickness="20" />
+                                            <Stroke color="#2EFFFFFF" cap="ROUND" thickness="20" />
                                         </Arc>
                                     </PartDraw>
                                     <Group x="0" y="0" width="38" height="185" name="ProgressBar_676f_MASK">
@@ -532,7 +534,7 @@
                                 <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                             </PartImage>
                         </Group>
-                        <PartText pivotX="3.7614" pivotY="-0.6902" x="10" y="193" width="57" height="81" name="Text_0f6d" tintColor="[CONFIGURATION.face_color.0]" alpha="255">
+                        <PartText pivotX="3.7614" pivotY="-0.6902" x="10" y="193" width="57" height="81" name="Text_0f6d" tintColor="#FFFFFFFF" alpha="255">
                             <TextCircular align="START" ellipsis="TRUE" width="423" height="423" startAngle="253.75" endAngle="232.5" centerX="215" centerY="-56" direction="COUNTER_CLOCKWISE">
                                 <Font family="SYNC_TO_DEVICE" size="22" weight="NORMAL" slant="NORMAL" color="#ffffffff">
                                     <Template>%s<Parameter expression="[COMPLICATION.TEXT] != null ? [COMPLICATION.TEXT] : [COMPLICATION.TITLE]" />
@@ -550,7 +552,7 @@
                                 <Compare expression="GOAL_PROGRESS_COLORS">
                                     <PartDraw pivotX="3.9295999999999998" pivotY="0.4002" x="3" y="52" width="57" height="213" name="ProgressBar_827c" tintColor="[CONFIGURATION.face_color.0]">
                                         <Arc direction="CLOCKWISE" startAngle="235" endAngle="292.5" centerX="222.5" centerY="85.1471" width="425" height="425">
-                                            <Stroke color="#33000000" cap="ROUND" thickness="20" />
+                                            <Stroke color="#2EFFFFFF" cap="ROUND" thickness="20" />
                                         </Arc>
                                     </PartDraw>
                                     <Group x="0" y="0" width="59" height="265" name="ProgressBar_827c_MASK">
@@ -570,7 +572,7 @@
                                 <Default>
                                     <PartDraw pivotX="3.9295999999999998" pivotY="0.4002" x="3" y="52" width="57" height="213" name="ProgressBar_827c" tintColor="[CONFIGURATION.face_color.0]">
                                         <Arc direction="CLOCKWISE" startAngle="235" endAngle="292.5" centerX="222.5" centerY="85.1471" width="425" height="425">
-                                            <Stroke color="#33000000" cap="ROUND" thickness="20" />
+                                            <Stroke color="#2EFFFFFF" cap="ROUND" thickness="20" />
                                         </Arc>
                                     </PartDraw>
                                     <Group x="0" y="0" width="59" height="265" name="ProgressBar_827c_MASK">
@@ -609,7 +611,7 @@
                                 <Compare expression="GOAL_PROGRESS_COLORS">
                                     <PartDraw pivotX="3.9295999999999998" pivotY="0.9293" x="3" y="9" width="57" height="137" name="ProgressBar_d61f" tintColor="[CONFIGURATION.face_color.0]">
                                         <Arc direction="CLOCKWISE" startAngle="267.5" endAngle="305" centerX="222.5" centerY="127.6208" width="425" height="425">
-                                            <Stroke color="#33000000" cap="ROUND" thickness="20" />
+                                            <Stroke color="#2EFFFFFF" cap="ROUND" thickness="20" />
                                         </Arc>
                                     </PartDraw>
                                     <Group x="0" y="0" width="59" height="147" name="ProgressBar_d61f_MASK">
@@ -629,7 +631,7 @@
                                 <Default>
                                     <PartDraw pivotX="3.9295999999999998" pivotY="0.9293" x="3" y="9" width="57" height="137" name="ProgressBar_d61f" tintColor="[CONFIGURATION.face_color.0]">
                                         <Arc direction="CLOCKWISE" startAngle="267.5" endAngle="305" centerX="222.5" centerY="127.6208" width="425" height="425">
-                                            <Stroke color="#33000000" cap="ROUND" thickness="20" />
+                                            <Stroke color="#2EFFFFFF" cap="ROUND" thickness="20" />
                                         </Arc>
                                     </PartDraw>
                                     <Group x="0" y="0" width="59" height="147" name="ProgressBar_d61f_MASK">
@@ -648,7 +650,7 @@
                                 </Default>
                             </Condition>
                         </Group>
-                        <PartText pivotX="4.2173" pivotY="-1.2648" x="18" y="213" width="49" height="60" name="Text_2865" tintColor="[CONFIGURATION.face_color.0]" alpha="255">
+                        <PartText pivotX="4.2173" pivotY="-1.2648" x="18" y="213" width="49" height="60" name="Text_2865" tintColor="#FFFFFFFF" alpha="255">
                             <TextCircular align="START" ellipsis="TRUE" width="423" height="423" startAngle="247.5" endAngle="232.5" centerX="207" centerY="-76" direction="COUNTER_CLOCKWISE">
                                 <Font family="SYNC_TO_DEVICE" size="22" weight="NORMAL" slant="NORMAL" color="#ffffffff">
                                     <Template>%s<Parameter expression="[COMPLICATION.TEXT] != null ? [COMPLICATION.TEXT] : [COMPLICATION.TITLE]" />
@@ -656,7 +658,7 @@
                                 </Font>
                             </TextCircular>
                         </PartText>
-                        <PartText pivotX="6.3299" pivotY="-0.513" x="3" y="163" width="35" height="51" name="Title_8a8d" tintColor="[CONFIGURATION.face_color.0]" alpha="255">
+                        <PartText pivotX="6.3299" pivotY="-0.513" x="3" y="163" width="35" height="51" name="Title_8a8d" tintColor="#FFFFFFFF" alpha="255">
                             <TextCircular align="START" ellipsis="TRUE" width="423" height="423" startAngle="262.5" endAngle="250" centerX="222" centerY="-26" direction="COUNTER_CLOCKWISE">
                                 <Font family="SYNC_TO_DEVICE" size="22" weight="NORMAL" slant="NORMAL" color="#ffffffff">
                                     <Template>%s<Parameter expression="[COMPLICATION.TITLE]" />
@@ -674,7 +676,7 @@
                                 <Compare expression="GOAL_PROGRESS_COLORS">
                                     <PartDraw pivotX="3.9295999999999998" pivotY="0.9293" x="3" y="9" width="57" height="137" name="ProgressBar_23a4" tintColor="[CONFIGURATION.face_color.0]">
                                         <Arc direction="CLOCKWISE" startAngle="267.5" endAngle="305" centerX="222.5" centerY="127.6208" width="425" height="425">
-                                            <Stroke color="#33000000" cap="ROUND" thickness="20" />
+                                            <Stroke color="#2EFFFFFF" cap="ROUND" thickness="20" />
                                         </Arc>
                                     </PartDraw>
                                     <Group x="0" y="0" width="59" height="147" name="ProgressBar_23a4_MASK">
@@ -694,7 +696,7 @@
                                 <Default>
                                     <PartDraw pivotX="3.9295999999999998" pivotY="0.9293" x="3" y="9" width="57" height="137" name="ProgressBar_23a4" tintColor="[CONFIGURATION.face_color.0]">
                                         <Arc direction="CLOCKWISE" startAngle="267.5" endAngle="305" centerX="222.5" centerY="127.6208" width="425" height="425">
-                                            <Stroke color="#33000000" cap="ROUND" thickness="20" />
+                                            <Stroke color="#2EFFFFFF" cap="ROUND" thickness="20" />
                                         </Arc>
                                     </PartDraw>
                                     <Group x="0" y="0" width="59" height="147" name="ProgressBar_23a4_MASK">
@@ -713,7 +715,7 @@
                                 </Default>
                             </Condition>
                         </Group>
-                        <PartText pivotX="3.4589" pivotY="-0.2353" x="3" y="163" width="64" height="110" name="Text_b889" tintColor="[CONFIGURATION.face_color.0]" alpha="255">
+                        <PartText pivotX="3.4589" pivotY="-0.2353" x="3" y="163" width="64" height="110" name="Text_b889" tintColor="#FFFFFFFF" alpha="255">
                             <TextCircular align="START" ellipsis="TRUE" width="423" height="423" startAngle="262.5" endAngle="232.5" centerX="222" centerY="-26" direction="COUNTER_CLOCKWISE">
                                 <Font family="SYNC_TO_DEVICE" size="22" weight="NORMAL" slant="NORMAL" color="#ffffffff">
                                     <Template>%s<Parameter expression="[COMPLICATION.TEXT] != null ? [COMPLICATION.TEXT] : [COMPLICATION.TITLE]" />
@@ -731,7 +733,7 @@
                                 <Compare expression="GOAL_PROGRESS_COLORS">
                                     <PartDraw pivotX="3.9295999999999998" pivotY="0.5" x="3" y="9" width="57" height="255" name="ProgressBar_f2a2" tintColor="[CONFIGURATION.face_color.0]">
                                         <Arc direction="CLOCKWISE" startAngle="235" endAngle="305" centerX="222.5" centerY="127.6208" width="425" height="425">
-                                            <Stroke color="#33000000" cap="ROUND" thickness="20" />
+                                            <Stroke color="#2EFFFFFF" cap="ROUND" thickness="20" />
                                         </Arc>
                                     </PartDraw>
                                     <Group x="0" y="0" width="59" height="265" name="ProgressBar_f2a2_MASK">
@@ -751,7 +753,7 @@
                                 <Default>
                                     <PartDraw pivotX="3.9295999999999998" pivotY="0.5" x="3" y="9" width="57" height="255" name="ProgressBar_f2a2" tintColor="[CONFIGURATION.face_color.0]">
                                         <Arc direction="CLOCKWISE" startAngle="235" endAngle="305" centerX="222.5" centerY="127.6208" width="425" height="425">
-                                            <Stroke color="#33000000" cap="ROUND" thickness="20" />
+                                            <Stroke color="#2EFFFFFF" cap="ROUND" thickness="20" />
                                         </Arc>
                                     </PartDraw>
                                     <Group x="0" y="0" width="59" height="265" name="ProgressBar_f2a2_MASK">
@@ -791,7 +793,7 @@
                     <Compare expression="rangeIconText">
                         <PartDraw pivotX="-5.2828" pivotY="0.6387" x="34" y="52" width="35" height="133" name="ProgressBar_cc3c" tintColor="[CONFIGURATION.face_color.0]" alpha="255">
                             <Arc direction="COUNTER_CLOCKWISE" startAngle="102.5" endAngle="67.5" centerX="-187.0856" centerY="85.1471" width="425" height="425">
-                                <Stroke color="#33000000" cap="ROUND" thickness="20" />
+                                <Stroke color="#2EFFFFFF" cap="ROUND" thickness="20" />
                             </Arc>
                             <Arc direction="COUNTER_CLOCKWISE" startAngle="102.5" endAngle="76.25" centerX="-187.0856" centerY="85.1471" width="425" height="425">
                                 <Transform target="endAngle" value="102.5 + (((clamp(([COMPLICATION.RANGED_VALUE_VALUE]), ([COMPLICATION.RANGED_VALUE_MIN]), ([COMPLICATION.RANGED_VALUE_MAX])) - ([COMPLICATION.RANGED_VALUE_MIN])) / (([COMPLICATION.RANGED_VALUE_MAX]) - ([COMPLICATION.RANGED_VALUE_MIN]))) * (-35))" />
@@ -808,7 +810,7 @@
                                 <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                             </PartImage>
                         </Group>
-                        <PartText pivotX="-2.7614" pivotY="-0.6902" x="5" y="193" width="57" height="81" name="Text_89eb" tintColor="[CONFIGURATION.face_color.0]" alpha="255">
+                        <PartText pivotX="-2.7614" pivotY="-0.6902" x="5" y="193" width="57" height="81" name="Text_89eb" tintColor="#FFFFFFFF" alpha="255">
                             <TextCircular align="END" ellipsis="TRUE" width="423" height="423" startAngle="127.5" endAngle="106.25" centerX="-158" centerY="-56" direction="COUNTER_CLOCKWISE">
                                 <Font family="SYNC_TO_DEVICE" size="22" weight="NORMAL" slant="NORMAL" color="#ffffffff">
                                     <Template>%s<Parameter expression="[COMPLICATION.TEXT] != null ? [COMPLICATION.TEXT] : [COMPLICATION.TITLE]" />
@@ -820,7 +822,7 @@
                     <Compare expression="rangeIcon">
                         <PartDraw pivotX="-2.9295999999999998" pivotY="0.4002" x="13" y="52" width="57" height="213" name="ProgressBar_230e" tintColor="[CONFIGURATION.face_color.0]" alpha="255">
                             <Arc direction="COUNTER_CLOCKWISE" startAngle="125" endAngle="67.5" centerX="-165.8783" centerY="85.1471" width="425" height="425">
-                                <Stroke color="#33000000" cap="ROUND" thickness="20" />
+                                <Stroke color="#2EFFFFFF" cap="ROUND" thickness="20" />
                             </Arc>
                             <Arc direction="COUNTER_CLOCKWISE" startAngle="125" endAngle="81.875" centerX="-165.8783" centerY="85.1471" width="425" height="425">
                                 <Transform target="endAngle" value="125 + (((clamp(([COMPLICATION.RANGED_VALUE_VALUE]), ([COMPLICATION.RANGED_VALUE_MIN]), ([COMPLICATION.RANGED_VALUE_MAX])) - ([COMPLICATION.RANGED_VALUE_MIN])) / (([COMPLICATION.RANGED_VALUE_MAX]) - ([COMPLICATION.RANGED_VALUE_MIN]))) * (-57))" />
@@ -841,14 +843,14 @@
                     <Compare expression="rangeTextTitle">
                         <PartDraw pivotX="-2.9295999999999998" pivotY="0.9293" x="13" y="9" width="57" height="137" name="ProgressBar_00f6" tintColor="[CONFIGURATION.face_color.0]" alpha="255">
                             <Arc direction="COUNTER_CLOCKWISE" startAngle="92.5" endAngle="55" centerX="-165.8783" centerY="127.6208" width="425" height="425">
-                                <Stroke color="#33000000" cap="ROUND" thickness="20" />
+                                <Stroke color="#2EFFFFFF" cap="ROUND" thickness="20" />
                             </Arc>
                             <Arc direction="COUNTER_CLOCKWISE" startAngle="92.5" endAngle="64.375" centerX="-165.8783" centerY="127.6208" width="425" height="425">
                                 <Transform target="endAngle" value="92.5 + (((clamp(([COMPLICATION.RANGED_VALUE_VALUE]), ([COMPLICATION.RANGED_VALUE_MIN]), ([COMPLICATION.RANGED_VALUE_MAX])) - ([COMPLICATION.RANGED_VALUE_MIN])) / (([COMPLICATION.RANGED_VALUE_MAX]) - ([COMPLICATION.RANGED_VALUE_MIN]))) * (-37))" />
                                 <Stroke color="#ffffffff" cap="ROUND" thickness="20" />
                             </Arc>
                         </PartDraw>
-                        <PartText pivotX="-4.8088999999999995" pivotY="-0.4347" x="31" y="163" width="38" height="60" name="Text_1eef" tintColor="[CONFIGURATION.face_color.0]" alpha="255">
+                        <PartText pivotX="-4.8088999999999995" pivotY="-0.4347" x="31" y="163" width="38" height="60" name="Text_1eef" tintColor="#FFFFFFFF" alpha="255">
                             <TextCircular align="END" ellipsis="TRUE" width="423" height="423" startAngle="112.5" endAngle="97.5" centerX="-184" centerY="-26" direction="COUNTER_CLOCKWISE">
                                 <Font family="SYNC_TO_DEVICE" size="22" weight="NORMAL" slant="NORMAL" color="#ffffffff">
                                     <Template>%s<Parameter expression="[COMPLICATION.TEXT] != null ? [COMPLICATION.TEXT] : [COMPLICATION.TITLE]" />
@@ -856,7 +858,7 @@
                                 </Font>
                             </TextCircular>
                         </PartText>
-                        <PartText pivotX="-3.4978" pivotY="-1.6092" x="5" y="221" width="45" height="52" name="Title_47ce" tintColor="[CONFIGURATION.face_color.0]" alpha="255">
+                        <PartText pivotX="-3.4978" pivotY="-1.6092" x="5" y="221" width="45" height="52" name="Title_47ce" tintColor="#FFFFFFFF" alpha="255">
                             <TextCircular align="END" ellipsis="TRUE" width="423" height="423" startAngle="127.5" endAngle="115" centerX="-158" centerY="-84" direction="COUNTER_CLOCKWISE">
                                 <Font family="SYNC_TO_DEVICE" size="22" weight="NORMAL" slant="NORMAL" color="#ffffffff">
                                     <Template>%s<Parameter expression="[COMPLICATION.TITLE]" />
@@ -868,14 +870,14 @@
                     <Compare expression="rangeText">
                         <PartDraw pivotX="-2.9295999999999998" pivotY="0.9293" x="13" y="9" width="57" height="137" name="ProgressBar_30d9" tintColor="[CONFIGURATION.face_color.0]" alpha="255">
                             <Arc direction="COUNTER_CLOCKWISE" startAngle="92.5" endAngle="55" centerX="-165.8783" centerY="127.6208" width="425" height="425">
-                                <Stroke color="#33000000" cap="ROUND" thickness="20" />
+                                <Stroke color="#2EFFFFFF" cap="ROUND" thickness="20" />
                             </Arc>
                             <Arc direction="COUNTER_CLOCKWISE" startAngle="92.5" endAngle="64.375" centerX="-165.8783" centerY="127.6208" width="425" height="425">
                                 <Transform target="endAngle" value="92.5 + (((clamp(([COMPLICATION.RANGED_VALUE_VALUE]), ([COMPLICATION.RANGED_VALUE_MIN]), ([COMPLICATION.RANGED_VALUE_MAX])) - ([COMPLICATION.RANGED_VALUE_MIN])) / (([COMPLICATION.RANGED_VALUE_MAX]) - ([COMPLICATION.RANGED_VALUE_MIN]))) * (-37))" />
                                 <Stroke color="#ffffffff" cap="ROUND" thickness="20" />
                             </Arc>
                         </PartDraw>
-                        <PartText pivotX="-2.4589" pivotY="-0.2353" x="5" y="163" width="64" height="110" name="Text_6177" tintColor="[CONFIGURATION.face_color.0]" alpha="255">
+                        <PartText pivotX="-2.4589" pivotY="-0.2353" x="5" y="163" width="64" height="110" name="Text_6177" tintColor="#FFFFFFFF" alpha="255">
                             <TextCircular align="END" ellipsis="TRUE" width="423" height="423" startAngle="127.5" endAngle="97.5" centerX="-158" centerY="-26" direction="COUNTER_CLOCKWISE">
                                 <Font family="SYNC_TO_DEVICE" size="22" weight="NORMAL" slant="NORMAL" color="#ffffffff">
                                     <Template>%s<Parameter expression="[COMPLICATION.TEXT] != null ? [COMPLICATION.TEXT] : [COMPLICATION.TITLE]" />
@@ -887,7 +889,7 @@
                     <Default>
                         <PartDraw pivotX="-2.9295999999999998" pivotY="0.5" x="13" y="9" width="57" height="255" name="ProgressBar_34ab" tintColor="[CONFIGURATION.face_color.0]" alpha="255">
                             <Arc direction="COUNTER_CLOCKWISE" startAngle="125" endAngle="55" centerX="-165.8783" centerY="127.6208" width="425" height="425">
-                                <Stroke color="#33000000" cap="ROUND" thickness="20" />
+                                <Stroke color="#2EFFFFFF" cap="ROUND" thickness="20" />
                             </Arc>
                             <Arc direction="COUNTER_CLOCKWISE" startAngle="125" endAngle="72.5" centerX="-165.8783" centerY="127.6208" width="425" height="425">
                                 <Transform target="endAngle" value="125 + (((clamp(([COMPLICATION.RANGED_VALUE_VALUE]), ([COMPLICATION.RANGED_VALUE_MIN]), ([COMPLICATION.RANGED_VALUE_MAX])) - ([COMPLICATION.RANGED_VALUE_MIN])) / (([COMPLICATION.RANGED_VALUE_MAX]) - ([COMPLICATION.RANGED_VALUE_MIN]))) * (-70))" />
@@ -914,7 +916,7 @@
                                 <Compare expression="GOAL_PROGRESS_COLORS">
                                     <PartDraw pivotX="-5.2828" pivotY="0.6387" x="34" y="52" width="35" height="133" name="ProgressBar_cc3c" tintColor="[CONFIGURATION.face_color.0]">
                                         <Arc direction="COUNTER_CLOCKWISE" startAngle="102.5" endAngle="67.5" centerX="-187.0856" centerY="85.1471" width="425" height="425">
-                                            <Stroke color="#33000000" cap="ROUND" thickness="20" />
+                                            <Stroke color="#2EFFFFFF" cap="ROUND" thickness="20" />
                                         </Arc>
                                     </PartDraw>
                                     <Group x="0" y="0" width="70" height="185" name="ProgressBar_cc3c_MASK">
@@ -934,7 +936,7 @@
                                 <Default>
                                     <PartDraw pivotX="-5.2828" pivotY="0.6387" x="34" y="52" width="35" height="133" name="ProgressBar_cc3c" tintColor="[CONFIGURATION.face_color.0]">
                                         <Arc direction="COUNTER_CLOCKWISE" startAngle="102.5" endAngle="67.5" centerX="-187.0856" centerY="85.1471" width="425" height="425">
-                                            <Stroke color="#33000000" cap="ROUND" thickness="20" />
+                                            <Stroke color="#2EFFFFFF" cap="ROUND" thickness="20" />
                                         </Arc>
                                     </PartDraw>
                                     <Group x="0" y="0" width="70" height="185" name="ProgressBar_cc3c_MASK">
@@ -963,7 +965,7 @@
                                 <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
                             </PartImage>
                         </Group>
-                        <PartText pivotX="-2.7614" pivotY="-0.6902" x="5" y="193" width="57" height="81" name="Text_89eb" tintColor="[CONFIGURATION.face_color.0]" alpha="255">
+                        <PartText pivotX="-2.7614" pivotY="-0.6902" x="5" y="193" width="57" height="81" name="Text_89eb" tintColor="#FFFFFFFF" alpha="255">
                             <TextCircular align="END" ellipsis="TRUE" width="423" height="423" startAngle="127.5" endAngle="106.25" centerX="-158" centerY="-56" direction="COUNTER_CLOCKWISE">
                                 <Font family="SYNC_TO_DEVICE" size="22" weight="NORMAL" slant="NORMAL" color="#ffffffff">
                                     <Template>%s<Parameter expression="[COMPLICATION.TEXT] != null ? [COMPLICATION.TEXT] : [COMPLICATION.TITLE]" />
@@ -981,7 +983,7 @@
                                 <Compare expression="GOAL_PROGRESS_COLORS">
                                     <PartDraw pivotX="-2.9295999999999998" pivotY="0.4002" x="13" y="52" width="57" height="213" name="ProgressBar_230e" tintColor="[CONFIGURATION.face_color.0]">
                                         <Arc direction="COUNTER_CLOCKWISE" startAngle="125" endAngle="67.5" centerX="-165.8783" centerY="85.1471" width="425" height="425">
-                                            <Stroke color="#33000000" cap="ROUND" thickness="20" />
+                                            <Stroke color="#2EFFFFFF" cap="ROUND" thickness="20" />
                                         </Arc>
                                     </PartDraw>
                                     <Group x="0" y="0" width="70" height="265" name="ProgressBar_230e_MASK">
@@ -1001,7 +1003,7 @@
                                 <Default>
                                     <PartDraw pivotX="-2.9295999999999998" pivotY="0.4002" x="13" y="52" width="57" height="213" name="ProgressBar_230e" tintColor="[CONFIGURATION.face_color.0]">
                                         <Arc direction="COUNTER_CLOCKWISE" startAngle="125" endAngle="67.5" centerX="-165.8783" centerY="85.1471" width="425" height="425">
-                                            <Stroke color="#33000000" cap="ROUND" thickness="20" />
+                                            <Stroke color="#2EFFFFFF" cap="ROUND" thickness="20" />
                                         </Arc>
                                     </PartDraw>
                                     <Group x="0" y="0" width="70" height="265" name="ProgressBar_230e_MASK">
@@ -1040,7 +1042,7 @@
                                 <Compare expression="GOAL_PROGRESS_COLORS">
                                     <PartDraw pivotX="-2.9295999999999998" pivotY="0.9293" x="13" y="9" width="57" height="137" name="ProgressBar_00f6" tintColor="[CONFIGURATION.face_color.0]">
                                         <Arc direction="COUNTER_CLOCKWISE" startAngle="92.5" endAngle="55" centerX="-165.8783" centerY="127.6208" width="425" height="425">
-                                            <Stroke color="#33000000" cap="ROUND" thickness="20" />
+                                            <Stroke color="#2EFFFFFF" cap="ROUND" thickness="20" />
                                         </Arc>
                                     </PartDraw>
                                     <Group x="0" y="0" width="70" height="147" name="ProgressBar_00f6_MASK">
@@ -1060,7 +1062,7 @@
                                 <Default>
                                     <PartDraw pivotX="-2.9295999999999998" pivotY="0.9293" x="13" y="9" width="57" height="137" name="ProgressBar_00f6" tintColor="[CONFIGURATION.face_color.0]">
                                         <Arc direction="COUNTER_CLOCKWISE" startAngle="92.5" endAngle="55" centerX="-165.8783" centerY="127.6208" width="425" height="425">
-                                            <Stroke color="#33000000" cap="ROUND" thickness="20" />
+                                            <Stroke color="#2EFFFFFF" cap="ROUND" thickness="20" />
                                         </Arc>
                                     </PartDraw>
                                     <Group x="0" y="0" width="70" height="147" name="ProgressBar_00f6_MASK">
@@ -1079,7 +1081,7 @@
                                 </Default>
                             </Condition>
                         </Group>
-                        <PartText pivotX="-4.8088999999999995" pivotY="-0.4347" x="31" y="163" width="38" height="60" name="Text_1eef" tintColor="[CONFIGURATION.face_color.0]" alpha="255">
+                        <PartText pivotX="-4.8088999999999995" pivotY="-0.4347" x="31" y="163" width="38" height="60" name="Text_1eef" tintColor="#FFFFFFFF" alpha="255">
                             <TextCircular align="END" ellipsis="TRUE" width="423" height="423" startAngle="112.5" endAngle="97.5" centerX="-184" centerY="-26" direction="COUNTER_CLOCKWISE">
                                 <Font family="SYNC_TO_DEVICE" size="22" weight="NORMAL" slant="NORMAL" color="#ffffffff">
                                     <Template>%s<Parameter expression="[COMPLICATION.TEXT] != null ? [COMPLICATION.TEXT] : [COMPLICATION.TITLE]" />
@@ -1087,7 +1089,7 @@
                                 </Font>
                             </TextCircular>
                         </PartText>
-                        <PartText pivotX="-3.4978" pivotY="-1.6092" x="5" y="221" width="45" height="52" name="Title_47ce" tintColor="[CONFIGURATION.face_color.0]" alpha="255">
+                        <PartText pivotX="-3.4978" pivotY="-1.6092" x="5" y="221" width="45" height="52" name="Title_47ce" tintColor="#FFFFFFFF" alpha="255">
                             <TextCircular align="END" ellipsis="TRUE" width="423" height="423" startAngle="127.5" endAngle="115" centerX="-158" centerY="-84" direction="COUNTER_CLOCKWISE">
                                 <Font family="SYNC_TO_DEVICE" size="22" weight="NORMAL" slant="NORMAL" color="#ffffffff">
                                     <Template>%s<Parameter expression="[COMPLICATION.TITLE]" />
@@ -1105,7 +1107,7 @@
                                 <Compare expression="GOAL_PROGRESS_COLORS">
                                     <PartDraw pivotX="-2.9295999999999998" pivotY="0.9293" x="13" y="9" width="57" height="137" name="ProgressBar_30d9" tintColor="[CONFIGURATION.face_color.0]">
                                         <Arc direction="COUNTER_CLOCKWISE" startAngle="92.5" endAngle="55" centerX="-165.8783" centerY="127.6208" width="425" height="425">
-                                            <Stroke color="#33000000" cap="ROUND" thickness="20" />
+                                            <Stroke color="#2EFFFFFF" cap="ROUND" thickness="20" />
                                         </Arc>
                                     </PartDraw>
                                     <Group x="0" y="0" width="70" height="147" name="ProgressBar_30d9_MASK">
@@ -1125,7 +1127,7 @@
                                 <Default>
                                     <PartDraw pivotX="-2.9295999999999998" pivotY="0.9293" x="13" y="9" width="57" height="137" name="ProgressBar_30d9" tintColor="[CONFIGURATION.face_color.0]">
                                         <Arc direction="COUNTER_CLOCKWISE" startAngle="92.5" endAngle="55" centerX="-165.8783" centerY="127.6208" width="425" height="425">
-                                            <Stroke color="#33000000" cap="ROUND" thickness="20" />
+                                            <Stroke color="#2EFFFFFF" cap="ROUND" thickness="20" />
                                         </Arc>
                                     </PartDraw>
                                     <Group x="0" y="0" width="70" height="147" name="ProgressBar_30d9_MASK">
@@ -1144,7 +1146,7 @@
                                 </Default>
                             </Condition>
                         </Group>
-                        <PartText pivotX="-2.4589" pivotY="-0.2353" x="5" y="163" width="64" height="110" name="Text_6177" tintColor="[CONFIGURATION.face_color.0]" alpha="255">
+                        <PartText pivotX="-2.4589" pivotY="-0.2353" x="5" y="163" width="64" height="110" name="Text_6177" tintColor="#FFFFFFFF" alpha="255">
                             <TextCircular align="END" ellipsis="TRUE" width="423" height="423" startAngle="127.5" endAngle="97.5" centerX="-158" centerY="-26" direction="COUNTER_CLOCKWISE">
                                 <Font family="SYNC_TO_DEVICE" size="22" weight="NORMAL" slant="NORMAL" color="#ffffffff">
                                     <Template>%s<Parameter expression="[COMPLICATION.TEXT] != null ? [COMPLICATION.TEXT] : [COMPLICATION.TITLE]" />
@@ -1162,7 +1164,7 @@
                                 <Compare expression="GOAL_PROGRESS_COLORS">
                                     <PartDraw pivotX="-2.9295999999999998" pivotY="0.5" x="13" y="9" width="57" height="255" name="ProgressBar_34ab" tintColor="[CONFIGURATION.face_color.0]">
                                         <Arc direction="COUNTER_CLOCKWISE" startAngle="125" endAngle="55" centerX="-165.8783" centerY="127.6208" width="425" height="425">
-                                            <Stroke color="#33000000" cap="ROUND" thickness="20" />
+                                            <Stroke color="#2EFFFFFF" cap="ROUND" thickness="20" />
                                         </Arc>
                                     </PartDraw>
                                     <Group x="0" y="0" width="70" height="265" name="ProgressBar_34ab_MASK">
@@ -1182,7 +1184,7 @@
                                 <Default>
                                     <PartDraw pivotX="-2.9295999999999998" pivotY="0.5" x="13" y="9" width="57" height="255" name="ProgressBar_34ab" tintColor="[CONFIGURATION.face_color.0]">
                                         <Arc direction="COUNTER_CLOCKWISE" startAngle="125" endAngle="55" centerX="-165.8783" centerY="127.6208" width="425" height="425">
-                                            <Stroke color="#33000000" cap="ROUND" thickness="20" />
+                                            <Stroke color="#2EFFFFFF" cap="ROUND" thickness="20" />
                                         </Arc>
                                     </PartDraw>
                                     <Group x="0" y="0" width="70" height="265" name="ProgressBar_34ab_MASK">
@@ -1222,10 +1224,10 @@
                 primaryProviderType="SHORT_TEXT" />
             <BoundingBox x="0" y="0" width="218" height="51" />
             <Complication type="SHORT_TEXT">
-                <PartText x="0" y="0" width="218" height="51"><TextCircular centerX="109" centerY="205" width="382" height="382" startAngle="330" endAngle="30" align="CENTER" ellipsis="TRUE"><Font family="ibm_plex_arabic_bold" size="17" weight="BOLD" color="[CONFIGURATION.face_color.0]"><Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template></Font></TextCircular></PartText>
+                <PartText x="0" y="0" width="218" height="51"><TextCircular centerX="109" centerY="205" width="382" height="382" startAngle="330" endAngle="30" align="CENTER" ellipsis="TRUE"><Font family="ibm_plex_arabic_bold" size="17" weight="BOLD" color="#FFFFFFFF"><Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template></Font></TextCircular></PartText>
             </Complication>
             <Complication type="LONG_TEXT">
-                <PartText x="0" y="0" width="218" height="51"><TextCircular centerX="109" centerY="205" width="382" height="382" startAngle="330" endAngle="30" align="CENTER" ellipsis="TRUE"><Font family="ibm_plex_arabic_bold" size="17" weight="BOLD" color="[CONFIGURATION.face_color.0]"><Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template></Font></TextCircular></PartText>
+                <PartText x="0" y="0" width="218" height="51"><TextCircular centerX="109" centerY="205" width="382" height="382" startAngle="330" endAngle="30" align="CENTER" ellipsis="TRUE"><Font family="ibm_plex_arabic_bold" size="17" weight="BOLD" color="#FFFFFFFF"><Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template></Font></TextCircular></PartText>
             </Complication>
             <Complication type="RANGED_VALUE">
                 <PartText x="39" y="2" width="140" height="36">
@@ -1258,7 +1260,7 @@
                 <Group x="97" y="7" width="24" height="24" name="accent_icon">
                     <PartDraw x="0" y="0" width="24" height="24">
                         <Rectangle x="0" y="0" width="24" height="24">
-                            <Fill color="[CONFIGURATION.face_color.0]" />
+                            <Fill color="#FFFFFFFF" />
                         </Rectangle>
                     </PartDraw>
                     <PartImage x="0" y="0" width="24" height="24" renderMode="MASK">
@@ -2906,6 +2908,14 @@
                                 <Expression name="prayerName5"><![CDATA[subText([COMPLICATION.TITLE], 8, textLength([COMPLICATION.TITLE])) == "نصف الليل"]]></Expression>
                             </Expressions>
                             <Compare expression="prayerName0">
+                                <PartText x="158" y="9" width="137" height="76">
+                                    <Variant mode="AMBIENT" target="alpha" value="0" />
+                                    <Text align="START" maxLines="1">
+                                        <Font family="ibm_plex_arabic_bold" size="52.72" color="#63081525">
+                                            <Template>%s<Parameter expression="&quot;الفـــجر&quot;" /></Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
                                 <PartText x="157" y="8" width="137" height="76">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="52.72" color="[CONFIGURATION.face_color.0]">
@@ -2915,6 +2925,14 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="prayerName1">
+                                <PartText x="158" y="9" width="137" height="76">
+                                    <Variant mode="AMBIENT" target="alpha" value="0" />
+                                    <Text align="START" maxLines="1">
+                                        <Font family="ibm_plex_arabic_bold" size="43.96" color="#63081525">
+                                            <Template>%s<Parameter expression="&quot;الشروق&quot;" /></Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
                                 <PartText x="157" y="8" width="137" height="76">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="43.96" color="[CONFIGURATION.face_color.0]">
@@ -2924,6 +2942,14 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="prayerName2">
+                                <PartText x="158" y="9" width="137" height="76">
+                                    <Variant mode="AMBIENT" target="alpha" value="0" />
+                                    <Text align="START" maxLines="1">
+                                        <Font family="ibm_plex_arabic_bold" size="50.8" color="#63081525">
+                                            <Template>%s<Parameter expression="&quot;الظـــهر&quot;" /></Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
                                 <PartText x="157" y="8" width="137" height="76">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="50.8" color="[CONFIGURATION.face_color.0]">
@@ -2933,6 +2959,14 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="prayerName3">
+                                <PartText x="158" y="9" width="137" height="76">
+                                    <Variant mode="AMBIENT" target="alpha" value="0" />
+                                    <Text align="START" maxLines="1">
+                                        <Font family="ibm_plex_arabic_bold" size="44.32" color="#63081525">
+                                            <Template>%s<Parameter expression="&quot;الغـروب&quot;" /></Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
                                 <PartText x="157" y="8" width="137" height="76">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="44.32" color="[CONFIGURATION.face_color.0]">
@@ -2942,6 +2976,14 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="prayerName4">
+                                <PartText x="158" y="9" width="137" height="76">
+                                    <Variant mode="AMBIENT" target="alpha" value="0" />
+                                    <Text align="START" maxLines="1">
+                                        <Font family="ibm_plex_arabic_bold" size="44.67" color="#63081525">
+                                            <Template>%s<Parameter expression="&quot;المغرب&quot;" /></Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
                                 <PartText x="157" y="8" width="137" height="76">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="44.67" color="[CONFIGURATION.face_color.0]">
@@ -2951,6 +2993,14 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="prayerName5">
+                                <PartText x="158" y="9" width="137" height="76">
+                                    <Variant mode="AMBIENT" target="alpha" value="0" />
+                                    <Text align="START" maxLines="1">
+                                        <Font family="ibm_plex_arabic_bold" size="28.56" color="#63081525">
+                                            <Template>%s<Parameter expression="&quot;نصف الليل&quot;" /></Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
                                 <PartText x="157" y="8" width="137" height="76">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="28.56" color="[CONFIGURATION.face_color.0]">
@@ -2960,6 +3010,14 @@
                                 </PartText>
                             </Compare>
                             <Default>
+                                <PartText x="158" y="9" width="137" height="76">
+                                    <Variant mode="AMBIENT" target="alpha" value="0" />
+                                    <Text align="START" maxLines="1">
+                                        <Font family="ibm_plex_arabic_bold" size="44" color="#63081525">
+                                            <Template>%s<Parameter expression="subText([COMPLICATION.TITLE], 8, textLength([COMPLICATION.TITLE]))" /></Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
                                 <PartText x="157" y="8" width="137" height="76">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="44" color="[CONFIGURATION.face_color.0]">
@@ -4484,6 +4542,14 @@
                                 <Expression name="prayerName5"><![CDATA[[COMPLICATION.TITLE] == "نصف الليل"]]></Expression>
                             </Expressions>
                             <Compare expression="prayerName0">
+                                <PartText x="158" y="9" width="137" height="76">
+                                    <Variant mode="AMBIENT" target="alpha" value="0" />
+                                    <Text align="START" maxLines="1">
+                                        <Font family="ibm_plex_arabic_bold" size="52.72" color="#63081525">
+                                            <Template>%s<Parameter expression="&quot;الفـــجر&quot;" /></Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
                                 <PartText x="157" y="8" width="137" height="76">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="52.72" color="[CONFIGURATION.face_color.0]">
@@ -4493,6 +4559,14 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="prayerName1">
+                                <PartText x="158" y="9" width="137" height="76">
+                                    <Variant mode="AMBIENT" target="alpha" value="0" />
+                                    <Text align="START" maxLines="1">
+                                        <Font family="ibm_plex_arabic_bold" size="43.96" color="#63081525">
+                                            <Template>%s<Parameter expression="&quot;الشروق&quot;" /></Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
                                 <PartText x="157" y="8" width="137" height="76">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="43.96" color="[CONFIGURATION.face_color.0]">
@@ -4502,6 +4576,14 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="prayerName2">
+                                <PartText x="158" y="9" width="137" height="76">
+                                    <Variant mode="AMBIENT" target="alpha" value="0" />
+                                    <Text align="START" maxLines="1">
+                                        <Font family="ibm_plex_arabic_bold" size="50.8" color="#63081525">
+                                            <Template>%s<Parameter expression="&quot;الظـــهر&quot;" /></Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
                                 <PartText x="157" y="8" width="137" height="76">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="50.8" color="[CONFIGURATION.face_color.0]">
@@ -4511,6 +4593,14 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="prayerName3">
+                                <PartText x="158" y="9" width="137" height="76">
+                                    <Variant mode="AMBIENT" target="alpha" value="0" />
+                                    <Text align="START" maxLines="1">
+                                        <Font family="ibm_plex_arabic_bold" size="44.32" color="#63081525">
+                                            <Template>%s<Parameter expression="&quot;الغـروب&quot;" /></Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
                                 <PartText x="157" y="8" width="137" height="76">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="44.32" color="[CONFIGURATION.face_color.0]">
@@ -4520,6 +4610,14 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="prayerName4">
+                                <PartText x="158" y="9" width="137" height="76">
+                                    <Variant mode="AMBIENT" target="alpha" value="0" />
+                                    <Text align="START" maxLines="1">
+                                        <Font family="ibm_plex_arabic_bold" size="44.67" color="#63081525">
+                                            <Template>%s<Parameter expression="&quot;المغرب&quot;" /></Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
                                 <PartText x="157" y="8" width="137" height="76">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="44.67" color="[CONFIGURATION.face_color.0]">
@@ -4529,6 +4627,14 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="prayerName5">
+                                <PartText x="158" y="9" width="137" height="76">
+                                    <Variant mode="AMBIENT" target="alpha" value="0" />
+                                    <Text align="START" maxLines="1">
+                                        <Font family="ibm_plex_arabic_bold" size="28.56" color="#63081525">
+                                            <Template>%s<Parameter expression="&quot;نصف الليل&quot;" /></Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
                                 <PartText x="157" y="8" width="137" height="76">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="28.56" color="[CONFIGURATION.face_color.0]">
@@ -4538,6 +4644,14 @@
                                 </PartText>
                             </Compare>
                             <Default>
+                                <PartText x="158" y="9" width="137" height="76">
+                                    <Variant mode="AMBIENT" target="alpha" value="0" />
+                                    <Text align="START" maxLines="1">
+                                        <Font family="ibm_plex_arabic_bold" size="44" color="#63081525">
+                                            <Template>%s<Parameter expression="[COMPLICATION.TITLE]" /></Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
                                 <PartText x="157" y="8" width="137" height="76">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="44" color="[CONFIGURATION.face_color.0]">
