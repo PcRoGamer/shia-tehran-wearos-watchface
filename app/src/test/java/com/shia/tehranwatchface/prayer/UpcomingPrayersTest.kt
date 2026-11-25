@@ -28,7 +28,7 @@ class UpcomingPrayersTest {
     fun `actual sunset and maghrib are separate milestones`() {
         val events = upcoming(times.sunset.toInstant().minusSeconds(1))
         assertEquals(listOf(PrayerName.SUNSET, PrayerName.MAGHRIB, PrayerName.MIDNIGHT), events.map { it.name })
-        assertEquals(listOf("الغروب", "المغرب والعشاء", "نصف الليل الشرعي"), events.map { it.name.watchLabel })
+        assertEquals(listOf("الغروب", "المغرب", "نصف الليل"), events.map { it.name.watchLabel })
         assertEquals(listOf(times.sunset, times.maghrib, times.midnight), events.map { it.time })
     }
 

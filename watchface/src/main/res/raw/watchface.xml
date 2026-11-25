@@ -305,25 +305,24 @@
             <Group name="minute_hand_layer" x="0" y="0" width="450" height="450">
                 <Transform target="alpha" value="[CONFIGURATION.show_minute_hand] == &quot;TRUE&quot; ? 255 : 0" />
                 <AnalogClock x="0" y="0" width="450" height="450">
-                    <MinuteHand resource="minute_hand" x="219" y="105" width="12" height="134" pivotX="0.5" pivotY="0.89552239" alpha="225" tintColor="[CONFIGURATION.minute_hand_color.0]" />
+                    <MinuteHand resource="minute_hand" x="219" y="105" width="12" height="134" pivotX="0.5" pivotY="0.89552239" alpha="198" tintColor="[CONFIGURATION.minute_hand_color.0]" />
                 </AnalogClock>
             </Group>
             <Group name="second_hand_layer" x="0" y="0" width="450" height="450">
                 <Transform target="alpha" value="[CONFIGURATION.show_second_hand] == &quot;TRUE&quot; ? 255 : 0" />
                 <AnalogClock x="0" y="0" width="450" height="450">
-                    <SecondHand resource="second_hand" x="219" y="40" width="12" height="220" pivotX="0.5" pivotY="0.84090909" tintColor="[CONFIGURATION.second_hand_color.0]">
+                    <SecondHand resource="second_hand" x="219" y="40" width="12" height="220" pivotX="0.5" pivotY="0.84090909" alpha="230" tintColor="[CONFIGURATION.second_hand_color.0]">
                         <Tick duration="0.16" strength="0.72" />
                     </SecondHand>
                 </AnalogClock>
             </Group>
             <PartDraw name="hand_pivot" x="219" y="219" width="12" height="12">
                 <Transform target="alpha" value="[CONFIGURATION.show_minute_hand] == &quot;TRUE&quot; || [CONFIGURATION.show_second_hand] == &quot;TRUE&quot; ? 255 : 0" />
-                <Ellipse x="2" y="2" width="8" height="8">
-                    <Fill color="#FF18283D" />
-                    <Stroke color="#FFD1DDEA" thickness="1" />
+                <Ellipse x="3.5" y="3.5" width="5" height="5">
+                    <Fill color="#DCE6EEF7" />
                 </Ellipse>
             </PartDraw>
-            <!-- Soften the hands under the frosted card while keeping their motion visible. -->
+            <!-- Reduce hand contrast behind the clock separator and prayer rows. -->
             <PartImage x="0" y="0" width="450" height="450" renderMode="MASK">
                 <Image resource="prayer_hand_mask" />
             </PartImage>
@@ -1345,7 +1344,7 @@
                     <Group name="geometric_latin" x="0" y="0" width="450" height="450">
                         <Transform target="alpha" value="[CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? 0 : 255" />
                         <PartText name="clock_hours" x="55" y="101" width="150" height="96">
-                            <Transform target="x" value="[REFERENCE.clockSeparatorX] - 170" />
+                            <Transform target="x" value="[REFERENCE.clockSeparatorX] - 174" />
                             <Text align="END" maxLines="1">
                                 <Font family="outfit_bold" size="82" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
                                     <Template>&#x2066;%s%s&#x2069;
@@ -1356,7 +1355,7 @@
                             </Text>
                         </PartText>
                         <PartText name="clock_minutes" x="245" y="101" width="150" height="96">
-                            <Transform target="x" value="[REFERENCE.clockSeparatorX] + 20" />
+                            <Transform target="x" value="[REFERENCE.clockSeparatorX] + 24" />
                             <Text align="START" maxLines="1">
                                 <Font family="outfit_bold" size="82" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
                                     <Template>&#x2066;%s%s&#x2069;
@@ -1370,7 +1369,7 @@
                     <Group name="geometric_arabic" x="0" y="0" width="450" height="450">
                         <Transform target="alpha" value="[CONFIGURATION.hindi_digits] == &quot;TRUE&quot; ? 255 : 0" />
                         <PartText name="clock_hours" x="55" y="101" width="150" height="96">
-                            <Transform target="x" value="[REFERENCE.clockSeparatorX] - 170" />
+                            <Transform target="x" value="[REFERENCE.clockSeparatorX] - 174" />
                             <Text align="END" maxLines="1">
                                 <Font family="ibm_plex_arabic_bold" size="82" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
                                     <Template>&#x2066;%s%s&#x2069;
@@ -1381,7 +1380,7 @@
                             </Text>
                         </PartText>
                         <PartText name="clock_minutes" x="245" y="101" width="150" height="96">
-                            <Transform target="x" value="[REFERENCE.clockSeparatorX] + 20" />
+                            <Transform target="x" value="[REFERENCE.clockSeparatorX] + 24" />
                             <Text align="START" maxLines="1">
                                 <Font family="ibm_plex_arabic_bold" size="82" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
                                     <Template>&#x2066;%s%s&#x2069;
@@ -1397,7 +1396,7 @@
             <ListOption id="1">
                 <Group name="clock_font_1" x="0" y="0" width="450" height="450">
                     <PartText name="clock_hours" x="55" y="101" width="150" height="96">
-                        <Transform target="x" value="[REFERENCE.clockSeparatorX] - 170" />
+                        <Transform target="x" value="[REFERENCE.clockSeparatorX] - 174" />
                         <Text align="END" maxLines="1">
                             <Font family="ibm_plex_arabic_bold" size="82" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
                                 <Template>&#x2066;%s%s&#x2069;
@@ -1408,7 +1407,7 @@
                         </Text>
                     </PartText>
                     <PartText name="clock_minutes" x="245" y="101" width="150" height="96">
-                        <Transform target="x" value="[REFERENCE.clockSeparatorX] + 20" />
+                        <Transform target="x" value="[REFERENCE.clockSeparatorX] + 24" />
                         <Text align="START" maxLines="1">
                             <Font family="ibm_plex_arabic_bold" size="82" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
                                 <Template>&#x2066;%s%s&#x2069;
@@ -1423,7 +1422,7 @@
             <ListOption id="2">
                 <Group name="clock_font_2" x="0" y="0" width="450" height="450">
                     <PartText name="clock_hours" x="55" y="101" width="150" height="96">
-                        <Transform target="x" value="[REFERENCE.clockSeparatorX] - 170" />
+                        <Transform target="x" value="[REFERENCE.clockSeparatorX] - 174" />
                         <Text align="END" maxLines="1">
                             <Font family="SYNC_TO_DEVICE" size="82" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
                                 <Template>&#x2066;%s%s&#x2069;
@@ -1434,7 +1433,7 @@
                         </Text>
                     </PartText>
                     <PartText name="clock_minutes" x="245" y="101" width="150" height="96">
-                        <Transform target="x" value="[REFERENCE.clockSeparatorX] + 20" />
+                        <Transform target="x" value="[REFERENCE.clockSeparatorX] + 24" />
                         <Text align="START" maxLines="1">
                             <Font family="SYNC_TO_DEVICE" size="82" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
                                 <Template>&#x2066;%s%s&#x2069;
@@ -1447,23 +1446,23 @@
                 </Group>
             </ListOption>
         </ListConfiguration>
-        <Group name="clock_period" x="182" y="142" width="86" height="28" angle="90">
+        <Group name="clock_period" x="182" y="133" width="86" height="38" angle="90">
             <Transform target="x" value="[REFERENCE.clockSeparatorX] - 43" />
             <!-- Fit each shaped Arabic label into the separator. -->
-            <Transform target="scaleX" value="[HOUR_0_23] &lt; 4 || [HOUR_0_23] &gt;= 21 ? 0.95 : [HOUR_0_23] &lt; 6 ? 1 : [HOUR_0_23] &lt; 12 ? 0.76 : [HOUR_0_23] &lt; 15 ? 1.10 : [HOUR_0_23] &lt; 18 ? 0.90 : 0.95" />
+            <Transform target="scaleX" value="[HOUR_0_23] &lt; 4 || [HOUR_0_23] &gt;= 21 ? 0.95 : [HOUR_0_23] &lt; 6 ? 1 : [HOUR_0_23] &lt; 12 ? 0.87 : [HOUR_0_23] &lt; 15 ? 1.10 : [HOUR_0_23] &lt; 18 ? 0.90 : 0.95" />
             <Reference name="periodScale" source="scaleX" defaultValue="1" />
             <Transform target="scaleY" value="[REFERENCE.periodScale]" />
-            <PartText name="clock_day_period_shadow" x="-2" y="0" width="86" height="28">
+            <PartText name="clock_day_period_shadow" x="-1" y="0" width="86" height="38">
                 <Variant mode="AMBIENT" target="alpha" value="0" />
                 <Text align="CENTER" maxLines="1">
-                    <Font family="ibm_plex_arabic_bold" size="21" color="#80081525">
+                    <Font family="ibm_plex_arabic_bold" size="31" weight="BOLD" color="#63081525">
                         <Template>%s<Parameter expression="[HOUR_0_23] &lt; 4 || [HOUR_0_23] &gt;= 21 ? &quot;ليلًا&quot; : [HOUR_0_23] &lt; 6 ? &quot;فجرًا&quot; : [HOUR_0_23] &lt; 12 ? &quot;صباحًا&quot; : [HOUR_0_23] &lt; 15 ? &quot;ظهرًا&quot; : [HOUR_0_23] &lt; 18 ? &quot;عصرًا&quot; : &quot;مساءً&quot;" /></Template>
                     </Font>
                 </Text>
             </PartText>
-            <PartText name="clock_day_period" x="0" y="0" width="86" height="28">
+            <PartText name="clock_day_period" x="0" y="0" width="86" height="38">
                 <Text align="CENTER" maxLines="1">
-                    <Font family="ibm_plex_arabic_bold" size="21" color="[CONFIGURATION.edge_color.0]">
+                    <Font family="ibm_plex_arabic_bold" size="31" weight="BOLD" color="[CONFIGURATION.edge_color.0]">
                         <Template>%s<Parameter expression="[HOUR_0_23] &lt; 4 || [HOUR_0_23] &gt;= 21 ? &quot;ليلًا&quot; : [HOUR_0_23] &lt; 6 ? &quot;فجرًا&quot; : [HOUR_0_23] &lt; 12 ? &quot;صباحًا&quot; : [HOUR_0_23] &lt; 15 ? &quot;ظهرًا&quot; : [HOUR_0_23] &lt; 18 ? &quot;عصرًا&quot; : &quot;مساءً&quot;" /></Template>
                     </Font>
                 </Text>
@@ -1489,8 +1488,8 @@
                     </Expressions>
                     <Compare expression="splitPrayerTime">
                         <PartText x="1" y="0" width="142" height="76">
-                            <Text align="END" maxLines="1" ellipsis="TRUE">
-                                <Font family="outfit_bold" size="52" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
+                            <Text align="END" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
+                                <Font family="outfit_bold" size="62" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
                                     <Template>%s<Parameter expression="subText([COMPLICATION.TITLE], 0, 1) == &quot;0&quot; ? subText([COMPLICATION.TITLE], 1, 5) : subText([COMPLICATION.TITLE], 0, 5)" /></Template>
                                 </Font>
                             </Text>
@@ -1503,7 +1502,7 @@
                         </PartDraw>
                         <PartText x="158" y="0" width="135" height="76">
                             <Text align="START" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
-                                <Font family="ibm_plex_arabic_bold" size="23" weight="BOLD" color="[CONFIGURATION.edge_color.0]">
+                                <Font family="ibm_plex_arabic_bold" size="28" weight="BOLD" color="[CONFIGURATION.edge_color.0]">
                                     <Template>%s<Parameter expression="subText([COMPLICATION.TITLE], 8, textLength([COMPLICATION.TITLE]))" /></Template>
                                 </Font>
                             </Text>
@@ -1552,8 +1551,8 @@
                     </Expressions>
                     <Compare expression="splitPrayerTime">
                         <PartText x="1" y="0" width="142" height="76">
-                            <Text align="END" maxLines="1" ellipsis="TRUE">
-                                <Font family="outfit_bold" size="52" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
+                            <Text align="END" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
+                                <Font family="outfit_bold" size="62" weight="BOLD" color="[CONFIGURATION.theme_color.2]">
                                     <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 0, max(0, textLength([COMPLICATION.TEXT]) - 2))" /></Template>
                                 </Font>
                             </Text>
@@ -1566,7 +1565,7 @@
                         </PartDraw>
                         <PartText x="158" y="0" width="135" height="76">
                             <Text align="START" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
-                                <Font family="ibm_plex_arabic_bold" size="23" weight="BOLD" color="[CONFIGURATION.edge_color.0]">
+                                <Font family="ibm_plex_arabic_bold" size="28" weight="BOLD" color="[CONFIGURATION.edge_color.0]">
                                     <Template>%s<Parameter expression="[COMPLICATION.TITLE]" /></Template>
                                 </Font>
                             </Text>
@@ -1661,7 +1660,7 @@
 
         <!-- Following two prayer milestones (slot 3) -->
         <ComplicationSlot
-            x="95" y="296" width="260" height="62"
+            x="95" y="296" width="260" height="72"
             slotId="3"
             displayName="slot_schedule_name"
             supportedTypes="SHORT_TEXT LONG_TEXT RANGED_VALUE GOAL_PROGRESS WEIGHTED_ELEMENTS MONOCHROMATIC_IMAGE SMALL_IMAGE PHOTO_IMAGE" isCustomizable="TRUE">
@@ -1671,28 +1670,28 @@
                 defaultSystemProviderType="SHORT_TEXT"
                 primaryProvider="com.shia.tehranwatchface/com.shia.tehranwatchface.complications.DailyScheduleComplicationService"
                 primaryProviderType="LONG_TEXT" />
-            <BoundingBox x="0" y="0" width="260" height="62" />
+            <BoundingBox x="0" y="0" width="260" height="72" />
             <Complication type="LONG_TEXT">
                 <Condition>
                     <Expressions>
                         <Expression name="followingPrayer"><![CDATA[textLength([COMPLICATION.TEXT]) > 8 && subText([COMPLICATION.TEXT], 5, 8) == " • "]]></Expression>
                     </Expressions>
                     <Compare expression="followingPrayer">
-                        <PartText x="22" y="2" width="104" height="30" alpha="232">
+                        <PartText x="22" y="2" width="104" height="38" alpha="246">
                             <Text align="END" maxLines="1" ellipsis="TRUE">
-                                <Font family="ibm_plex_arabic_bold" size="27" color="[CONFIGURATION.theme_color.2]">
+                                <Font family="ibm_plex_arabic_bold" size="36" color="[CONFIGURATION.theme_color.2]">
                                     <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 0, 1) == &quot;0&quot; ? subText([COMPLICATION.TEXT], 1, 5) : subText([COMPLICATION.TEXT], 0, 5)" /></Template>
                                 </Font>
                             </Text>
                         </PartText>
-                        <PartDraw x="133" y="0" width="2" height="28">
+                        <PartDraw x="133" y="6" width="2" height="28">
                             <Line startX="1" startY="8" endX="1" endY="20">
                                 <Stroke color="#43DCEAFF" thickness="1" />
                             </Line>
                         </PartDraw>
-                        <PartText x="141" y="2" width="119" height="30" alpha="232">
+                        <PartText x="141" y="2" width="119" height="38" alpha="246">
                             <Text align="START" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
-                                <Font family="ibm_plex_arabic_bold" size="19" color="[CONFIGURATION.theme_color.2]">
+                                <Font family="ibm_plex_arabic_bold" size="25" color="[CONFIGURATION.theme_color.2]">
                                     <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 8, textLength([COMPLICATION.TEXT]))" /></Template>
                                 </Font>
                             </Text>
@@ -1707,21 +1706,21 @@
                         <Expression name="thirdPrayer"><![CDATA[textLength([COMPLICATION.TITLE]) > 8 && subText([COMPLICATION.TITLE], 5, 8) == " • "]]></Expression>
                     </Expressions>
                     <Compare expression="thirdPrayer">
-                        <PartText x="22" y="34" width="104" height="24" alpha="178">
+                        <PartText x="22" y="43" width="104" height="29" alpha="213">
                             <Text align="END" maxLines="1" ellipsis="TRUE">
-                                <Font family="ibm_plex_arabic_bold" size="14" color="[CONFIGURATION.theme_color.2]">
+                                <Font family="ibm_plex_arabic_bold" size="25" color="[CONFIGURATION.theme_color.2]">
                                     <Template>%s<Parameter expression="subText([COMPLICATION.TITLE], 0, 1) == &quot;0&quot; ? subText([COMPLICATION.TITLE], 1, 5) : subText([COMPLICATION.TITLE], 0, 5)" /></Template>
                                 </Font>
                             </Text>
                         </PartText>
-                        <PartDraw x="133" y="32" width="2" height="28">
+                        <PartDraw x="133" y="42" width="2" height="28">
                             <Line startX="1" startY="8" endX="1" endY="20">
                                 <Stroke color="#43DCEAFF" thickness="1" />
                             </Line>
                         </PartDraw>
-                        <PartText x="141" y="34" width="119" height="24" alpha="178">
+                        <PartText x="141" y="43" width="119" height="29" alpha="213">
                             <Text align="START" maxLines="1" ellipsis="TRUE" isAutoSize="TRUE">
-                                <Font family="ibm_plex_arabic_bold" size="15" color="[CONFIGURATION.theme_color.2]">
+                                <Font family="ibm_plex_arabic_bold" size="21" color="[CONFIGURATION.theme_color.2]">
                                     <Template>%s<Parameter expression="subText([COMPLICATION.TITLE], 8, textLength([COMPLICATION.TITLE]))" /></Template>
                                 </Font>
                             </Text>

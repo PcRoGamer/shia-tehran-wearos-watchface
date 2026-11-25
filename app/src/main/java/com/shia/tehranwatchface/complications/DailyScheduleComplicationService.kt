@@ -17,15 +17,15 @@ class DailyScheduleComplicationService : SuspendingComplicationDataSourceService
     private val fmt12AmPm = DateTimeFormatter.ofPattern("hh:mm a", Locale("ar"))
 
     override fun getPreviewData(type: ComplicationType): ComplicationData? {
-        val text = PlainComplicationText.Builder("11:35 • نصف الليل الشرعي").build()
-        val desc = PlainComplicationText.Builder("نصف الليل الشرعي 11:35 م، ثم الفجر 4:12 ص").build()
+        val text = PlainComplicationText.Builder("11:35 • نصف الليل").build()
+        val desc = PlainComplicationText.Builder("نصف الليل 11:35 م، ثم الفجر 4:12 ص").build()
         return when (type) {
             ComplicationType.LONG_TEXT -> LongTextComplicationData.Builder(text, desc)
                 .setTitle(PlainComplicationText.Builder("04:12 • الفجر").build())
                 .build()
             ComplicationType.SHORT_TEXT -> ShortTextComplicationData.Builder(
                 PlainComplicationText.Builder("11:35 م").build(), desc
-            ).setTitle(PlainComplicationText.Builder("يليها نصف الليل الشرعي").build()).build()
+            ).setTitle(PlainComplicationText.Builder("يليها نصف الليل").build()).build()
             else -> null
         }
     }

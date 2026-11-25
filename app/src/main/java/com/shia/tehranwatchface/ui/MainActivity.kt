@@ -152,7 +152,7 @@ fun TehranWatchFaceApp() {
             "العصر" to times.asr.format(fmt),
             "المغرب (4.5°)" to times.maghrib.format(fmt),
             "العشاء (14°)" to times.isha.format(fmt),
-            "نصف الليل الشرعي" to times.midnight.format(fmt)
+            "نصف الليل" to times.midnight.format(fmt)
         )
     }
 

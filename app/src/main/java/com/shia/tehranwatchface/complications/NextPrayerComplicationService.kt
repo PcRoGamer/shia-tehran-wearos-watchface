@@ -21,7 +21,7 @@ class NextPrayerComplicationService : SuspendingComplicationDataSourceService() 
     private val timeFormatter = DateTimeFormatter.ofPattern("hh:mm a", Locale("ar"))
 
     override fun getPreviewData(type: ComplicationType): ComplicationData? {
-        val title = PlainComplicationText.Builder("05:20 • المغرب والعشاء").build()
+        val title = PlainComplicationText.Builder("05:20 • المغرب").build()
         val text = PlainComplicationText.Builder("بعد 01:15").build()
         val desc = PlainComplicationText.Builder("الصلاة القادمة حسب معهد طهران").build()
 
@@ -31,10 +31,10 @@ class NextPrayerComplicationService : SuspendingComplicationDataSourceService() 
                 .build()
             ComplicationType.SHORT_TEXT -> ShortTextComplicationData.Builder(
                 PlainComplicationText.Builder("5:20 م").build(), desc
-            ).setTitle(PlainComplicationText.Builder("المغرب والعشاء").build()).build()
+            ).setTitle(PlainComplicationText.Builder("المغرب").build()).build()
             ComplicationType.RANGED_VALUE -> RangedValueComplicationData.Builder(
                 value = 65f, min = 0f, max = 100f, contentDescription = desc
-            ).setTitle(PlainComplicationText.Builder("المغرب والعشاء").build())
+            ).setTitle(PlainComplicationText.Builder("المغرب").build())
                 .setText(PlainComplicationText.Builder("5:20 م").build())
                 .build()
             else -> null
