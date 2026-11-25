@@ -45,9 +45,18 @@ object TehranPrayerCalculator {
         SUNRISE("الشروق"),
         DHUHR("الظهر"),
         ASR("العصر"),
+        SUNSET("الغروب"),
         MAGHRIB("المغرب"),
         ISHA("العشاء"),
-        MIDNIGHT("نصف الليل")
+        MIDNIGHT("نصف الليل");
+
+        val watchLabel: String
+            get() = when (this) {
+                SUNRISE -> "آخر الفجر"
+                SUNSET -> "آخر العصر"
+                MIDNIGHT -> "آخر العشاء"
+                else -> arabicName
+            }
     }
 
     data class NextPrayerInfo(
@@ -119,51 +128,30 @@ object TehranPrayerCalculator {
         longitude: Double,
         elevationMeters: Double = 0.0,
         zoneId: ZoneId = ZoneId.systemDefault()
-    ): NextPrayerInfo {
-        val zonedNow = now.atZone(zoneId)
-        val today = zonedNow.toLocalDate()
-        val todayTimes = calculate(today, latitude, longitude, elevationMeters, zoneId)
-        val yesterdayTimes = calculate(today.minusDays(1), latitude, longitude, elevationMeters, zoneId)
-        val tomorrowTimes = calculate(today.plusDays(1), latitude, longitude, elevationMeters, zoneId)
+    ): NextPrayerInfo = getUpcomingPrayers(now, latitude, longitude, elevationMeters, zoneId).first()
 
-        val timeline = listOf(
-            PrayerName.ISHA to yesterdayTimes.isha,
-            PrayerName.MIDNIGHT to yesterdayTimes.midnight,
-            PrayerName.FAJR to todayTimes.fajr,
-            PrayerName.SUNRISE to todayTimes.sunrise,
-            PrayerName.DHUHR to todayTimes.dhuhr,
-            PrayerName.ASR to todayTimes.asr,
-            PrayerName.MAGHRIB to todayTimes.maghrib,
-            PrayerName.ISHA to todayTimes.isha,
-            PrayerName.MIDNIGHT to todayTimes.midnight,
-            PrayerName.FAJR to tomorrowTimes.fajr
-        ).filter { (name, _) ->
-            // Primary obligatory/key Shia milestones for Next Prayer display
-            name in setOf(
-                PrayerName.FAJR,
-                PrayerName.SUNRISE,
-                PrayerName.DHUHR,
-                PrayerName.MAGHRIB,
-                PrayerName.MIDNIGHT
+    fun getUpcomingPrayers(
+        now: Instant,
+        latitude: Double,
+        longitude: Double,
+        elevationMeters: Double = 0.0,
+        zoneId: ZoneId = ZoneId.systemDefault()
+    ): List<NextPrayerInfo> {
+        val today = now.atZone(zoneId).toLocalDate()
+        return (-1L..1L).flatMap { days ->
+            val times = calculate(today.plusDays(days), latitude, longitude, elevationMeters, zoneId)
+            listOf(
+                PrayerName.FAJR to times.fajr,
+                PrayerName.SUNRISE to times.sunrise,
+                PrayerName.DHUHR to times.dhuhr,
+                PrayerName.SUNSET to times.sunset,
+                PrayerName.MAGHRIB to times.maghrib,
+                PrayerName.MIDNIGHT to times.midnight
             )
-        }
-
-        for (i in 1 until timeline.size) {
-            val (nextName, nextTime) = timeline[i]
-            if (nextTime.toInstant().isAfter(now)) {
-                return NextPrayerInfo(
-                    name = nextName,
-                    time = nextTime,
-                    previousTime = timeline[i - 1].second
-                )
-            }
-        }
-
-        return NextPrayerInfo(
-            name = PrayerName.FAJR,
-            time = tomorrowTimes.fajr,
-            previousTime = todayTimes.midnight
-        )
+        }.sortedBy { (_, time) -> time.toInstant() }
+            .zipWithNext { previous, (name, time) -> NextPrayerInfo(name, time, previous.second) }
+            .filter { it.time.toInstant().isAfter(now) }
+            .take(3)
     }
 
     private fun toJulianDate(date: LocalDate): Double {
