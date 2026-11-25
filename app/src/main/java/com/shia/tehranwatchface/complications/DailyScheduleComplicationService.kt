@@ -41,8 +41,8 @@ class DailyScheduleComplicationService : SuspendingComplicationDataSourceService
 
         val secondTime = second.time.format(fmt12AmPm)
         val thirdTime = third.time.format(fmt12AmPm)
-        val secondName = second.name.watchLabel
-        val thirdName = third.name.watchLabel
+        val secondName = second.name.arabicName
+        val thirdName = third.name.arabicName
 
         val tapIntent = PendingIntent.getActivity(
             this,

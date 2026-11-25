@@ -75,7 +75,7 @@ class NextPrayerComplicationService : SuspendingComplicationDataSourceService() 
         ).build()
 
         val contentDesc = PlainComplicationText.Builder(
-            "${next.name.watchLabel} $formattedTime"
+            "${next.name.arabicName} $formattedTime"
         ).build()
 
         return when (request.complicationType) {
@@ -83,7 +83,7 @@ class NextPrayerComplicationService : SuspendingComplicationDataSourceService() 
                 text = countdownText,
                 contentDescription = contentDesc
             )
-                .setTitle(PlainComplicationText.Builder("${formattedTime.take(5)} • ${next.name.watchLabel}").build())
+                .setTitle(PlainComplicationText.Builder("${formattedTime.take(5)} • ${next.name.arabicName}").build())
                 .setMonochromaticImage(icon)
                 .setTapAction(tapIntent)
                 .build()
@@ -92,7 +92,7 @@ class NextPrayerComplicationService : SuspendingComplicationDataSourceService() 
                 text = PlainComplicationText.Builder(formattedTime).build(),
                 contentDescription = contentDesc
             )
-                .setTitle(PlainComplicationText.Builder(next.name.watchLabel).build())
+                .setTitle(PlainComplicationText.Builder(next.name.arabicName).build())
                 .setMonochromaticImage(icon)
                 .setTapAction(tapIntent)
                 .build()
@@ -103,7 +103,7 @@ class NextPrayerComplicationService : SuspendingComplicationDataSourceService() 
                 max = 100f,
                 contentDescription = contentDesc
             )
-                .setTitle(PlainComplicationText.Builder(next.name.watchLabel).build())
+                .setTitle(PlainComplicationText.Builder(next.name.arabicName).build())
                 .setText(PlainComplicationText.Builder(formattedTime).build())
                 .setMonochromaticImage(icon)
                 .setTapAction(tapIntent)

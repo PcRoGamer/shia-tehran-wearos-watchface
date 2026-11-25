@@ -48,13 +48,7 @@ object TehranPrayerCalculator {
         SUNSET("الغروب"),
         MAGHRIB("المغرب"),
         ISHA("العشاء"),
-        MIDNIGHT("نصف الليل");
-
-        val watchLabel: String
-            get() = when (this) {
-                DHUHR -> "الظهر والعصر"
-                else -> arabicName
-            }
+        MIDNIGHT("نصف الليل")
     }
 
     data class NextPrayerInfo(
