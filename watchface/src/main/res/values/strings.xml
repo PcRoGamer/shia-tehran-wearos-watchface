@@ -1,25 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="watch_face_name">شمس وقمر — ميقات طهران</string>
-    <string name="theme_config_name">الألوان</string>
-    <string name="theme_turquoise">فيروز الحرم</string>
-    <string name="theme_emerald">زمرد الغدير</string>
-    <string name="theme_lapis">لازورد النجف</string>
-    <string name="theme_ruby">عقيق كربلاء</string>
 
     <string name="slot_hijri_name">التاريخ الهجري</string>
     <string name="slot_next_prayer_name">الصلاة القادمة</string>
     <string name="slot_schedule_name">الصلاة التي تليها</string>
     <string name="slot_edge_left">القوس الأيسر</string>
     <string name="slot_edge_right">القوس الأيمن</string>
-    <string name="edge_color_name">ألوان المضاعفات والتفاصيل</string>
-    <string name="edge_color_studio">ألوان القالب</string>
-    <string name="edge_color_gold">ذهبي</string>
-    <string name="edge_color_mint">نعناعي</string>
-    <string name="edge_color_blue">أزرق سماوي</string>
-    <string name="edge_color_rose">وردي</string>
-    <string name="sky_preview_name">محاكاة السماء ٢٤ ساعة</string>
-    <string name="hindi_digits_name">الأرقام العربية (٠١٢٣)</string>
+    <string name="accent_color_name">لون التمييز</string>
+    <string name="complication_color_name">لون المضاعفات</string>
+    <string name="color_white">أبيض</string>
+    <string name="color_sand">رملي ذهبي</string>
+    <string name="color_sage">نعناعي هادئ</string>
+    <string name="color_sky">سماوي ناعم</string>
+    <string name="color_coral">مرجاني</string>
+    <string name="color_lavender">خزامى</string>
+    <string name="sky_preview_name">عرض تجريبي: دورة السماء في دقيقة</string>
+    <string name="hindi_digits_name">أرقام الساعة المشرقية (٠١٢٣)</string>
     <string name="slot_bottom_name">الخانة السفلية المقوّسة</string>
     <string name="clock_font_name">خط الوقت</string>
     <string name="clock_font_geometric">هندسي</string>

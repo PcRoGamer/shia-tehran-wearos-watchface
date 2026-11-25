@@ -37,6 +37,7 @@ RANKS = {
 # range of the rank's time size so the row hierarchy survives.
 DIGIT_TO_ALIF = 740 / 717
 TIME_RANGE = (0.9, 1.2)
+IVORY = "#FFFFFDF7"
 DIVIDER = 225
 HALF_GUTTER = 10
 DIGITS = "0123456789"
@@ -259,7 +260,7 @@ def render_row(rank, field, label, time_font, name_font, short=False):
                 number_offset = y + (round(max(0, size - 46) * 0.35) if rank == "following" else 0)
                 drawing = text_part(
                     number_offset, height, 0, DIVIDER - HALF_GUTTER - slot_x + round(size * units / 1000), alpha,
-                    "END", tracking_family(units), size, "[CONFIGURATION.theme_color.2]",
+                    "END", tracking_family(units), size, IVORY,
                     template,
                 )
                 times.append((f"timeFit{len(times)}", " && ".join(tests), drawing))
@@ -274,7 +275,7 @@ def render_row(rank, field, label, time_font, name_font, short=False):
 
     names = []
     x = DIVIDER + HALF_GUTTER - slot_x
-    color = "[CONFIGURATION.edge_color.0]" if rank == "featured" else "[CONFIGURATION.theme_color.2]"
+    color = "[CONFIGURATION.accent_color.0]" if rank == "featured" else IVORY
     for word in KASHIDA:
         display, size = arabic_style(name_font, word, target, name_size)
         drawing = text_part(
