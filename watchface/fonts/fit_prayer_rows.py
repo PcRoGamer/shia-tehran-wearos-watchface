@@ -25,8 +25,8 @@ KASHIDA = {
 # Rank-specific ink width, point sizes, and the existing vertical row geometry.
 RANKS = {
     "featured": (124, 54, 44, 78, 294, 6, 76, 255),
-    "following": (102, 43, 36, 95, 270, -8, 44, 246),
-    "third": (80, 35, 29, 95, 270, 34, 40, 213),
+    "following": (102, 43, 36, 95, 270, 1, 44, 246),
+    "third": (80, 35, 29, 95, 270, 44, 40, 213),
 }
 DIVIDER = 225
 HALF_GUTTER = 11
@@ -197,7 +197,7 @@ def divider(rank, slot_x):
     primary = rank == "featured"
     name = "primary_prayer_divider" if primary else "prayer_schedule_divider"
     y = 29 if primary else 0
-    height = 49 if primary else 67
+    height = 49 if primary else 77
     variant = '    <Variant mode="AMBIENT" target="alpha" value="0" />\n' if primary else ""
     return (
         f'<PartDraw name="{name}" x="{DIVIDER - slot_x - 1}" y="{y}" width="2" height="{height}">\n'
