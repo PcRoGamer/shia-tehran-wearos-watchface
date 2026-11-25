@@ -19,26 +19,6 @@
             <ColorOption id="blue" displayName="edge_color_blue" colors="#FF8ED3FF #FF73AACE #1A8ED3FF" />
             <ColorOption id="rose" displayName="edge_color_rose" colors="#FFFFA6C0 #FFCE869B #1AFFA6C0" />
         </ColorConfiguration>
-        <ColorConfiguration id="minute_hand_color" displayName="minute_hand_color_name" defaultValue="silver">
-            <ColorOption id="silver" displayName="hand_color_silver" colors="#FFD1DDEA" />
-            <ColorOption id="red" displayName="hand_color_red" colors="#FFFF5754" />
-            <ColorOption id="white" displayName="hand_color_white" colors="#FFFFFFFF" />
-            <ColorOption id="gold" displayName="hand_color_gold" colors="#FFFFD380" />
-            <ColorOption id="mint" displayName="hand_color_mint" colors="#FF88F7CB" />
-            <ColorOption id="blue" displayName="hand_color_blue" colors="#FF8ED3FF" />
-            <ColorOption id="rose" displayName="hand_color_rose" colors="#FFFFA6C0" />
-        </ColorConfiguration>
-        <ColorConfiguration id="second_hand_color" displayName="second_hand_color_name" defaultValue="red">
-            <ColorOption id="silver" displayName="hand_color_silver" colors="#FFD1DDEA" />
-            <ColorOption id="red" displayName="hand_color_red" colors="#FFFF5754" />
-            <ColorOption id="white" displayName="hand_color_white" colors="#FFFFFFFF" />
-            <ColorOption id="gold" displayName="hand_color_gold" colors="#FFFFD380" />
-            <ColorOption id="mint" displayName="hand_color_mint" colors="#FF88F7CB" />
-            <ColorOption id="blue" displayName="hand_color_blue" colors="#FF8ED3FF" />
-            <ColorOption id="rose" displayName="hand_color_rose" colors="#FFFFA6C0" />
-        </ColorConfiguration>
-        <BooleanConfiguration id="show_minute_hand" displayName="show_minute_hand_name" defaultValue="TRUE" />
-        <BooleanConfiguration id="show_second_hand" displayName="show_second_hand_name" defaultValue="TRUE" />
         <ListConfiguration id="clock_font" displayName="clock_font_name" defaultValue="0">
             <ListOption id="0" displayName="clock_font_geometric" />
             <ListOption id="1" displayName="clock_font_plex" />
@@ -297,35 +277,6 @@
                     </PartImage>
                 </Group>
             </Group>
-        </Group>
-
-        <!-- 4. Clock hands behind the time and complications -->
-        <Group name="clock_hands" x="0" y="0" width="450" height="450">
-            <Variant mode="AMBIENT" target="alpha" value="0" />
-            <Group name="minute_hand_layer" x="0" y="0" width="450" height="450">
-                <Transform target="alpha" value="[CONFIGURATION.show_minute_hand] == &quot;TRUE&quot; ? 255 : 0" />
-                <AnalogClock x="0" y="0" width="450" height="450">
-                    <MinuteHand resource="minute_hand" x="219" y="105" width="12" height="134" pivotX="0.5" pivotY="0.89552239" alpha="198" tintColor="[CONFIGURATION.minute_hand_color.0]" />
-                </AnalogClock>
-            </Group>
-            <Group name="second_hand_layer" x="0" y="0" width="450" height="450">
-                <Transform target="alpha" value="[CONFIGURATION.show_second_hand] == &quot;TRUE&quot; ? 255 : 0" />
-                <AnalogClock x="0" y="0" width="450" height="450">
-                    <SecondHand resource="second_hand" x="219" y="40" width="12" height="220" pivotX="0.5" pivotY="0.84090909" alpha="230" tintColor="[CONFIGURATION.second_hand_color.0]">
-                        <Tick duration="0.16" strength="0.72" />
-                    </SecondHand>
-                </AnalogClock>
-            </Group>
-            <PartDraw name="hand_pivot" x="219" y="219" width="12" height="12">
-                <Transform target="alpha" value="[CONFIGURATION.show_minute_hand] == &quot;TRUE&quot; || [CONFIGURATION.show_second_hand] == &quot;TRUE&quot; ? 255 : 0" />
-                <Ellipse x="3.5" y="3.5" width="5" height="5">
-                    <Fill color="#DCE6EEF7" />
-                </Ellipse>
-            </PartDraw>
-            <!-- Reduce hand contrast behind the clock separator and prayer rows. -->
-            <PartImage x="0" y="0" width="450" height="450" renderMode="MASK">
-                <Image resource="prayer_hand_mask" />
-            </PartImage>
         </Group>
 
         <!-- Preserve the original slot order during upgrades. The bottom slot replaces a retired placeholder.
@@ -2239,7 +2190,7 @@
                                 <Expression name="timeFit19"><![CDATA[subText([COMPLICATION.TEXT], 0, 1) != "0" && [REFERENCE.followingLongInkWidth] >= 2.52420]]></Expression>
                             </Expressions>
                             <Compare expression="timeFit0">
-                                <PartText x="0" y="1" width="127" height="44" alpha="246">
+                                <PartText x="0" y="-5" width="127" height="56" alpha="246">
                                     <Text align="END" maxLines="1">
                                         <Font family="outfit_prayer_p140" size="55.04" color="[CONFIGURATION.theme_color.2]">
                                             <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 0, 1) == &quot;0&quot; ? subText([COMPLICATION.TEXT], 1, 5) : subText([COMPLICATION.TEXT], 0, 5)" /></Template>
@@ -2248,7 +2199,7 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="timeFit1">
-                                <PartText x="0" y="1" width="127" height="44" alpha="246">
+                                <PartText x="0" y="-5" width="127" height="56" alpha="246">
                                     <Text align="END" maxLines="1">
                                         <Font family="outfit_prayer_p140" size="54.14" color="[CONFIGURATION.theme_color.2]">
                                             <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 0, 1) == &quot;0&quot; ? subText([COMPLICATION.TEXT], 1, 5) : subText([COMPLICATION.TEXT], 0, 5)" /></Template>
@@ -2257,7 +2208,7 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="timeFit2">
-                                <PartText x="0" y="1" width="126" height="44" alpha="246">
+                                <PartText x="0" y="-5" width="126" height="56" alpha="246">
                                     <Text align="END" maxLines="1">
                                         <Font family="outfit_prayer_p140" size="51.83" color="[CONFIGURATION.theme_color.2]">
                                             <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 0, 1) == &quot;0&quot; ? subText([COMPLICATION.TEXT], 1, 5) : subText([COMPLICATION.TEXT], 0, 5)" /></Template>
@@ -2266,7 +2217,7 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="timeFit3">
-                                <PartText x="0" y="1" width="126" height="44" alpha="246">
+                                <PartText x="0" y="-5" width="126" height="56" alpha="246">
                                     <Text align="END" maxLines="1">
                                         <Font family="outfit_prayer_p140" size="49.71" color="[CONFIGURATION.theme_color.2]">
                                             <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 0, 1) == &quot;0&quot; ? subText([COMPLICATION.TEXT], 1, 5) : subText([COMPLICATION.TEXT], 0, 5)" /></Template>
@@ -2275,7 +2226,7 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="timeFit4">
-                                <PartText x="0" y="1" width="126" height="44" alpha="246">
+                                <PartText x="0" y="-5" width="126" height="56" alpha="246">
                                     <Text align="END" maxLines="1">
                                         <Font family="outfit_prayer_p140" size="47.75" color="[CONFIGURATION.theme_color.2]">
                                             <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 0, 1) == &quot;0&quot; ? subText([COMPLICATION.TEXT], 1, 5) : subText([COMPLICATION.TEXT], 0, 5)" /></Template>
@@ -2284,7 +2235,7 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="timeFit5">
-                                <PartText x="0" y="1" width="125" height="44" alpha="246">
+                                <PartText x="0" y="-5" width="125" height="56" alpha="246">
                                     <Text align="END" maxLines="1">
                                         <Font family="outfit_prayer_p140" size="45.95" color="[CONFIGURATION.theme_color.2]">
                                             <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 0, 1) == &quot;0&quot; ? subText([COMPLICATION.TEXT], 1, 5) : subText([COMPLICATION.TEXT], 0, 5)" /></Template>
@@ -2293,7 +2244,7 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="timeFit6">
-                                <PartText x="0" y="1" width="125" height="44" alpha="246">
+                                <PartText x="0" y="-5" width="125" height="56" alpha="246">
                                     <Text align="END" maxLines="1">
                                         <Font family="outfit_prayer_p140" size="44.27" color="[CONFIGURATION.theme_color.2]">
                                             <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 0, 1) == &quot;0&quot; ? subText([COMPLICATION.TEXT], 1, 5) : subText([COMPLICATION.TEXT], 0, 5)" /></Template>
@@ -2302,7 +2253,7 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="timeFit7">
-                                <PartText x="0" y="1" width="124" height="44" alpha="246">
+                                <PartText x="0" y="-5" width="124" height="56" alpha="246">
                                     <Text align="END" maxLines="1">
                                         <Font family="outfit_prayer_p105" size="44.68" color="[CONFIGURATION.theme_color.2]">
                                             <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 0, 1) == &quot;0&quot; ? subText([COMPLICATION.TEXT], 1, 5) : subText([COMPLICATION.TEXT], 0, 5)" /></Template>
@@ -2311,7 +2262,7 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="timeFit8">
-                                <PartText x="0" y="1" width="122" height="44" alpha="246">
+                                <PartText x="0" y="-5" width="122" height="56" alpha="246">
                                     <Text align="END" maxLines="1">
                                         <Font family="outfit_prayer_p70" size="45.09" color="[CONFIGURATION.theme_color.2]">
                                             <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 0, 1) == &quot;0&quot; ? subText([COMPLICATION.TEXT], 1, 5) : subText([COMPLICATION.TEXT], 0, 5)" /></Template>
@@ -2320,7 +2271,7 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="timeFit9">
-                                <PartText x="0" y="1" width="122" height="44" alpha="246">
+                                <PartText x="0" y="-5" width="122" height="56" alpha="246">
                                     <Text align="END" maxLines="1">
                                         <Font family="outfit_prayer_p70" size="43.48" color="[CONFIGURATION.theme_color.2]">
                                             <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 0, 1) == &quot;0&quot; ? subText([COMPLICATION.TEXT], 1, 5) : subText([COMPLICATION.TEXT], 0, 5)" /></Template>
@@ -2329,7 +2280,7 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="timeFit10">
-                                <PartText x="0" y="1" width="125" height="44" alpha="246">
+                                <PartText x="0" y="-5" width="125" height="56" alpha="246">
                                     <Text align="END" maxLines="1">
                                         <Font family="outfit_prayer_p140" size="43.95" color="[CONFIGURATION.theme_color.2]">
                                             <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 0, 1) == &quot;0&quot; ? subText([COMPLICATION.TEXT], 1, 5) : subText([COMPLICATION.TEXT], 0, 5)" /></Template>
@@ -2338,7 +2289,7 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="timeFit11">
-                                <PartText x="0" y="1" width="124" height="44" alpha="246">
+                                <PartText x="0" y="-5" width="124" height="56" alpha="246">
                                     <Text align="END" maxLines="1">
                                         <Font family="outfit_prayer_p105" size="44.92" color="[CONFIGURATION.theme_color.2]">
                                             <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 0, 1) == &quot;0&quot; ? subText([COMPLICATION.TEXT], 1, 5) : subText([COMPLICATION.TEXT], 0, 5)" /></Template>
@@ -2347,7 +2298,7 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="timeFit12">
-                                <PartText x="0" y="1" width="124" height="44" alpha="246">
+                                <PartText x="0" y="-5" width="124" height="56" alpha="246">
                                     <Text align="END" maxLines="1">
                                         <Font family="outfit_prayer_p105" size="43.21" color="[CONFIGURATION.theme_color.2]">
                                             <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 0, 1) == &quot;0&quot; ? subText([COMPLICATION.TEXT], 1, 5) : subText([COMPLICATION.TEXT], 0, 5)" /></Template>
@@ -2356,7 +2307,7 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="timeFit13">
-                                <PartText x="0" y="1" width="122" height="44" alpha="246">
+                                <PartText x="0" y="-5" width="122" height="56" alpha="246">
                                     <Text align="END" maxLines="1">
                                         <Font family="outfit_prayer_p70" size="44.15" color="[CONFIGURATION.theme_color.2]">
                                             <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 0, 1) == &quot;0&quot; ? subText([COMPLICATION.TEXT], 1, 5) : subText([COMPLICATION.TEXT], 0, 5)" /></Template>
@@ -2365,7 +2316,7 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="timeFit14">
-                                <PartText x="0" y="1" width="122" height="44" alpha="246">
+                                <PartText x="0" y="-5" width="122" height="56" alpha="246">
                                     <Text align="END" maxLines="1">
                                         <Font family="outfit_prayer_p70" size="42.5" color="[CONFIGURATION.theme_color.2]">
                                             <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 0, 1) == &quot;0&quot; ? subText([COMPLICATION.TEXT], 1, 5) : subText([COMPLICATION.TEXT], 0, 5)" /></Template>
@@ -2374,7 +2325,7 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="timeFit15">
-                                <PartText x="0" y="1" width="121" height="44" alpha="246">
+                                <PartText x="0" y="-5" width="121" height="56" alpha="246">
                                     <Text align="END" maxLines="1">
                                         <Font family="outfit_prayer_p35" size="43.41" color="[CONFIGURATION.theme_color.2]">
                                             <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 0, 1) == &quot;0&quot; ? subText([COMPLICATION.TEXT], 1, 5) : subText([COMPLICATION.TEXT], 0, 5)" /></Template>
@@ -2383,7 +2334,7 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="timeFit16">
-                                <PartText x="0" y="1" width="120" height="44" alpha="246">
+                                <PartText x="0" y="-5" width="120" height="56" alpha="246">
                                     <Text align="END" maxLines="1">
                                         <Font family="outfit_prayer_p35" size="41.81" color="[CONFIGURATION.theme_color.2]">
                                             <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 0, 1) == &quot;0&quot; ? subText([COMPLICATION.TEXT], 1, 5) : subText([COMPLICATION.TEXT], 0, 5)" /></Template>
@@ -2392,7 +2343,7 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="timeFit17">
-                                <PartText x="0" y="1" width="119" height="44" alpha="246">
+                                <PartText x="0" y="-5" width="119" height="56" alpha="246">
                                     <Text align="END" maxLines="1">
                                         <Font family="outfit_bold" size="42.69" color="[CONFIGURATION.theme_color.2]">
                                             <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 0, 1) == &quot;0&quot; ? subText([COMPLICATION.TEXT], 1, 5) : subText([COMPLICATION.TEXT], 0, 5)" /></Template>
@@ -2401,7 +2352,7 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="timeFit18">
-                                <PartText x="0" y="1" width="119" height="44" alpha="246">
+                                <PartText x="0" y="-5" width="119" height="56" alpha="246">
                                     <Text align="END" maxLines="1">
                                         <Font family="outfit_bold" size="41.14" color="[CONFIGURATION.theme_color.2]">
                                             <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 0, 1) == &quot;0&quot; ? subText([COMPLICATION.TEXT], 1, 5) : subText([COMPLICATION.TEXT], 0, 5)" /></Template>
@@ -2410,7 +2361,7 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="timeFit19">
-                                <PartText x="0" y="1" width="118" height="44" alpha="246">
+                                <PartText x="0" y="-5" width="118" height="56" alpha="246">
                                     <Text align="END" maxLines="1">
                                         <Font family="outfit_prayer_m35" size="41.99" color="[CONFIGURATION.theme_color.2]">
                                             <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 0, 1) == &quot;0&quot; ? subText([COMPLICATION.TEXT], 1, 5) : subText([COMPLICATION.TEXT], 0, 5)" /></Template>
@@ -2434,7 +2385,7 @@
                                 <Expression name="prayerName5"><![CDATA[subText([COMPLICATION.TEXT], 8, textLength([COMPLICATION.TEXT])) == "نصف الليل"]]></Expression>
                             </Expressions>
                             <Compare expression="prayerName0">
-                                <PartText x="141" y="1" width="129" height="44" alpha="246">
+                                <PartText x="141" y="-5" width="129" height="56" alpha="246">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="43.37" color="[CONFIGURATION.theme_color.2]">
                                             <Template>%s<Parameter expression="&quot;الفـــجر&quot;" /></Template>
@@ -2443,7 +2394,7 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="prayerName1">
-                                <PartText x="141" y="1" width="129" height="44" alpha="246">
+                                <PartText x="141" y="-5" width="129" height="56" alpha="246">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="36.16" color="[CONFIGURATION.theme_color.2]">
                                             <Template>%s<Parameter expression="&quot;الشروق&quot;" /></Template>
@@ -2452,7 +2403,7 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="prayerName2">
-                                <PartText x="141" y="1" width="129" height="44" alpha="246">
+                                <PartText x="141" y="-5" width="129" height="56" alpha="246">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="41.79" color="[CONFIGURATION.theme_color.2]">
                                             <Template>%s<Parameter expression="&quot;الظـــهر&quot;" /></Template>
@@ -2461,7 +2412,7 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="prayerName3">
-                                <PartText x="141" y="1" width="129" height="44" alpha="246">
+                                <PartText x="141" y="-5" width="129" height="56" alpha="246">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="36.45" color="[CONFIGURATION.theme_color.2]">
                                             <Template>%s<Parameter expression="&quot;الغـروب&quot;" /></Template>
@@ -2470,7 +2421,7 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="prayerName4">
-                                <PartText x="141" y="1" width="129" height="44" alpha="246">
+                                <PartText x="141" y="-5" width="129" height="56" alpha="246">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="36.74" color="[CONFIGURATION.theme_color.2]">
                                             <Template>%s<Parameter expression="&quot;المغرب&quot;" /></Template>
@@ -2479,7 +2430,7 @@
                                 </PartText>
                             </Compare>
                             <Compare expression="prayerName5">
-                                <PartText x="141" y="1" width="129" height="44" alpha="246">
+                                <PartText x="141" y="-5" width="129" height="56" alpha="246">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="23.49" color="[CONFIGURATION.theme_color.2]">
                                             <Template>%s<Parameter expression="&quot;نصف الليل&quot;" /></Template>
@@ -2488,7 +2439,7 @@
                                 </PartText>
                             </Compare>
                             <Default>
-                                <PartText x="141" y="1" width="129" height="44" alpha="246">
+                                <PartText x="141" y="-5" width="129" height="56" alpha="246">
                                     <Text align="START" maxLines="1">
                                         <Font family="ibm_plex_arabic_bold" size="36" color="[CONFIGURATION.theme_color.2]">
                                             <Template>%s<Parameter expression="subText([COMPLICATION.TEXT], 8, textLength([COMPLICATION.TEXT]))" /></Template>

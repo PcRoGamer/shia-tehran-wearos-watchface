@@ -25,7 +25,7 @@ KASHIDA = {
 # Rank-specific ink width, point sizes, and the existing vertical row geometry.
 RANKS = {
     "featured": (124, 54, 44, 78, 294, 6, 76, 255),
-    "following": (102, 43, 36, 95, 270, 1, 44, 246),
+    "following": (102, 43, 36, 95, 270, -5, 56, 246),
     "third": (80, 35, 29, 95, 270, 44, 40, 213),
 }
 DIVIDER = 225
