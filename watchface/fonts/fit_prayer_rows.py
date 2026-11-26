@@ -177,7 +177,7 @@ def text_part(offset, height, x, width, alpha, align, font, size, color, templat
         f'    <Text align="{align}" maxLines="1">\n'
         f'        <Font family="{font}" size="{size}" color="{color}">\n'
         + (MAIN_TEXT_TRANSFORM if color == IVORY else "")
-        + f'            <Outline color="#00000000" width="1.6"><Template>{template}</Template><Transform target="color" value="[REFERENCE.textOutline]" /></Outline>\n'
+        + f'            <Template>{template}</Template>\n'
         '        </Font>\n'
         '    </Text>\n'
         '</PartText>'
