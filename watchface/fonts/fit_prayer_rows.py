@@ -177,7 +177,7 @@ def text_part(offset, height, x, width, alpha, align, font, size, color, templat
         f'    <Text align="{align}" maxLines="1">\n'
         f'        <Font family="{font}" size="{size}" color="{color}">\n'
         + (MAIN_TEXT_TRANSFORM if color == IVORY else "")
-        + f'            <Template>{template}</Template>\n'
+        + f'            <Outline color="#00000000" width="1.6"><Template>{template}</Template><Transform target="color" value="[REFERENCE.textOutline]" /></Outline>\n'
         '        </Font>\n'
         '    </Text>\n'
         '</PartText>'
@@ -211,7 +211,7 @@ def divider(rank, slot_x):
     name = "primary_prayer_divider" if primary else "prayer_schedule_divider"
     y = 31 if primary else 0
     height = 47 if primary else 79
-    variant = '    <Variant mode="AMBIENT" target="alpha" value="0" />\n' if primary else ""
+    variant = '    <Variant mode="AMBIENT" target="alpha" value="0" duration="0.35" interpolation="EASE_OUT" />\n' if primary else ""
     return (
         f'<PartDraw name="{name}" x="{DIVIDER - slot_x - 1}" y="{y}" width="2" height="{height}">\n'
         f'{variant}'
